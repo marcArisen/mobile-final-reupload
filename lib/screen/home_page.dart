@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2_mobile_app/components/university_carousel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFE1F5FE),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 30.0),
@@ -30,38 +32,19 @@ class _HomePageState extends State<HomePage> {
             const Padding(
                 padding: EdgeInsets.only(left: 20.0),
                 child: Text(
-                  "Explore Thai university",
+                  "Explore Thai Universities",
                   style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
                 )),
             SizedBox(height: 10.0),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
-                "We combine information you need to know abou Thai universities",
-                style: TextStyle(fontSize: 16.0),
+                "We combine information you need to know abou Thai universities.",
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(height: 20.0),
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const <Widget>[
-                      Text("Recommend",
-                          style: TextStyle(
-                              fontSize: 22.0, fontWeight: FontWeight.bold)),
-                      Text(
-                        "See All",
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.blue),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )
+            UniversityCarousel(),
           ],
         ),
       ),
