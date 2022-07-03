@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
 
 class UniversityCarousel extends StatelessWidget {
@@ -14,13 +15,13 @@ class UniversityCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text("Recommend",
-                  style:
-                      TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.notoSans(
+                      fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
                 onTap: () => print("pressed"),
                 child: Text(
                   "See All",
-                  style: TextStyle(
+                  style: GoogleFonts.notoSans(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: Colors.blue),
@@ -41,10 +42,7 @@ class UniversityCarousel extends StatelessWidget {
                 margin: EdgeInsets.all(10.0),
                 width: 210.0,
                 //color: Colors.red,
-                child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: <Widget>[
-
+                child: Stack(alignment: Alignment.topCenter, children: <Widget>[
                   Positioned(
                     bottom: 15.0,
                     child: Container(
@@ -58,9 +56,25 @@ class UniversityCarousel extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             '${university.name}',
-                            style: TextStyle(
-                                fontSize: 22.0, fontWeight: FontWeight.w600),
+                            style: GoogleFonts.notoSans(
+                                fontSize: 14.0, fontWeight: FontWeight.w600),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: university.country.map((rating) {
+                              return Container(
+                                width: 40,
+                                child: Text(rating),
+                              );
+                            }).toList(),
+                          ),
+                          /*
+                          Text(
+                            '${university.country.toString()}', style: GoogleFonts.notoSans(
+                            fontSize: 12.0, fontWeight: FontWeight.w600
+                          ),
                           )
+                           */
                         ],
                       ),
                     ),
@@ -69,7 +83,7 @@ class UniversityCarousel extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Colors.black26,
                               offset: Offset(0.0, 2.0),

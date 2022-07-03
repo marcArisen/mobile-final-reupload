@@ -15,27 +15,27 @@ class University {
 List<University> universities = [
   University(
     imageUrl: 'assets/images/chula.jpg',
-    name: 'Mahidol',
-    country: ["30,20,10"]
+    name: 'Mahidol University',
+    country: ["30","20","10"]
   ),
   University(
       imageUrl: 'assets/images/chula.jpg',
-      name: 'Chulalongkorn',
-      country: ["35,20,3"]
+      name: 'Chulalongkorn University',
+      country: ["35","20","3"]
   ),
   University(
       imageUrl: 'assets/images/chula.jpg',
-      name: 'ChiangMai',
-      country: ["8,3,1"]
+      name: 'ChiangMai University',
+      country: ["8","3","1"]
   ),
   University(
       imageUrl: 'assets/images/chula.jpg',
-      name: 'ABAC',
-      country: ["50,24,20"]
+      name: 'ABAC University',
+      country: ["50","24","20"]
   ),
   University(
       imageUrl: 'assets/images/chula.jpg',
-      name: 'Bangkok',
-      country: ["44,25,20"]
+      name: 'Bangkok University',
+      country: ["44","25","20"]
   ),
 ];
