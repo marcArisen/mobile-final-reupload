@@ -15,13 +15,13 @@ class UniversityCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text("Recommend",
-                  style: GoogleFonts.notoSans(
+                  style: GoogleFonts.lato(
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
                 onTap: () => print("pressed"),
                 child: Text(
                   "See All",
-                  style: GoogleFonts.notoSans(
+                  style: GoogleFonts.lato(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: Colors.blue),
@@ -56,7 +56,7 @@ class UniversityCarousel extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             '${university.name}',
-                            style: GoogleFonts.notoSans(
+                            style: GoogleFonts.lato(
                                 fontSize: 14.0, fontWeight: FontWeight.w600),
                           ),
                           Row(
@@ -64,7 +64,7 @@ class UniversityCarousel extends StatelessWidget {
                             children: university.country.map((rating) {
                               return Container(
                                 width: 40,
-                                child: Text(rating),
+                                child: Text(rating, style: GoogleFonts.lato(fontSize: 12.0),),
                               );
                             }).toList(),
                           ),

@@ -16,12 +16,12 @@ class FavouriteList extends StatelessWidget {
             children: <Widget>[
               Text("My Selected University",
                   style:
-                  GoogleFonts.notoSans(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  GoogleFonts.lato(fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
                 onTap: () => print("pressed"),
                 child: Text(
                   "See All",
-                  style: GoogleFonts.notoSans(
+                  style: GoogleFonts.lato(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
                       color: Colors.blue),
@@ -38,7 +38,7 @@ class FavouriteList extends StatelessWidget {
               University university = universities[index];
               return Card(
                 margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
-                child: ListTile(title: Text(university.name, style: GoogleFonts.notoSans(fontSize: 16.0, fontWeight: FontWeight.w600),),
+                child: ListTile(title: Text(university.name, style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
                 ),
               );
 

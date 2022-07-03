@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE1F5FE),
+      backgroundColor: Color(0xFFDDF9F7),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 30.0),
@@ -23,10 +23,10 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.only(left: 20.0, right: 10),
-                  child: Icon(Icons.account_box_rounded, size: 80),
+                  child: Image.asset('assets/icons/profile.png'),
                 ),
                  Text("Thanawat",
-                    style: GoogleFonts.notoSans(fontSize: 28, fontWeight: FontWeight.bold))
+                    style: GoogleFonts.lato(fontSize: 28, fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(height: 10.0)
@@ -35,14 +35,14 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.only(left: 20.0),
                 child: Text(
                   "Explore Thai Universities",
-                  style: GoogleFonts.notoSans(fontSize: 28.0, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.lato(fontSize: 28.0, fontWeight: FontWeight.bold),
                 )),
             SizedBox(height: 10.0),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(left: 20.0,right: 20.0),
               child: Text(
-                "We combine information you need to know abou Thai universities.",
-                style: GoogleFonts.notoSans(fontSize: 16.0, fontWeight: FontWeight.w600),
+                "We combine information you need to know about Thai universities.",
+                style: GoogleFonts.lato(fontSize: 16.0, ),
               ),
             ),
             SizedBox(height: 20.0),
