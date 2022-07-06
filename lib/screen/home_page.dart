@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,21 +51,6 @@ class _HomePageState extends State<HomePage> {
             FavouriteList()
           ],
         ),
-      ),
-        bottomNavigationBar: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-          child: BottomNavigationBar(
-            backgroundColor: Color(0xFF37474F),
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined , color: Colors.white), label: ""),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.apartment_outlined, color: Colors.white), label: "")
-            ],
-          ),
-        ));
+    ));
   }
 }
