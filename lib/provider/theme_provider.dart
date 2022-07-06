@@ -25,7 +25,7 @@ class MyThemes {
     primaryColor: Colors.black,
     canvasColor: Colors.grey.shade800,
     colorScheme: ColorScheme.dark(),
-    iconTheme: IconThemeData(color: Colors.purple.shade200, opacity: 0.8),
+    iconTheme: IconThemeData(color: Colors.white, opacity: 0.8),
   );
 
   static final lightTheme = ThemeData(
@@ -33,6 +33,6 @@ class MyThemes {
     primaryColor: Color(0xFF80CBC4),
     canvasColor: Colors.white,
     colorScheme: ColorScheme.light(),
-    iconTheme: IconThemeData(color: Colors.red, opacity: 0.8),
+    iconTheme: IconThemeData(color: Colors.black, opacity: 0.8),
   );
 }

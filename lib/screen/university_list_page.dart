@@ -26,7 +26,7 @@ class _UniversityListPageState extends State<UniversityListPage> {
                     IconButton(
                       icon: Icon(Icons.arrow_back),
                       iconSize: 30.0,
-                      color: Colors.black,
+                      color: Theme.of(context).primaryColor,
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],

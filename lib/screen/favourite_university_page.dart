@@ -25,7 +25,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                     IconButton(
                       icon: Icon(Icons.arrow_back),
                       iconSize: 30.0,
-                      color: Colors.black,
+                      color: Theme.of(context).canvasColor,
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],

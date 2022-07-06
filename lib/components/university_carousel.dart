@@ -62,32 +62,42 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                            '${university.name}',
-                            style: GoogleFonts.lato(
-                                fontSize: 14.0, fontWeight: FontWeight.w600),
-                          ),
-                          Row(
-
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: university.country.map((rating) {
-                              return Container(
-                                width: 40,
-                                child: Text(rating, style: GoogleFonts.lato(fontSize: 12.0),),
-                              );
-                            }).toList(),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: university.flag.map((flag) {
-                              return Container(
-                                width: 40,
-                              child: Text(flag, style: GoogleFonts.lato(fontSize: 12.0),),
-                              );
-                            }).toList(),
-                          ),
+                          Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '${university.name}',
+                                    style: GoogleFonts.lato(
+                                        fontSize: 15.0, fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: university.country.map((rating) {
+                                  return SizedBox(
+                                    width: 30,
+                                    child: Text(rating, style: GoogleFonts.lato(fontSize: 13.0),),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: university.flag.map((flag) {
+                                  return SizedBox(
+                                    width: 30,
+                                    child: Text(flag, style: GoogleFonts.lato(fontSize: 13.0),),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          )
+                          ,
                         ],
-
                       ),
                     ),
                   ),
