@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project2_mobile_app/components/change_theme_button.dart';
 import 'package:project2_mobile_app/components/favourite_list.dart';
 import 'package:project2_mobile_app/components/university_carousel.dart';
 
@@ -15,10 +16,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDDF9F7),
+      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0, actions: [ChangeThemeButtonWidget()],),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 30.0),
+          padding: EdgeInsets.symmetric(vertical: 0),
           children: <Widget>[
             Row(
               children: <Widget>[
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text("Thanawat",
                     style: GoogleFonts.lato(fontSize: 28, fontWeight: FontWeight.bold))
+
               ],
             ),
             SizedBox(height: 10.0)

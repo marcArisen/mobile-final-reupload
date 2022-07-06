@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
+import 'package:project2_mobile_app/screen/university_list_page.dart';
 
 /// Carousel to display recommended universities
 class UniversityCarousel extends StatefulWidget {
@@ -25,7 +26,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                   style: GoogleFonts.lato(
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
-                onTap: () => print("pressed"),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const UniversityListPage())),
                 child: Text(
                   "See All",
                   style: GoogleFonts.lato(
@@ -56,7 +57,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                       height: 100.0,
                       width: 200.0,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).canvasColor,
                           borderRadius: BorderRadius.circular(10.0)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -92,14 +93,9 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).canvasColor,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black26,
-                              offset: Offset(0.0, 2.0),
-                              blurRadius: 6.0)
-                        ]),
+                       ),
                     child: Stack(
                       children: <Widget>[
                         ClipRRect(

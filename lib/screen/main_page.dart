@@ -26,20 +26,20 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: pageController,
-        children: const [
-          HomePage(),
-          TestPage()
-        ],
-      ),
+        body: PageView(
+          controller: pageController,
+          children: const [
+            HomePage(),
+            TestPage()
+          ],
+        ),
         bottomNavigationBar: ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
           child: BottomNavigationBar(
-            backgroundColor: Color(0xFF37474F),
+            backgroundColor: Theme.of(context).primaryColor,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined ), label: ""),

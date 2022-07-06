@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
+import 'package:project2_mobile_app/screen/favourite_university_page.dart';
 
 /// Favourites Universities list
 class FavouriteList extends StatelessWidget {
@@ -19,7 +20,7 @@ class FavouriteList extends StatelessWidget {
                   style:
                   GoogleFonts.lato(fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
-                onTap: () => print("pressed"),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouriteUniversityPage())),
                 child: Text(
                   "See All",
                   style: GoogleFonts.lato(
@@ -32,9 +33,9 @@ class FavouriteList extends StatelessWidget {
           ),
         ),
         Container(
-          height: 200,
+          height: 210,
           child: ListView.builder(
-            itemCount: universities.length,
+            itemCount: 3,
             itemBuilder: (BuildContext context, int index){
               University university = universities[index];
               return Card(
