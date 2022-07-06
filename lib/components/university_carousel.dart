@@ -12,7 +12,6 @@ class UniversityCarousel extends StatefulWidget {
 
 class _UniversityCarouselState extends State<UniversityCarousel> {
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
