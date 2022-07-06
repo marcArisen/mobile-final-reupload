@@ -25,13 +25,13 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(left: 20.0, right: 10),
                   child: Image.asset('assets/icons/profile.png'),
                 ),
-                 Text("Thanawat",
+                Text("Thanawat",
                     style: GoogleFonts.lato(fontSize: 28, fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(height: 10.0)
             ,
-             Padding(
+            Padding(
                 padding: EdgeInsets.only(left: 20.0),
                 child: Text(
                   "Explore Thai Universities",
@@ -51,6 +51,20 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-    );
+        bottomNavigationBar: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Color(0xFF37474F),
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined , color: Colors.white), label: ""),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.apartment_outlined, color: Colors.white), label: "")
+            ],
+          ),
+        ));
   }
 }

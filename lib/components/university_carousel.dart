@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
 
-class UniversityCarousel extends StatelessWidget {
+/// Carousel to display recommended universities
+class UniversityCarousel extends StatefulWidget {
   const UniversityCarousel({Key? key}) : super(key: key);
+
+  @override
+  State<UniversityCarousel> createState() => _UniversityCarouselState();
+}
+
+class _UniversityCarouselState extends State<UniversityCarousel> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,7 @@ class UniversityCarousel extends StatelessWidget {
                   Positioned(
                     bottom: 15.0,
                     child: Container(
-                      height: 120.0,
+                      height: 100.0,
                       width: 200.0,
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -60,6 +68,7 @@ class UniversityCarousel extends StatelessWidget {
                                 fontSize: 14.0, fontWeight: FontWeight.w600),
                           ),
                           Row(
+
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: university.country.map((rating) {
                               return Container(
@@ -68,14 +77,17 @@ class UniversityCarousel extends StatelessWidget {
                               );
                             }).toList(),
                           ),
-                          /*
-                          Text(
-                            '${university.country.toString()}', style: GoogleFonts.notoSans(
-                            fontSize: 12.0, fontWeight: FontWeight.w600
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: university.flag.map((flag) {
+                              return Container(
+                                width: 40,
+                              child: Text(flag, style: GoogleFonts.lato(fontSize: 12.0),),
+                              );
+                            }).toList(),
                           ),
-                          )
-                           */
                         ],
+
                       ),
                     ),
                   ),

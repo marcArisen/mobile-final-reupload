@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
 
+/// Favourites Universities list
 class FavouriteList extends StatelessWidget {
   const FavouriteList({Key? key}) : super(key: key);
 
@@ -46,8 +47,6 @@ class FavouriteList extends StatelessWidget {
 
           ),
         )
-
-
 
       ],
     );
