@@ -27,12 +27,14 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.only(left: 20.0, right: 10),
                   child: Image.asset('assets/icons/profile.png'),
                 ),
-                Text("Thanawat",
-                    style: GoogleFonts.lato(fontSize: 28, fontWeight: FontWeight.bold))
-
+                Container(
+                  width: 200,
+                  child: Text("Welcome, Thanawat !",
+                      style: GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.bold)),
+                )
               ],
             ),
-            SizedBox(height: 10.0)
+            SizedBox(height: 14.0)
             ,
             Padding(
                 padding: EdgeInsets.only(left: 20.0),

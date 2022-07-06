@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/components/favourite_list.dart';
 import 'package:project2_mobile_app/components/university_carousel.dart';
 import 'package:project2_mobile_app/screen/home_page.dart';
-import 'package:project2_mobile_app/screen/test_page.dart';
+import 'package:project2_mobile_app/screen/landmark_list_page.dart';
+import 'package:project2_mobile_app/screen/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -30,7 +31,8 @@ class _MainPageState extends State<MainPage> {
           controller: pageController,
           children: const [
             HomePage(),
-            TestPage()
+            LandmarkPage(),
+            ProfilePage()
           ],
         ),
         bottomNavigationBar: ClipRRect(
@@ -44,7 +46,9 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined ), label: ""),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.apartment_outlined), label: "")
+                  icon: Icon(Icons.apartment_outlined), label: ""),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: "")
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.yellow,
