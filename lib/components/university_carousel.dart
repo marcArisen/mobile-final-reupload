@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
 import 'package:project2_mobile_app/screen/university_list_page.dart';
@@ -64,6 +65,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                             borderRadius: BorderRadius.circular(10.0)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Column(
                               children: <Widget>[
@@ -71,9 +73,9 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '${university.name}',
+                                      "Foreign students enrolled in 2021",
                                       style: GoogleFonts.lato(
-                                          fontSize: 15.0, fontWeight: FontWeight.w600),
+                                          fontSize: 12.0, fontWeight: FontWeight.w300),
                                     ),
                                   ],
                                 ),
@@ -119,7 +121,43 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                               image: AssetImage(university.imageUrl),
                               fit: BoxFit.cover,
                             ),
-                          )
+                          ),
+                          Positioned(
+                            left: 10.0,
+                            bottom: 10.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  university.name,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                                SizedBox(height: 5.0),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.locationArrow,
+                                      size: 10.0,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(width: 5.0),
+                                    Text(
+                                      "Salaya",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

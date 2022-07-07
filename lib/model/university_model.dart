@@ -7,6 +7,7 @@ class University {
   List<String> country;
   List<String> flag;
 
+
   University({
     required this.imageUrl,
     required this.name,
