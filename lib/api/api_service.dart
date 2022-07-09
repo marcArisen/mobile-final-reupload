@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:project2_mobile_app/api/api_constants.dart';
-import 'package:project2_mobile_app/api/student_model.dart';
+import 'package:project2_mobile_app/model/student_model.dart';
 
 class ApiService {
   Future<List<StudentModel>?> getStudents() async {

@@ -30,7 +30,7 @@ class MapSampleState extends State<MapSample> {
     final double lat = place['geometry']['location']['lat'];
     final double lng = place['geometry']['location']['lng'];
     //final GoogleMapController controller = await _controller.future;
-    return CameraPosition(target: LatLng(lat, lng), zoom: 20);
+    return CameraPosition(target: LatLng(lat, lng), zoom: 15);
   }
 
 
