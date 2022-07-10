@@ -1,12 +1,12 @@
-class University {
+class University2 {
   int? id;
   String? name;
   String? province;
   String? description;
   String? map;
-  String? numbers;
+  int? numbers;
 
-  University({
+  University2({
     this.id,
     this.name,
     this.province,

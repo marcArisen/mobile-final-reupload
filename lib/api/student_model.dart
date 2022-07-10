@@ -1,11 +1,120 @@
+
 import 'dart:convert';
 
-List<StudentModel> studentModelFromJson(String str) => List<StudentModel>.from(json.decode(str).map((x) => StudentModel.fromJson(x)));
+StudentModel studentModelFromJson(String str) => StudentModel.fromJson(json.decode(str));
 
-String studentModelToJson(List<StudentModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String studentModelToJson(StudentModel data) => json.encode(data.toJson());
 
 class StudentModel {
   StudentModel({
+    this.help,
+    this.success,
+    this.result,
+  });
+
+  String? help;
+  bool? success;
+  Result? result;
+
+  factory StudentModel.fromJson(Map<String, dynamic> json) => StudentModel(
+    help: json["help"],
+    success: json["success"],
+    result: Result.fromJson(json["result"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "help": help,
+    "success": success,
+    "result": result?.toJson(),
+  };
+}
+
+class Result {
+  Result({
+    this.includeTotal,
+    this.resourceId,
+    this.fields,
+    this.recordsFormat,
+    this.records,
+    this.limit,
+    this.links,
+    this.total,
+  });
+
+  bool? includeTotal;
+  String? resourceId;
+  List<Field>? fields;
+  String? recordsFormat;
+  List<Record>? records;
+  int? limit;
+  Links? links;
+  int? total;
+
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+    includeTotal: json["include_total"],
+    resourceId: json["resource_id"],
+    fields: List<Field>.from(json["fields"].map((x) => Field.fromJson(x))),
+    recordsFormat: json["records_format"],
+    records: List<Record>.from(json["records"].map((x) => Record.fromJson(x))),
+    limit: json["limit"],
+    links: Links.fromJson(json["_links"]),
+    total: json["total"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "include_total": includeTotal,
+    "resource_id": resourceId,
+    "fields": List<dynamic>.from(fields!.map((x) => x.toJson())),
+    "records_format": recordsFormat,
+    "records": List<dynamic>.from(records!.map((x) => x.toJson())),
+    "limit": limit,
+    "_links": links?.toJson(),
+    "total": total,
+  };
+}
+
+class Field {
+  Field({
+    this.type,
+    this.id,
+  });
+
+  String? type;
+  String? id;
+
+  factory Field.fromJson(Map<String, dynamic> json) => Field(
+    type: json["type"],
+    id: json["id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "type": type,
+    "id": id,
+  };
+}
+
+class Links {
+  Links({
+    this.start,
+    this.next,
+  });
+
+  String? start;
+  String? next;
+
+  factory Links.fromJson(Map<String, dynamic> json) => Links(
+    start: json["start"],
+    next: json["next"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "start": start,
+    "next": next,
+  };
+}
+
+class Record {
+  Record({
     this.id,
     this.year,
     this.semester,
@@ -23,7 +132,7 @@ class StudentModel {
   String? univMasterName;
   int? amount;
 
-  factory StudentModel.fromJson(Map<String, dynamic> json) => StudentModel(
+  factory Record.fromJson(Map<String, dynamic> json) => Record(
     id: json["_id"],
     year: json["YEAR"],
     semester: json["SEMESTER"],
@@ -43,32 +152,3 @@ class StudentModel {
     "AMOUNT": amount,
   };
 }
-
-// enum Univ { EMPTY, UNIV, PURPLE, FLUFFY, TENTACLED, STICKY, INDIGO, INDECENT, HILARIOUS, AMBITIOUS }
-//
-// final univValues = EnumValues({
-//   "มหาวิทยาลัยเกษตรศาสตร์": Univ.AMBITIOUS,
-//   "จุฬาลงกรณ์มหาวิทยาลัย": Univ.EMPTY,
-//   "มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตเฉลิมพระเกียรติสกลนคร": Univ.FLUFFY,
-//   "มหาวิทยาลัยธรรมศาสตร์": Univ.HILARIOUS,
-//   "มหาวิทยาลัยบูรพา": Univ.INDECENT,
-//   "มหาวิทยาลัยเชียงใหม่": Univ.INDIGO,
-//   "มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตศรีราชา": Univ.PURPLE,
-//   "มหาวิทยาลัยขอนแก่น": Univ.STICKY,
-//   "มหาวิทยาลัยเกษตรศาสตร์ บางเขน": Univ.TENTACLED,
-//   "มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตกำแพงแสน": Univ.UNIV
-// });
-//
-// class EnumValues<T> {
-//   Map<String, T> map;
-//   Map<T, String> reverseMap = { };
-//
-//   EnumValues(this.map);
-//
-//   Map<T, String> get reverse {
-//     if (reverseMap == null) {
-//       reverseMap = map.map((k, v) => new MapEntry(v, k));
-//     }
-//     return reverseMap;
-//   }
-// }

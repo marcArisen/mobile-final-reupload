@@ -72,6 +72,16 @@ class UniversityDatabase {
     );
   }
 
+  Future<int> updateUniversityByName(University university) async {
+    Database db = await databaseManager.database;
+    return await db.update(
+      _tableName,
+      university.toMap(),
+      where: "id = ?",
+      whereArgs: [university.name],
+    );
+  }
+
   Future<List<University>> getUniversityList() async {
     Database db = await databaseManager.database;
     final List<Map<String, dynamic>> maps = await db.query(_tableName);

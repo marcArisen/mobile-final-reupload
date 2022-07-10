@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project2_mobile_app/UniversityRepo/api_puller.dart';
+import 'package:project2_mobile_app/api/api_service.dart';
 import 'package:project2_mobile_app/provider/theme_provider.dart';
 import 'package:project2_mobile_app/screen/main_page.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  var test = await ApiService().getStudents();
+  print(test?.result?.records.runtimeType);
+  print(await ApiPuller().listAllUniversities(test?.result?.records));
   runApp(const MyApp());
 }
 // hello
