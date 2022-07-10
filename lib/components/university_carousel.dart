@@ -5,6 +5,8 @@ import 'package:project2_mobile_app/model/university_model.dart';
 import 'package:project2_mobile_app/screen/university_list_page.dart';
 import 'package:project2_mobile_app/screen/university_page.dart';
 
+import '../api/university_location_service.dart';
+
 /// Carousel to display recommended universities
 class UniversityCarousel extends StatefulWidget {
   const UniversityCarousel({Key? key}) : super(key: key);
@@ -49,7 +51,14 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
             itemBuilder: (BuildContext context, int index) {
               University university = universities[index];
               return GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => UniversityPage(university: university))),
+               onTap: () async{
+                 Map<String, dynamic> m =
+                 await LocationService().getPlace(university.name);
+                 Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                         builder: (context) => UniversityPage(location: m,university: university)));
+               },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
                   width: 210.0,

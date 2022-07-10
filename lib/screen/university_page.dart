@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project2_mobile_app/model/university_model.dart';
+import 'package:project2_mobile_app/components/university_google_map.dart';
 
 class UniversityPage extends StatefulWidget {
   final University university;
+  final Map<String, dynamic> location;
 
-  UniversityPage({required this.university});
+
+  UniversityPage({required this.university, required this.location});
 
   @override
   State<UniversityPage> createState() => _UniversityPageState();
@@ -83,7 +86,9 @@ class _UniversityPageState extends State<UniversityPage> {
                 ),
               ),
             ],
-          )
+          ),
+          SizedBox(height: 20.0),
+          MapSample(place: widget.location)
         ],
       ),
     );
