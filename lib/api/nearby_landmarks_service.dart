@@ -28,29 +28,24 @@ class NearbyLocationService {
     print(lng);
 
     String url =
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=restaurant&keyword=restaurant&key=$key';
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=20000&type=restaurant&keyword=restaurant&key=$key';
+    print(url);
     http.Response response = await http.get(Uri.parse(url));
     Map<String,dynamic> values = jsonDecode(response.body);
     List results = values['results'];
 
+    /// List for marking landmark with null photo
     var toRemove = [];
     for (Map<String,dynamic> result in results){
-      //print(r["photos"]);
-      //print(r);
-
       if(!result.containsKey("photos")){
         toRemove.add(result);
-        //results.removeWhere( (e) => toRemove.contains(e));
-        //String dummyPhoto = "null1 : AeJbb3du7IOQPnc57VpMI4KUPuRt_5ivw3GouSaaeMh8IbRtpTta2WkrrZNenb3Nyj6ndK6FU4v9zqxwVjzg_mDkVlMi3dWKOweF6Ag0y6HlWHla936VDztEPudtxyqDnPlsN4HgQEqP_tAOcUSnKF-pT4GqLFOm4dXDZXsEUrVNKNPQAA-1";
-        //result["photos"] = [{"photo_reference" : dummyPhoto}];
       }
 
       for (var element in toRemove){
         print(element);
       }
-      //print(toRemove[0]);
-      //results.removeWhere((element) => toRemove.contains(element));
     }
+    /// Removing the landmark with null photo
     results.removeWhere((element) => toRemove.contains(element));
     for (Map<String,dynamic> result in results){
       print(result["photos"][0]["photo_reference"]);

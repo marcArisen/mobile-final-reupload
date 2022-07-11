@@ -11,16 +11,17 @@ class LandmarkListPage extends StatefulWidget {
   State<LandmarkListPage> createState() => _LandmarkListPageState();
 }
 
-class _LandmarkListPageState extends State<LandmarkListPage> {
+class _LandmarkListPageState extends State<LandmarkListPage> with TickerProviderStateMixin{
   var universityList = [
-    "มหาวิทยาลัยมหิดล",
+    "Mahidol University",
     "Chulalongkorn University",
     "Chiangmai University"
   ];
-  String selectedUniversity = "มหาวิทยาลัยมหิดล";
+  String selectedUniversity = "Mahidol University";
 
   @override
   Widget build(BuildContext context) {
+    TabController _tabController = TabController(length: 2, vsync: this);
     var futureBuilder = FutureBuilder(
       future: NearbyLocationService.instance?.getNearby(selectedUniversity),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -56,22 +57,41 @@ class _LandmarkListPageState extends State<LandmarkListPage> {
                       selectedUniversity = value.toString();
                     });
                   }),
-              futureBuilder
+
+              Container(
+                child: TabBar(
+                  controller: _tabController,
+                    tabs: [
+                      Tab(text: "Restaurant"),
+                      Tab(text: "Accommodation")
+                    ]
+                ),
+              ),
+
+              Container(
+                width: double.maxFinite,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.76,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    futureBuilder,
+                    futureBuilder
+                  ],
+                ),
+              )
             ],
           ),
         ),
       ),
     );
   }
-
+  /// Create ListView for displaying Nearby landmarks
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
     List<Landmark> values = snapshot.data;
-    return SizedBox(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height * 0.826,
-      child: ListView.builder(
+    return  ListView.builder(
         itemCount: values.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
@@ -113,7 +133,6 @@ class _LandmarkListPageState extends State<LandmarkListPage> {
             ),
           );
         },
-      ),
     );
   }
 }
