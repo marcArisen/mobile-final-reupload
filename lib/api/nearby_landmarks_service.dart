@@ -32,18 +32,30 @@ class NearbyLocationService {
     http.Response response = await http.get(Uri.parse(url));
     Map<String,dynamic> values = jsonDecode(response.body);
     List results = values['results'];
-    for (Map<String,dynamic> r in results){
+
+    var toRemove = [];
+    for (Map<String,dynamic> result in results){
       //print(r["photos"]);
       //print(r);
-      if(!r.containsKey("photos")){
-        String dummyPhoto = "AeJbb3du7IOQPnc57VpMI4KUPuRt_5ivw3GouSaaeMh8IbRtpTta2WkrrZNenb3Nyj6ndK6FU4v9zqxwVjzg_mDkVlMi3dWKOweF6Ag0y6HlWHla936VDztEPudtxyqDnPlsN4HgQEqP_tAOcUSnKF-pT4GqLFOm4dXDZXsEUrVNKNPQAA-1";
-        r["photos"][0] = [{"photo_reference" : dummyPhoto}];
+
+      if(!result.containsKey("photos")){
+        toRemove.add(result);
+        //results.removeWhere( (e) => toRemove.contains(e));
+        //String dummyPhoto = "null1 : AeJbb3du7IOQPnc57VpMI4KUPuRt_5ivw3GouSaaeMh8IbRtpTta2WkrrZNenb3Nyj6ndK6FU4v9zqxwVjzg_mDkVlMi3dWKOweF6Ag0y6HlWHla936VDztEPudtxyqDnPlsN4HgQEqP_tAOcUSnKF-pT4GqLFOm4dXDZXsEUrVNKNPQAA-1";
+        //result["photos"] = [{"photo_reference" : dummyPhoto}];
       }
+
+      for (var element in toRemove){
+        print(element);
+      }
+      //print(toRemove[0]);
+      //results.removeWhere((element) => toRemove.contains(element));
     }
+    results.removeWhere((element) => toRemove.contains(element));
     for (Map<String,dynamic> result in results){
       print(result["photos"][0]["photo_reference"]);
     }
-    //print(result[0]["photo_reference"]);
+    print(results);
     return results.map((e) => Landmark.fromJson(e)).toList();
   }
 
