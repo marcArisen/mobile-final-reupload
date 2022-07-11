@@ -1,14 +1,20 @@
-class University2 {
+class University {
   int? id;
   String? name;
+  String? thaiName;
+  String? imageUrl;
+  String? logo;
   String? province;
   String? description;
   String? map;
-  int? numbers;
+  Map? numbers;
 
-  University2({
+  University({
     this.id,
     this.name,
+    this.thaiName,
+    this.imageUrl,
+    this.logo,
     this.province,
     this.description,
     this.map,
@@ -19,6 +25,9 @@ class University2 {
     return {
       "id": id,
       "name": name,
+      "thaiName": thaiName,
+      "imageUrl": imageUrl,
+      "logo": logo,
       "province": province,
       "description": description,
       "map": map,
