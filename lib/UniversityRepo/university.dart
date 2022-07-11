@@ -7,7 +7,7 @@ class University {
   String? province;
   String? description;
   String? map;
-  Map? numbers;
+  String? numbers;
 
   University({
     this.id,

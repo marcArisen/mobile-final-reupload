@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/UniversityRepo/university.dart';
@@ -25,29 +26,35 @@ class ApiPuller {
   // String? univMasterName;
   // int? amount;
 
-  Future<List<int>>? updateNumberToDatabase(List<Record>? lst){
+  Future<List>? updateNumberToDatabase(List<Record>? lst){
 
     var nationalities = listAllNationalityNameEng(lst);
+    var to_add = mockDatabase();
+    var names = listAllUniversities(lst);
 
     var map = HashMap();
-    for (int i = 0; i < lst!.length; i++) {
-      map[lst[i].univMasterName!] = {...nationalities};
+    for (int a = 0; a < lst!.length; a++) {
+      map[lst[a].univMasterName!] = {...nationalities};
     }
 
+    /// update number of foreigners in a map
     for (int i = 0; i < lst.length; i++) {
-      // map[lst[i].univMasterName!] = map[lst[i].univMasterName!] + lst[i].amount!;
       map[lst[i].univMasterName!][lst[i].nationalityNameEng] += 1;
-      // UniversityDatabase.databaseManager.addUniversity(university)
-
-      // UniversityDatabase.databaseManager.updateUniversity()
     }
 
-    // print(map);
-    print(map['จุฬาลงกรณ์มหาวิทยาลัย']);
+    /// add to database
+    for (int j = 0; j < to_add.length; j++) {
+      to_add[j].numbers = json.encode(map[names[j]]);
+      UniversityDatabase.databaseManager.addUniversity(to_add[j]);
+    }
 
+    // print(to_add[1].thaiName);
+    // print(to_add[1].numbers);
     return null;
   }
 
+
+  /// return list of nationalities
   HashMap listAllNationalityNameEng(List<Record>? lst){
     var map = HashMap();
     for (int i = 0; i < lst!.length; i++) {
@@ -57,6 +64,7 @@ class ApiPuller {
     return map;
   }
 
+  /// return list of all uni
   List listAllUniversities(List<Record>? lst){
     var to_return = [];
     for (int i = 0; i < lst!.length; i++) {
@@ -66,6 +74,7 @@ class ApiPuller {
     return to_return.toSet().toList();
   }
 
+  /// this will return in map form
   HashMap listAllUniversities2(List<Record>? lst){
     var map = HashMap();
     var to_return = [];
@@ -77,7 +86,7 @@ class ApiPuller {
     return map;
   }
 
-  void mockDatabase(){
+  List mockDatabase(){
     var temp1 = University(
       id: 1,
       name: 'Chulalongkorn University',
@@ -397,8 +406,9 @@ class ApiPuller {
       map: '',
       numbers: null,
     );
+    //TODO: come to here hard code again
     var temp30 = University(
-      id: 0,
+      id: 30,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีมหานคร',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -409,7 +419,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp31 = University(
-      id: 0,
+      id: 31,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยรังสิต',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -420,7 +430,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp32 = University(
-      id: 0,
+      id: 32,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -431,7 +441,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp33 = University(
-      id: 0,
+      id: 33,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยอัสสัมชัญ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -442,7 +452,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp34 = University(
-      id: 0,
+      id: 34,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยธนบุรี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -453,7 +463,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp35 = University(
-      id: 0,
+      id: 35,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยชินวัตร',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -464,7 +474,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp36 = University(
-      id: 0,
+      id: 36,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยธุรกิจบัณฑิตย์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -475,7 +485,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp37 = University(
-      id: 0,
+      id: 37,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยภาคตะวันออกเฉียงเหนือ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -486,7 +496,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp38 = University(
-      id: 0,
+      id: 38,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยวงษ์ชวลิตกุล',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -497,7 +507,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp39 = University(
-      id: 0,
+      id: 39,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเว็บสเตอร์(ประเทศไทย)',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -508,7 +518,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp40 = University(
-      id: 0,
+      id: 40,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยทองสุข',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -519,7 +529,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp41 = University(
-      id: 0,
+      id: 41,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเอเชียอาคเนย์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -530,7 +540,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp42 = University(
-      id: 0,
+      id: 42,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยอีสเทิร์นเอเชีย',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -541,7 +551,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp43 = University(
-      id: 0,
+      id: 43,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยกรุงเทพธนบุรี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -552,7 +562,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp44 = University(
-      id: 0,
+      id: 44,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยนานาชาติเซนต์เทเรซา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -563,7 +573,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp45 = University(
-      id: 0,
+      id: 45,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยเซาธ์อีสท์บางกอก',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -574,7 +584,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp46 = University(
-      id: 0,
+      id: 46,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยดุสิตธานี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -585,7 +595,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp47 = University(
-      id: 0,
+      id: 47,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยนอร์ทกรุงเทพ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -596,7 +606,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp48 = University(
-      id: 0,
+      id: 48,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยนอร์ทเชียงใหม่',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -607,7 +617,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp49 = University(
-      id: 0,
+      id: 49,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยนานาชาติแสตมฟอร์ด',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -618,7 +628,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp50 = University(
-      id: 0,
+      id: 50,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยนานาชาติ เอเชีย-แปซิฟิก',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -629,7 +639,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp51 = University(
-      id: 0,
+      id: 51,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏเชียงใหม่',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -640,7 +650,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp52 = University(
-      id: 0,
+      id: 52,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยหาดใหญ่',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -651,7 +661,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp53 = University(
-      id: 0,
+      id: 53,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยแสงธรรม',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -662,7 +672,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp54 = University(
-      id: 0,
+      id: 54,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏกาญจนบุรี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -673,7 +683,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp55 = University(
-      id: 0,
+      id: 55,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏเชียงราย',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -684,7 +694,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp56 = University(
-      id: 0,
+      id: 56,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏนครปฐม',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -695,7 +705,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp57 = University(
-      id: 0,
+      id: 57,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏนครราชสีมา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -706,7 +716,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp58 = University(
-      id: 0,
+      id: 58,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏนครศรีธรรมราช',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -717,7 +727,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp59 = University(
-      id: 0,
+      id: 59,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏพิบูลสงคราม',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -728,7 +738,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp60 = University(
-      id: 0,
+      id: 60,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏราชนครินทร์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -739,7 +749,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp61 = University(
-      id: 0,
+      id: 61,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏรำไพพรรณี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -750,7 +760,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp62 = University(
-      id: 0,
+      id: 62,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏลำปาง',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -761,7 +771,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp63 = University(
-      id: 0,
+      id: 63,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏเลย',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -772,7 +782,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp64 = University(
-      id: 0,
+      id: 64,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏศรีสะเกษ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -783,7 +793,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp65 = University(
-      id: 0,
+      id: 65,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏสงขลา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -794,7 +804,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp66 = University(
-      id: 0,
+      id: 66,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยสวนดุสิต',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -805,7 +815,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp67 = University(
-      id: 0,
+      id: 67,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏสวนสุนันทา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -816,7 +826,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp68 = University(
-      id: 0,
+      id: 68,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏอุดรธานี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -827,7 +837,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp69 = University(
-      id: 0,
+      id: 69,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏอุบลราชธานี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -838,7 +848,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp70 = University(
-      id: 0,
+      id: 70,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏสุราษฏร์ธานี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -849,7 +859,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp71 = University(
-      id: 0,
+      id: 71,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -860,7 +870,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp72 = University(
-      id: 0,
+      id: 72,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเกษมบัณฑิต',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -871,7 +881,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp73 = University(
-      id: 0,
+      id: 73,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยสยาม',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -882,7 +892,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp74 = University(
-      id: 0,
+      id: 74,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยพุทธศาสนานานาชาติ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -893,7 +903,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp75 = University(
-      id: 0,
+      id: 75,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยนครราชสีมา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -904,7 +914,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp76 = University(
-      id: 0,
+      id: 76,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -915,7 +925,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp77 = University(
-      id: 0,
+      id: 77,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลกรุงเทพ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -926,7 +936,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp78 = University(
-      id: 0,
+      id: 78,
       name: 'มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -937,7 +947,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp79 = University(
-      id: 0,
+      id: 79,
       name: 'มหาวิทยาลัยเทคโนโลยีราชมงคลพระนคร',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลพระนคร',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -948,7 +958,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp80 = University(
-      id: 0,
+      id: 80,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -959,7 +969,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp81 = University(
-      id: 0,
+      id: 81,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -970,7 +980,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp82 = University(
-      id: 0,
+      id: 82,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -981,7 +991,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp83 = University(
-      id: 0,
+      id: 83,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยเทคโนโลยีสยาม',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -992,7 +1002,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp84 = University(
-      id: 0,
+      id: 84,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1003,7 +1013,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp85 = University(
-      id: 0,
+      id: 85,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันวิทยาลัยชุมชน',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1014,7 +1024,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp86 = University(
-      id: 0,
+      id: 86,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยการกีฬาแห่งชาติ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1025,7 +1035,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp87 = University(
-      id: 0,
+      id: 87,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยกรุงเทพสุวรรณภูมิ',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1036,7 +1046,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp88 = University(
-      id: 0,
+      id: 88,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยราชพฤกษ์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1047,7 +1057,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp89 = University(
-      id: 0,
+      id: 89,
       name: 'Chulalongkorn University',
       thaiName: 'ราชวิทยาลัยจุฬาภรณ์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1058,7 +1068,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp90 = University(
-      id: 0,
+      id: 90,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันเทคโนโลยีไทย-ญี่ปุ่น',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1069,7 +1079,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp91 = University(
-      id: 0,
+      id: 91,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันอาศรมศิลป์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1080,7 +1090,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp92 = University(
-      id: 0,
+      id: 92,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันเทคโนโลยีปัญญาภิวัฒน์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1091,7 +1101,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp93 = University(
-      id: 0,
+      id: 93,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันการเรียนรู้เพื่อปวงชน',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1102,7 +1112,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp94 = University(
-      id: 0,
+      id: 94,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันเทคโนโลยียานยนต์มหาชัย',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1113,7 +1123,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp95 = University(
-      id: 0,
+      id: 95,
       name: 'Chulalongkorn University',
       thaiName: 'มหาวิทยาลัยนวมินทราธิราช',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1124,7 +1134,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp96 = University(
-      id: 0,
+      id: 96,
       name: 'Chulalongkorn University',
       thaiName: 'สถาบันเทคโนโลยีจิตรลดา',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1135,7 +1145,7 @@ class ApiPuller {
       numbers: null,
     );
     var temp97 = University(
-      id: 0,
+      id: 97,
       name: 'Chulalongkorn University',
       thaiName: 'วิทยาลัยนานาชาติราฟเฟิลส์',
       imageUrl: 'assets/universities/images/chula.jpg',
@@ -1146,11 +1156,108 @@ class ApiPuller {
       numbers: null,
     );
 
+    var lst = [];
+    lst.add(temp1);
+    lst.add(temp2);
+    lst.add(temp3);
+    lst.add(temp4);
+    lst.add(temp5);
+    lst.add(temp6);
+    lst.add(temp7);
+    lst.add(temp8);
+    lst.add(temp9);
+    lst.add(temp10);
+    lst.add(temp11);
+    lst.add(temp12);
+    lst.add(temp13);
+    lst.add(temp14);
+    lst.add(temp15);
+    lst.add(temp16);
+    lst.add(temp17);
+    lst.add(temp18);
+    lst.add(temp19);
+    lst.add(temp20);
+    lst.add(temp21);
+    lst.add(temp22);
+    lst.add(temp23);
+    lst.add(temp24);
+    lst.add(temp25);
+    lst.add(temp26);
+    lst.add(temp27);
+    lst.add(temp28);
+    lst.add(temp29);
+    lst.add(temp30);
+    lst.add(temp31);
+    lst.add(temp32);
+    lst.add(temp33);
+    lst.add(temp34);
+    lst.add(temp35);
+    lst.add(temp36);
+    lst.add(temp37);
+    lst.add(temp38);
+    lst.add(temp39);
+    lst.add(temp40);
+    lst.add(temp41);
+    lst.add(temp42);
+    lst.add(temp43);
+    lst.add(temp44);
+    lst.add(temp45);
+    lst.add(temp46);
+    lst.add(temp47);
+    lst.add(temp48);
+    lst.add(temp49);
+    lst.add(temp50);
+    lst.add(temp51);
+    lst.add(temp52);
+    lst.add(temp53);
+    lst.add(temp54);
+    lst.add(temp55);
+    lst.add(temp56);
+    lst.add(temp57);
+    lst.add(temp58);
+    lst.add(temp59);
+    lst.add(temp60);
+    lst.add(temp61);
+    lst.add(temp62);
+    lst.add(temp63);
+    lst.add(temp64);
+    lst.add(temp65);
+    lst.add(temp66);
+    lst.add(temp67);
+    lst.add(temp68);
+    lst.add(temp69);
+    lst.add(temp70);
+    lst.add(temp71);
+    lst.add(temp72);
+    lst.add(temp73);
+    lst.add(temp74);
+    lst.add(temp75);
+    lst.add(temp76);
+    lst.add(temp77);
+    lst.add(temp78);
+    lst.add(temp79);
+    lst.add(temp80);
+    lst.add(temp81);
+    lst.add(temp82);
+    lst.add(temp83);
+    lst.add(temp84);
+    lst.add(temp85);
+    lst.add(temp86);
+    lst.add(temp87);
+    lst.add(temp88);
+    lst.add(temp89);
+    lst.add(temp90);
+    lst.add(temp91);
+    lst.add(temp92);
+    lst.add(temp93);
+    lst.add(temp94);
+    lst.add(temp95);
+    lst.add(temp96);
+    lst.add(temp97);
 
+    return lst;
 
   }
 
 
 }
-
- */

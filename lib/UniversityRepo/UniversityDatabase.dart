@@ -1,4 +1,4 @@
-/*
+
 import 'dart:async';
 import 'dart:io';
 
@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../api/api_service.dart';
 import './university.dart';
 
 class UniversityDatabase {
@@ -20,7 +21,7 @@ class UniversityDatabase {
   static const _dbName = "universities.db";
   static const _dbVersion = 1;
   static const _tableName = "universities";
-
+  var test = ApiService().getStudents();
 
   // from the convention
   _initiateDatabase() async {
@@ -34,6 +35,9 @@ class UniversityDatabase {
       CREATE TABLE $_tableName(
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
+        thaiName TEXT NOT NULL,
+        imageUrl TEXT NOT NULL,
+        logo TEXT NOT NULL,
         province TEXT NOT NULL,
         description TEXT NOT NULL,
         map TEXT NOT NULL,
@@ -42,13 +46,11 @@ class UniversityDatabase {
       ''');
   }
 
-  // Add Note
   Future<int> addUniversity(University university) async {
     Database db = await databaseManager.database;
     return await db.insert(_tableName, university.toMap());
   }
 
-  // Delete Note
   Future<int> deleteUniversity(University university) async {
     Database db = await databaseManager.database;
     return await db.delete(
@@ -58,13 +60,11 @@ class UniversityDatabase {
     );
   }
 
-  // Delete All Notes
   Future<int> deleteAllUniversities() async {
     Database db = await databaseManager.database;
     return await db.delete(_tableName);
   }
 
-  // Update Note
   Future<int> updateUniversity(University university) async {
     Database db = await databaseManager.database;
     return await db.update(
@@ -94,15 +94,16 @@ class UniversityDatabase {
           (index) {
         return University(
           id: maps[index]["id"],
-          name: maps[index]["subject"],
-          province: maps[index]["title"],
-          description: maps[index]["content"],
-          map: maps[index]["dateTimeEdited"],
-          numbers: maps[index]["dateTimeCreated"],
+          name: maps[index]["name"],
+          thaiName: maps[index]["thaiName"],
+          imageUrl: maps[index]["imageUrl"],
+          logo: maps[index]["logo"],
+          province: maps[index]["province"],
+          description: maps[index]["description"],
+          map: maps[index]["map"],
+          numbers: maps[index]["numbers"],
         );
       },
     );
   }
 }
-
- */

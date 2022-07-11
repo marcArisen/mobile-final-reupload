@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/UniversityRepo/api_puller.dart';
 import 'package:project2_mobile_app/api/api_service.dart';
 import 'package:project2_mobile_app/provider/theme_provider.dart';
@@ -6,11 +7,15 @@ import 'package:project2_mobile_app/screen/main_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   var test = await ApiService().getStudents();
-  print(test?.result?.records.runtimeType);
-  print(await ApiPuller().listAllUniversities(test?.result?.records).length);
-  // print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
-  // print(await ApiPuller().listAllNationalityNameEng(test?.result?.records));
+  // print(test?.result?.records.runtimeType);
+  print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
+
+  var temp = await UniversityDatabase.databaseManager.getUniversityList();
+  print(temp[1].thaiName);
+  print(temp[1].name);
+  print(temp[1].numbers.runtimeType);
   runApp(const MyApp());
 }
 // hello

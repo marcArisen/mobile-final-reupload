@@ -88,9 +88,8 @@ class _LandmarkListPageState extends State<LandmarkListPage> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Container(
-
                       child: NearbyLocationService.instance?.getImage(
-                          values[index].photos![0].photoReference.toString()),
+                          values[index].photos![0].photoReference!.toString()),
                     ),
                   ),
                   Positioned(
