@@ -6,9 +6,9 @@ import 'package:project2_mobile_app/screen/main_page.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  var test = await ApiService().getStudents();
-  print(test?.result?.records.runtimeType);
-  print(await ApiPuller().listAllUniversities(test?.result?.records));
+  //var test = await ApiService().getStudents();
+  //print(test?.result?.records.runtimeType);
+  //print(await ApiPuller().listAllUniversities(test?.result?.records));
   runApp(const MyApp());
 }
 // hello
