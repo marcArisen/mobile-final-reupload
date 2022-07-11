@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   var test = await ApiService().getStudents();
   print(test?.result?.records.runtimeType);
-  print(await ApiPuller().listAllUniversities(test?.result?.records));
+  print(await ApiPuller().listAllUniversities(test?.result?.records).length);
+  // print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
+  // print(await ApiPuller().listAllNationalityNameEng(test?.result?.records));
   runApp(const MyApp());
 }
 // hello
