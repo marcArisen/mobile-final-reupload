@@ -29,7 +29,6 @@ class MapSampleState extends State<MapSample> {
   CameraPosition getCameraPosition(Map<String, dynamic> place) {
     final double lat = place['geometry']['location']['lat'];
     final double lng = place['geometry']['location']['lng'];
-    //final GoogleMapController controller = await _controller.future;
     return CameraPosition(target: LatLng(lat, lng), zoom: 15);
   }
 

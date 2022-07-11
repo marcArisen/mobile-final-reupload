@@ -17,20 +17,20 @@ class Landmark {
 
   Landmark(
       {this.businessStatus,
-      this.geometry,
-      this.icon,
-      this.name,
-      this.openingHours,
-      this.photos,
-      this.placeId,
-      this.plusCode,
-      this.priceLevel,
-      this.rating,
-      this.reference,
-      this.scope,
-      this.types,
-      this.userRatingsTotal,
-      this.vicinity});
+        this.geometry,
+        this.icon,
+        this.name,
+        this.openingHours,
+        this.photos,
+        this.placeId,
+        this.plusCode,
+        this.priceLevel,
+        this.rating,
+        this.reference,
+        this.scope,
+        this.types,
+        this.userRatingsTotal,
+        this.vicinity});
 
   Landmark.fromJson(Map<String, dynamic> json) {
     businessStatus = json['business_status'];

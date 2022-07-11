@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
           controller: pageController,
           children: const [
             HomePage(),
-            LandmarkPage(),
+            LandmarkListPage(),
             ProfilePage()
           ],
         ),
