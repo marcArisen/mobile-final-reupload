@@ -19,39 +19,36 @@ class NearbyLocationService {
 
   /// get nearby landmark around university
   Future<List<Landmark>> getNearby(String university,String landmarkTpe) async {
+    if (university == "Mahidol University"){
+      university = "Mahidol University, Phutthamonthon";
+    }
+
     Map<String, dynamic> uniPlace = await LocationService().getPlace(university);
 
     double lat = uniPlace['geometry']['location']['lat'];
     double lng = uniPlace['geometry']['location']['lng'];
 
-    print(lat);
-    print(lng);
+    //print(lat);
+    //print(lng);
 
     String url =
         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=$landmarkTpe&keyword=$landmarkTpe&key=$key';
-    print(url);
+    //print(url);
     http.Response response = await http.get(Uri.parse(url));
     Map<String,dynamic> values = jsonDecode(response.body);
     List results = values['results'];
 
-    /// List for marking landmark with null photo
+    /// A ist for marking landmark with null photo and one that permanently closed
     var toRemove = [];
     for (Map<String,dynamic> result in results){
-      if(!result.containsKey("photos")){
+      if(!result.containsKey("photos") || !(result["business_status"] == "OPERATIONAL") || !(result.containsKey("opening_hours"))){
         toRemove.add(result);
-      }
-
-      for (var element in toRemove){
-        print(element);
       }
     }
     /// Removing the landmark with null photo
     results.removeWhere((element) => toRemove.contains(element));
-    for (Map<String,dynamic> result in results){
-      print(result["photos"][0]["photo_reference"]);
-    }
-    print(results);
     return results.map((e) => Landmark.fromJson(e)).toList();
+
   }
 
 
@@ -70,10 +67,11 @@ class NearbyLocationService {
    Future<Map<String, dynamic>> getInfo(String placeId) async {
      final String url =
          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key";
+     print(url);
      var response = await http.get(Uri.parse(url));
      var json = convert.jsonDecode(response.body);
      var results = json['result'] as Map<String, dynamic>;
-     //print(results);
+     //print(results["formatted_phone_number"]);
      return results;
    }
 

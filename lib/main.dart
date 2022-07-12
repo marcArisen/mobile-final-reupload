@@ -10,11 +10,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var test = await ApiService().getStudents();
   // print(test?.result?.records.runtimeType);
-  print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
+  //print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
   var temp = await UniversityDatabase.databaseManager.getUniversityList();
-  print(temp[1].thaiName);
-  print(temp[1].name);
-  print(temp[1].numbers.runtimeType);
+  //print(temp[1].thaiName);
+  //print(temp[1].name);
+  //print(temp[1].numbers.runtimeType);
   runApp(const MyApp());
 }
 // hello

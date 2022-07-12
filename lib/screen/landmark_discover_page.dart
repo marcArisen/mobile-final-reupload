@@ -84,7 +84,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
                     tabs: [
                       Tab(text: "Restaurant"),
                       Tab(text: "Accommodation")
-                    ]
+                    ],
                 ),
               ),
 

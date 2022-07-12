@@ -15,7 +15,7 @@ class _LandmarkPageState extends State<LandmarkPage> {
 
   @override
   Widget build(BuildContext context) {
-    var futureBuilder = FutureBuilder(
+    var futureLandMarkReviewBuilder = FutureBuilder(
       future: NearbyLocationService.instance?.getInfo(widget.landMark.placeId.toString()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
@@ -31,6 +31,23 @@ class _LandmarkPageState extends State<LandmarkPage> {
         }
       },
     );
+    var futureLandMarkInfoBuilder = FutureBuilder(
+      future: NearbyLocationService.instance?.getInfo(widget.landMark.placeId.toString()),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Text('Loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createInformationWidget(context, snapshot);
+            }
+        }
+      },
+    );
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -58,7 +75,7 @@ class _LandmarkPageState extends State<LandmarkPage> {
                   IconButton(
                     icon: Icon(Icons.arrow_back),
                     iconSize: 30.0,
-                    color: Colors.black,
+                    color: Colors.white,
                     onPressed: () => Navigator.pop(context),)
                 ],)
               ,),
@@ -99,11 +116,61 @@ class _LandmarkPageState extends State<LandmarkPage> {
               ),
             ],
           ),
-          futureBuilder
+          SizedBox(height: 10.0),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(" Info",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                  SizedBox(height: 10.0),
+                  futureLandMarkInfoBuilder
+                  ,
+                  SizedBox(height: 10.0),
+                  Text(" Reviews",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                ],
+              ),
+        futureLandMarkReviewBuilder
           //SizedBox(height: 20.0)//MapSample(place: widget.location)
         ],
       ),
     );
+  }
+
+  /// Create information widget for each landmarks
+  Widget createInformationWidget(BuildContext context, AsyncSnapshot snapshot){
+    Map<String,dynamic> info = snapshot.data;
+    return Container(
+      height: 60.0,
+      width: 370.0,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Theme.of(context).canvasColor
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: [
+              Icon(Icons.phone),
+              SizedBox(width: 10.0),
+              Text(info["formatted_phone_number"])
+            ],
+          )
+          ,
+          SizedBox(width: 30.0),
+          Row(
+            children: [
+              Icon(Icons.access_time_filled),
+              SizedBox(width: 10.0),
+              Text((() {
+              if(info["opening_hours"]["open_now"].toString() == "true"){
+              return "Currently Open";}
+              return "Currently Closed";
+              })())
+
+            ],
+          ),
+        ],
+      ));
   }
 
   /// Create a review list for each landmarks
@@ -115,16 +182,12 @@ class _LandmarkPageState extends State<LandmarkPage> {
     }else{
       reviews.add({"author_name" : "", "text" : "No Comments"});
     }
-    /*
-    for(var i = 0; i< reviews.length; i++){
-      print(reviews[i]);
-    }
 
-     */
     return Expanded(
       child: SizedBox(
         height: 200.0,
         child: ListView.builder(
+          padding: EdgeInsets.only(left: 5.0,right: 5.0),
           itemCount: reviews.length,
           itemBuilder: (BuildContext, int index){
             return Card(elevation: 0 , child: ListTile(title: Text(reviews[index]["author_name"]),subtitle: Text(reviews[index]["text"]),));
