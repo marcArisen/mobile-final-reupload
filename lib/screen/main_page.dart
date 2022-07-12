@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/components/favourite_list.dart';
 import 'package:project2_mobile_app/components/university_carousel.dart';
 import 'package:project2_mobile_app/screen/home_page.dart';
-import 'package:project2_mobile_app/screen/landmark_list_page.dart';
+import 'package:project2_mobile_app/screen/landmark_discover_page.dart';
 import 'package:project2_mobile_app/screen/profile_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
           controller: pageController,
           children: const [
             HomePage(),
-            LandmarkListPage(),
+            LandMarkDiscoverPage(),
             ProfilePage()
           ],
         ),

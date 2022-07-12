@@ -18,7 +18,7 @@ class NearbyLocationService {
   final String key = "AIzaSyBXlhhKA3oCZJgTkcOdeuXIV4PyRewZ_G8";
 
   /// get nearby landmark around university
-  Future<List<Landmark>> getNearby(String university) async {
+  Future<List<Landmark>> getNearby(String university,String landmarkTpe) async {
     Map<String, dynamic> uniPlace = await LocationService().getPlace(university);
 
     double lat = uniPlace['geometry']['location']['lat'];
@@ -28,7 +28,7 @@ class NearbyLocationService {
     print(lng);
 
     String url =
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=20000&type=restaurant&keyword=restaurant&key=$key';
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=$landmarkTpe&keyword=$landmarkTpe&key=$key';
     print(url);
     http.Response response = await http.get(Uri.parse(url));
     Map<String,dynamic> values = jsonDecode(response.body);
@@ -55,7 +55,7 @@ class NearbyLocationService {
   }
 
 
-  /// get image for each landmarks
+  /// Get image for each landmarks
   Image getImage(String photoReference){
     print(photoReference);
     String baseUrl = "https://maps.googleapis.com/maps/api/place/photo";
@@ -66,7 +66,7 @@ class NearbyLocationService {
   }
 
 
-   /// get information for each landmarks by placeId
+   /// Get information for each landmarks by placeId
    Future<Map<String, dynamic>> getInfo(String placeId) async {
      final String url =
          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key";

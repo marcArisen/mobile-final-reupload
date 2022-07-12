@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
 import 'package:project2_mobile_app/screen/landmark_page.dart';
-import 'package:project2_mobile_app/screen/university_page.dart';
 import '../model/landmark_model.dart';
 
-class LandmarkListPage extends StatefulWidget {
-   const LandmarkListPage({Key? key}) : super(key: key);
+/// Page to discover nearby landmarks for each university
+class LandMarkDiscoverPage extends StatefulWidget {
+   const LandMarkDiscoverPage({Key? key}) : super(key: key);
 
   @override
-  State<LandmarkListPage> createState() => _LandmarkListPageState();
+  State<LandMarkDiscoverPage> createState() => _LandMarkDiscoverPageState();
 }
 
-class _LandmarkListPageState extends State<LandmarkListPage> with TickerProviderStateMixin{
+class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with TickerProviderStateMixin{
   var universityList = [
     "Mahidol University",
     "Chulalongkorn University",
@@ -22,8 +22,28 @@ class _LandmarkListPageState extends State<LandmarkListPage> with TickerProvider
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 2, vsync: this);
-    var futureBuilder = FutureBuilder(
-      future: NearbyLocationService.instance?.getNearby(selectedUniversity),
+
+    ///Restaurant ListView
+    var futureRestaurantBuilder = FutureBuilder(
+      future: NearbyLocationService.instance?.getNearby(selectedUniversity,"restaurant"),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Text('Loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createListView(context, snapshot);
+            }
+        }
+      },
+    );
+
+    ///Accommodation ListView
+    var futureAccommodationBuilder = FutureBuilder(
+      future: NearbyLocationService.instance?.getNearby(selectedUniversity,"accommodation"),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -77,8 +97,8 @@ class _LandmarkListPageState extends State<LandmarkListPage> with TickerProvider
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    futureBuilder,
-                    futureBuilder
+                    futureRestaurantBuilder,
+                    futureAccommodationBuilder
                   ],
                 ),
               )

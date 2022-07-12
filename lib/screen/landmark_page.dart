@@ -115,10 +115,12 @@ class _LandmarkPageState extends State<LandmarkPage> {
     }else{
       reviews.add({"author_name" : "", "text" : "No Comments"});
     }
+    /*
     for(var i = 0; i< reviews.length; i++){
       print(reviews[i]);
-      //print(reviews[i]["author_name"]);
     }
+
+     */
     return Expanded(
       child: SizedBox(
         height: 200.0,
