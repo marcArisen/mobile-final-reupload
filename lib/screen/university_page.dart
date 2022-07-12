@@ -88,7 +88,7 @@ class _UniversityPageState extends State<UniversityPage> {
             ],
           ),
           SizedBox(height: 20.0),
-          MapSample(place: widget.location)
+          LocationMap(place: widget.location)
         ],
       ),
     );

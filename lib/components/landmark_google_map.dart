@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
-class LocationMap extends StatefulWidget {
-  Map<String, dynamic> place;
-  LocationMap({required this.place});
+class LandmarkLocationMap extends StatefulWidget {
+  dynamic lat;
+  dynamic lng;
+  LandmarkLocationMap({this.lat,this.lng});
 
   @override
-  State<LocationMap> createState() => LocationMapState();
+  State<LandmarkLocationMap> createState() => LandmarkLocationMapState();
 }
 
-class LocationMapState extends State<LocationMap> {
+class LandmarkLocationMapState extends State<LandmarkLocationMap> {
 
   @override
   Widget build(BuildContext context) {
-    CameraPosition position = getCameraPosition(widget.place);
+    CameraPosition position = getCameraPosition(widget.lat,widget.lng);
     return SizedBox(
       height: 300,
       width: 300,
@@ -26,9 +27,7 @@ class LocationMapState extends State<LocationMap> {
   }
 
   /// get camera position to be display in GoogleMap
-  CameraPosition getCameraPosition(Map<String, dynamic> place) {
-    final double lat = place['geometry']['location']['lat'];
-    final double lng = place['geometry']['location']['lng'];
+  CameraPosition getCameraPosition(dynamic lat, dynamic lng) {
     return CameraPosition(target: LatLng(lat, lng), zoom: 15);
   }
 

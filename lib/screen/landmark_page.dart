@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project2_mobile_app/components/landmark_google_map.dart';
 import 'package:project2_mobile_app/model/landmark_model.dart';
 import '../api/nearby_landmarks_service.dart';
+import '../components/university_google_map.dart';
 
 class LandmarkPage extends StatefulWidget {
   final Landmark landMark;
@@ -50,85 +52,180 @@ class _LandmarkPageState extends State<LandmarkPage> {
     );
 
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(0.0, 2.0),
-                        blurRadius: 6.0,
-                      )
-                    ]),
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              /// Landmark profile picture
+              Stack(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0.0, 2.0),
+                            blurRadius: 6.0,
+                          )
+                        ]),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30.0),
                       child: NearbyLocationService.instance?.getImage(
                           widget.landMark.photos![0].photoReference.toString()),
                     ),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 40.0),
-                child: Row(children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 30.0,
-                    color: Colors.white,
-                    onPressed: () => Navigator.pop(context),)
-                ],)
-              ,),
-              Positioned(
-                left: 20.0,
-                bottom: 20.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget.landMark.name.toString(),
-                      style: TextStyle(
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 40.0),
+                    child: Row(children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        iconSize: 30.0,
                         color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    Row(
+                        onPressed: () => Navigator.pop(context),)
+                    ],)
+                    ,),
+                  Positioned(
+                    left: 20.0,
+                    bottom: 20.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(width: 5.0),
-                        RatingBarIndicator(
-                          rating: widget.landMark.rating!.toDouble(),
-                          itemCount: 5,
-                          itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow),
+                        Text(
+                          widget.landMark.name.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                          ),
                         ),
-                        Text("(${widget.landMark.rating!.toDouble().toString()})")
+                        Row(
+                          children: <Widget>[
+                            SizedBox(width: 5.0),
+                            RatingBarIndicator(
+                              rating: widget.landMark.rating!.toDouble(),
+                              itemCount: 5,
+                              itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow),
+                            ),
+                            Text("(${widget.landMark.rating!.toDouble().toString()})")
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10.0),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                  Text(" Info",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                  SizedBox(height: 10.0),
-                  futureLandMarkInfoBuilder
-                  ,
-                  SizedBox(height: 10.0),
-                  Text(" Reviews",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                  ),
                 ],
               ),
-        futureLandMarkReviewBuilder
-          //SizedBox(height: 20.0)//MapSample(place: widget.location)
-        ],
+              /// Information Section
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(" Info",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                  SizedBox(height: 10.0),
+                  futureLandMarkInfoBuilder,
+                  SizedBox(height: 10.0),
+
+                ],
+              ),
+              /// Google section
+              Text(" Location",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              LandmarkLocationMap(lat: widget.landMark.geometry?.location!.lat,lng: widget.landMark.geometry?.location!.lng),
+              /// Reviews section
+              Text(" Reviews",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              futureLandMarkReviewBuilder
+              //SizedBox(height: 20.0)//MapSample(place: widget.location)
+            ],
+          ),
+        ),
       ),
     );
+      /*
+      Scaffold(
+      body: Column(
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset(0.0, 2.0),
+                            blurRadius: 6.0,
+                          )
+                        ]),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30.0),
+                      child: NearbyLocationService.instance?.getImage(
+                          widget.landMark.photos![0].photoReference.toString()),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 40.0),
+                    child: Row(children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        iconSize: 30.0,
+                        color: Colors.white,
+                        onPressed: () => Navigator.pop(context),)
+                    ],)
+                    ,),
+                  Positioned(
+                    left: 20.0,
+                    bottom: 20.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.landMark.name.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            SizedBox(width: 5.0),
+                            RatingBarIndicator(
+                              rating: widget.landMark.rating!.toDouble(),
+                              itemCount: 5,
+                              itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow),
+                            ),
+                            Text("(${widget.landMark.rating!.toDouble().toString()})")
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.0),
+              /// Information Section
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(" Info",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                  SizedBox(height: 10.0),
+                  futureLandMarkInfoBuilder,
+                  SizedBox(height: 10.0),
+
+                ],
+              ),
+              /// Location
+              Text(" Location",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              LandmarkLocationMap(lat: widget.landMark.geometry?.location!.lat,lng: widget.landMark.geometry?.location!.lng),
+              /// Reviews Section
+              Text(" Reviews",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+              futureLandMarkReviewBuilder
+              //SizedBox(height: 20.0)//MapSample(place: widget.location)
+            ],
+          ),
+    );
+
+       */
   }
 
 
@@ -180,18 +277,14 @@ class _LandmarkPageState extends State<LandmarkPage> {
       reviews.add({"author_name" : "", "text" : "No Comments"});
     }
 
-    return Expanded(
-      child: SizedBox(
-        height: 200.0,
-        child: ListView.builder(
+    return ListView.builder(
+          shrinkWrap: true,
           padding: EdgeInsets.only(left: 5.0,right: 5.0),
           itemCount: reviews.length,
           itemBuilder: (BuildContext, int index){
             return Card(elevation: 0 , child: ListTile(title: Text(reviews[index]["author_name"]),subtitle: Text(reviews[index]["text"]),));
           },
-        ),
-      ),
-    );
+        );
   }
 
 }
