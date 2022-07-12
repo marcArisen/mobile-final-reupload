@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
 import 'package:project2_mobile_app/screen/landmark_page.dart';
 import '../model/landmark_model.dart';
@@ -116,6 +117,8 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
+              print(values[index].rating);
+              print(values[index].rating.runtimeType);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -140,14 +143,28 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
                         children: <Widget>[
                           Text(
                             values[index].name.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600
                             ),
+                          ),
+                          Row(
+                            children: [
+                              RatingBarIndicator(
+                                rating: values[index].rating!.toDouble(),
+                                itemCount: 5,
+                                itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow),
+                              ),
+                              Text("(${values[index].rating.toString()})",style: TextStyle(color: Colors.white),)
+                            ],
                           )
+
+
                         ],
-                      ))
+                      ),
+
+                  )
                 ],
               ),
             ),

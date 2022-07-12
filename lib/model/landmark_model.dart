@@ -8,7 +8,7 @@ class Landmark {
   String? placeId;
   PlusCode? plusCode;
   dynamic priceLevel;
-  dynamic rating;
+  double? rating;
   String? reference;
   String? scope;
   List<String>? types;
@@ -53,7 +53,23 @@ class Landmark {
         ? PlusCode.fromJson(json['plus_code'])
         : null;
     priceLevel = json['price_level'];
-    rating = json['rating'];
+    if(json['rating'] == 0){
+      rating = 0.0;
+    }
+    else if(json['rating'] == 1){
+      rating = 1.0;
+    }else if(json['rating'] == 2){
+      rating = 2.0;
+    }else if(json['rating'] == 3){
+      rating = 3.0;
+    }else if(json['rating'] == 4){
+      rating = 4.0;
+    }
+    else if (json['rating'] == 5) {
+      rating = 5.0;
+    }else{
+      rating = json['rating'];
+    }
     reference = json['reference'];
     scope = json['scope'];
     types = json['types'].cast<String>();

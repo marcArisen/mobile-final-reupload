@@ -44,6 +44,7 @@ class NearbyLocationService {
       if(!result.containsKey("photos") || !(result["business_status"] == "OPERATIONAL") || !(result.containsKey("opening_hours"))){
         toRemove.add(result);
       }
+      //print(result);
     }
     /// Removing the landmark with null photo
     results.removeWhere((element) => toRemove.contains(element));

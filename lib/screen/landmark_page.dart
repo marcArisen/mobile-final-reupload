@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project2_mobile_app/model/landmark_model.dart';
 import '../api/nearby_landmarks_service.dart';
@@ -96,19 +97,13 @@ class _LandmarkPageState extends State<LandmarkPage> {
                     ),
                     Row(
                       children: <Widget>[
-                        Icon(
-                          FontAwesomeIcons.locationArrow,
-                          size: 20.0,
-                          color: Colors.white,
-                        ),
                         SizedBox(width: 5.0),
-                        Text(
-                          "Salaya",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0
-                          ),
+                        RatingBarIndicator(
+                          rating: widget.landMark.rating!.toDouble(),
+                          itemCount: 5,
+                          itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow),
                         ),
+                        Text("(${widget.landMark.rating!.toDouble().toString()})")
                       ],
                     ),
                   ],
@@ -120,6 +115,7 @@ class _LandmarkPageState extends State<LandmarkPage> {
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
                   Text(" Info",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                   SizedBox(height: 10.0),
                   futureLandMarkInfoBuilder
@@ -134,6 +130,7 @@ class _LandmarkPageState extends State<LandmarkPage> {
       ),
     );
   }
+
 
   /// Create information widget for each landmarks
   Widget createInformationWidget(BuildContext context, AsyncSnapshot snapshot){
