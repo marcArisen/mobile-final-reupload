@@ -6,13 +6,14 @@ import '../model/landmark_model.dart';
 
 /// Page to discover nearby landmarks for each university
 class LandMarkDiscoverPage extends StatefulWidget {
-   const LandMarkDiscoverPage({Key? key}) : super(key: key);
+  const LandMarkDiscoverPage({Key? key}) : super(key: key);
 
   @override
   State<LandMarkDiscoverPage> createState() => _LandMarkDiscoverPageState();
 }
 
-class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with TickerProviderStateMixin{
+class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
+    with TickerProviderStateMixin {
   var universityList = [
     "Mahidol University",
     "Chulalongkorn University",
@@ -26,7 +27,8 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
 
     ///Restaurant ListView
     var futureRestaurantBuilder = FutureBuilder(
-      future: NearbyLocationService.instance?.getNearby(selectedUniversity,"restaurant"),
+      future: NearbyLocationService.instance
+          ?.getNearby(selectedUniversity, "restaurant"),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -44,7 +46,8 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
 
     ///Accommodation ListView
     var futureAccommodationBuilder = FutureBuilder(
-      future: NearbyLocationService.instance?.getNearby(selectedUniversity,"accommodation"),
+      future: NearbyLocationService.instance
+          ?.getNearby(selectedUniversity, "accommodation"),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -69,32 +72,22 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
               DropdownButton(
                   value: selectedUniversity,
                   items: universityList.map((map) {
-                    return DropdownMenuItem(
-                        value: map,
-                        child: Text(map));
+                    return DropdownMenuItem(value: map, child: Text(map));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
                       selectedUniversity = value.toString();
                     });
                   }),
-
               Container(
                 child: TabBar(
                   controller: _tabController,
-                    tabs: [
-                      Tab(text: "Restaurant"),
-                      Tab(text: "Accommodation")
-                    ],
+                  tabs: [Tab(text: "Restaurant"), Tab(text: "Accommodation")],
                 ),
               ),
-
               Container(
                 width: double.maxFinite,
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.76,
+                height: MediaQuery.of(context).size.height * 0.76,
                 child: TabBarView(
                   controller: _tabController,
                   children: [
@@ -109,67 +102,69 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage> with Ticker
       ),
     );
   }
+
   /// Create ListView for displaying Nearby landmarks
   Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
     List<Landmark> values = snapshot.data;
-    return  ListView.builder(
-        itemCount: values.length,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              print(values[index].rating);
-              print(values[index].rating.runtimeType);
-              Navigator.push(
+    return ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            print(values[index].rating);
+            print(values[index].rating.runtimeType);
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => LandmarkPage(landMark: values[index])));
-            },
-            child: Container(
-              padding: EdgeInsets.only(bottom: 10.0),
-              child: Stack(
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Container(
-                      child: NearbyLocationService.instance?.getImage(
-                          values[index].photos![0].photoReference!.toString()),
-                    ),
+                    builder: (context) =>
+                        LandmarkPage(landMark: values[index])));
+          },
+          child: Container(
+            padding: EdgeInsets.only(bottom: 10.0),
+            child: Stack(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Container(
+                    child: NearbyLocationService.instance?.getImage(
+                        values[index].photos![0].photoReference!.toString()),
                   ),
-                  Positioned(
-                      left: 10.0,
-                      bottom: 10.0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            values[index].name.toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              RatingBarIndicator(
-                                rating: values[index].rating!.toDouble(),
-                                itemCount: 5,
-                                itemBuilder: (context,_) => Icon(Icons.star,color: Colors.yellow),
-                              ),
-                              Text("(${values[index].rating.toString()})",style: TextStyle(color: Colors.white),)
-                            ],
-                          )
-
-
-                        ],
+                ),
+                Positioned(
+                  left: 10.0,
+                  bottom: 10.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        values[index].name.toString(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                       ),
-
-                  )
-                ],
-              ),
+                      Row(
+                        children: [
+                          RatingBarIndicator(
+                            rating: values[index].rating!.toDouble(),
+                            itemCount: 5,
+                            itemBuilder: (context, _) =>
+                                Icon(Icons.star, color: Colors.yellow),
+                          ),
+                          Text(
+                            "(${values[index].rating.toString()})",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
-          );
-        },
+          ),
+        );
+      },
     );
   }
 }

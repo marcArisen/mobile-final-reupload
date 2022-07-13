@@ -17,10 +17,13 @@ class FavouriteList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text("My Selected University",
-                  style:
-                  GoogleFonts.lato(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.lato(
+                      fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouriteUniversityPage())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FavouriteUniversityPage())),
                 child: Text(
                   "See All",
                   style: GoogleFonts.lato(
@@ -35,21 +38,27 @@ class FavouriteList extends StatelessWidget {
         Container(
           height: 210,
           child: ListView.builder(
-            itemCount: 3,
-            itemBuilder: (BuildContext context, int index){
-              University university = universities[index];
-              return Card(
-                elevation: 0,
-                margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
-                child: ListTile(leading: CircleAvatar(backgroundImage: AssetImage(university.logo)),title: Text(university.name, style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
-                ),
-              );
-
-          }
-
-          ),
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index) {
+                University university = universities[index];
+                return Card(
+                  elevation: 0,
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, bottom: 5.0, top: 10.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                        backgroundImage: AssetImage(university.logo)),
+                    title: Text(
+                      university.name,
+                      style: GoogleFonts.lato(
+                        fontSize: 16.0,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              }),
         )
-
       ],
     );
   }

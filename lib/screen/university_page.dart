@@ -7,7 +7,6 @@ class UniversityPage extends StatefulWidget {
   final University university;
   final Map<String, dynamic> location;
 
-
   UniversityPage({required this.university, required this.location});
 
   @override
@@ -41,15 +40,19 @@ class _UniversityPageState extends State<UniversityPage> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 40.0),
-                child: Row(children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 30.0,
-                    color: Colors.black,
-                    onPressed: () => Navigator.pop(context),)
-                ],)
-              ,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      iconSize: 30.0,
+                      color: Colors.black,
+                      onPressed: () => Navigator.pop(context),
+                    )
+                  ],
+                ),
+              ),
               Positioned(
                 left: 20.0,
                 bottom: 20.0,
@@ -75,10 +78,7 @@ class _UniversityPageState extends State<UniversityPage> {
                         SizedBox(width: 5.0),
                         Text(
                           "Salaya",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
                       ],
                     ),

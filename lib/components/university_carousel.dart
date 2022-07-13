@@ -16,7 +16,6 @@ class UniversityCarousel extends StatefulWidget {
 }
 
 class _UniversityCarouselState extends State<UniversityCarousel> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +29,10 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                   style: GoogleFonts.lato(
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
               GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const UniversityListPage())),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UniversityListPage())),
                 child: Text(
                   "See All",
                   style: GoogleFonts.lato(
@@ -51,19 +53,21 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
             itemBuilder: (BuildContext context, int index) {
               University university = universities[index];
               return GestureDetector(
-               onTap: () async{
-                 Map<String, dynamic> m =
-                 await LocationService().getPlace(university.name);
-                 Navigator.push(
-                     context,
-                     MaterialPageRoute(
-                         builder: (context) => UniversityPage(location: m,university: university)));
-               },
+                onTap: () async {
+                  Map<String, dynamic> m =
+                      await LocationService().getPlace(university.name);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UniversityPage(
+                                location: m, university: university)));
+                  },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
                   width: 210.0,
                   //color: Colors.red,
-                  child: Stack(alignment: Alignment.topCenter, children: <Widget>[
+                  child:
+                      Stack(alignment: Alignment.topCenter, children: <Widget>[
                     Positioned(
                       bottom: 15.0,
                       child: Container(
@@ -84,7 +88,8 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                     Text(
                                       "Foreign students enrolled in 2021",
                                       style: GoogleFonts.lato(
-                                          fontSize: 12.0, fontWeight: FontWeight.w300),
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w300),
                                     ),
                                   ],
                                 ),
@@ -94,7 +99,10 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                   children: university.country.map((rating) {
                                     return SizedBox(
                                       width: 30,
-                                      child: Text(rating, style: GoogleFonts.lato(fontSize: 13.0),),
+                                      child: Text(
+                                        rating,
+                                        style: GoogleFonts.lato(fontSize: 13.0),
+                                      ),
                                     );
                                   }).toList(),
                                 ),
@@ -104,22 +112,24 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                   children: university.flag.map((flag) {
                                     return SizedBox(
                                       width: 30,
-                                      child: Text(flag, style: GoogleFonts.lato(fontSize: 13.0),),
+                                      child: Text(
+                                        flag,
+                                        style: GoogleFonts.lato(fontSize: 13.0),
+                                      ),
                                     );
                                   }).toList(),
                                 ),
                               ],
-                            )
-                            ,
+                            ),
                           ],
                         ),
                       ),
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Theme.of(context).canvasColor,
-                          borderRadius: BorderRadius.circular(20),
-                         ),
+                        color: Theme.of(context).canvasColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Stack(
                         children: <Widget>[
                           ClipRRect(
@@ -158,9 +168,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                     Text(
                                       "Salaya",
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10
-                                      ),
+                                          color: Colors.white, fontSize: 10),
                                     ),
                                   ],
                                 ),

@@ -15,13 +15,14 @@ class LocationMapState extends State<LocationMap> {
   @override
   Widget build(BuildContext context) {
     CameraPosition position = getCameraPosition(widget.place);
-    return SizedBox(
+    return Container(
       height: 300,
       width: 300,
       child: GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: position,
-      )
+      ),
+
     );
   }
 

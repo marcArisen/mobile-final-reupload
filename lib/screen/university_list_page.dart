@@ -35,18 +35,27 @@ class _UniversityListPageState extends State<UniversityListPage> {
             ],
           ),
           Container(
-            height: 500,
-            child: ListView.builder(
-              itemCount: universities.length,
-              itemBuilder: (BuildContext context, int index){
-                University university = universities[index];
-                return Card(
-                  margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
-                  child: ListTile(leading: CircleAvatar(backgroundImage: AssetImage(university.logo)),title: Text(university.name, style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
-                ));
-              },
-            )
-          )
+              height: 500,
+              child: ListView.builder(
+                itemCount: universities.length,
+                itemBuilder: (BuildContext context, int index) {
+                  University university = universities[index];
+                  return Card(
+                      margin: EdgeInsets.only(
+                          left: 15.0, right: 15.0, bottom: 5.0, top: 10.0),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                            backgroundImage: AssetImage(university.logo)),
+                        title: Text(
+                          university.name,
+                          style: GoogleFonts.lato(
+                            fontSize: 16.0,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ));
+                },
+              ))
         ],
       ),
     );
