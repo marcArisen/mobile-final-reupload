@@ -9,12 +9,13 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var test = await ApiService().getStudents();
+  var temp = await UniversityDatabase.databaseManager.getUniversityList();
+  UniversityDatabase.databaseManager.getAllUniversities();
   // print(test?.result?.records.runtimeType);
   //print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
-  var temp = await UniversityDatabase.databaseManager.getUniversityList();
-  //print(temp[1].thaiName);
-  //print(temp[1].name);
-  //print(temp[1].numbers.runtimeType);
+  print(temp[1].thaiName);
+  print(temp[1].name);
+  print(temp[1].numbers);
   runApp(const MyApp());
 }
 // hello

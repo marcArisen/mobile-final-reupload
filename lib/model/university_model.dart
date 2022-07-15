@@ -1,4 +1,9 @@
 
+import 'package:flutter/cupertino.dart';
+
+import '../UniversityRepo/UniversityDatabase.dart';
+import '../UniversityRepo/university.dart';
+
 /// University Model
 class University {
   String imageUrl;
@@ -56,3 +61,18 @@ List<University> universities = [
       flag: ["🇮🇳", "🇭🇰","🇯🇵"]
   ),
 ];
+
+
+// class UniversityController {
+//   var universities = <University>[];
+//
+//   UniversityController() {
+//     getAllNotes();
+//   }
+//
+//   void getAllNotes() async {
+//     universities = await UniversityDatabase.databaseManager.getUniversityList();
+//   }
+// }
+
+// List<University> universities2 =  UniversityDatabase.databaseManager.getUniversityList()
