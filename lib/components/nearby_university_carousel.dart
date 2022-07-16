@@ -21,24 +21,49 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
   String? latitude;
   String? longitude;
 
+
   void getCurrentLocation() async {
-    print("hi");
-    Position position = await
-    Geolocator.getCurrentPosition(forceAndroidLocationManager: true,
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude);
+    print(position.latitude);
+
+    String long = position.longitude.toString();
+    String lat = position.latitude.toString();
+
+  }
+
+  Future<Position> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print("hi2");
-
-    var lat = position.latitude;
-    var long = position.longitude;
-
-    latitude = "$lat";
-    longitude = "$long";
   }
 
   @override
   Widget build(BuildContext context) {
     var universities = UniversityDatabase.universities;
-    getCurrentLocation();
+    // getCurrentLocation();
+
     return Column(
       children: <Widget>[
         Padding(

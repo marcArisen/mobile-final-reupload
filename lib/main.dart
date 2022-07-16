@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/UniversityRepo/api_puller.dart';
 import 'package:project2_mobile_app/api/api_service.dart';
@@ -10,14 +11,21 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var test = await ApiService().getStudents();
-  var temp = await UniversityDatabase.databaseManager.getUniversityList();
   UniversityDatabase.databaseManager.getAllUniversities();
   // print(test?.result?.records.runtimeType);
-  //print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
-  // print(temp[1].thaiName);
-  // print(temp[1].name);
-  // print(temp[1].numbers);
+  // print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
+  // var temp = await UniversityDatabase.databaseManager.getUniversityList();
+  getCurrentLocation();
   runApp(const MyApp());
+}
+void getCurrentLocation() async {
+  Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  print(position.longitude);
+  print(position.latitude);
+
+  String long = position.longitude.toString();
+  String lat = position.latitude.toString();
+
 }
 // hello
 class MyApp extends StatelessWidget {
