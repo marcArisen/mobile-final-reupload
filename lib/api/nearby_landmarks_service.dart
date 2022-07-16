@@ -52,7 +52,6 @@ class NearbyLocationService {
 
   }
 
-
   /// Get image for each landmarks
   Image getImage(String photoReference){
     print(photoReference);

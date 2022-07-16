@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
 import 'package:project2_mobile_app/api/university_location_service.dart';
 import 'package:project2_mobile_app/components/change_theme_button.dart';
 import 'package:project2_mobile_app/components/favourite_list.dart';
-import 'package:project2_mobile_app/components/university_carousel.dart';
+import 'package:project2_mobile_app/components/nearby_university_carousel.dart';
+import 'package:project2_mobile_app/components/recommend_university_carousel.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
 
 class HomePage extends StatefulWidget {
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 20.0),
-              UniversityCarousel(),
+              NearbyUniversityCarousel(),
               UniversityCarousel()
             ],
           ),
