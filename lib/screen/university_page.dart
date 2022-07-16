@@ -44,13 +44,20 @@ class _UniversityPageState extends State<UniversityPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
                       icon: Icon(Icons.arrow_back),
                       iconSize: 30.0,
-                      color: Colors.black,
+                      color: Colors.white,
                       onPressed: () => Navigator.pop(context),
-                    )
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.favorite_border_outlined),
+                      iconSize: 30.0,
+                      color: Colors.white,
+                      onPressed: () => Navigator.pop(context),
+                    ),
                   ],
                 ),
               ),
