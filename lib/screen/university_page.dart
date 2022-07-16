@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project2_mobile_app/model/university_model.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
+
+import '../UniversityRepo/university.dart';
 
 class UniversityPage extends StatefulWidget {
   final University university;
@@ -35,7 +36,7 @@ class _UniversityPageState extends State<UniversityPage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30.0),
                   child: Image(
-                    image: AssetImage(widget.university.imageUrl),
+                    image: AssetImage(widget.university.imageUrl!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -60,7 +61,7 @@ class _UniversityPageState extends State<UniversityPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.university.name,
+                      widget.university.name!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30.0,

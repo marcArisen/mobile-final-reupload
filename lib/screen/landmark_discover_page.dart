@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
+import 'package:project2_mobile_app/UniversityRepo/university.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
 import 'package:project2_mobile_app/screen/landmark_page.dart';
 import '../model/landmark_model.dart';
@@ -14,11 +16,12 @@ class LandMarkDiscoverPage extends StatefulWidget {
 
 class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
     with TickerProviderStateMixin {
-  var universityList = [
-    "Mahidol University",
-    "Chulalongkorn University",
-    "Chiangmai University"
-  ];
+  // var universityList = [
+  //   "Mahidol University",
+  //   "Chulalongkorn University",
+  //   "Chiangmai University"
+  // ];
+  var universityList = UniversityDatabase.databaseManager.getAllNameUniversities();
   String selectedUniversity = "Mahidol University";
 
   @override
@@ -72,7 +75,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
               DropdownButton(
                   value: selectedUniversity,
                   items: universityList.map((map) {
-                    return DropdownMenuItem(value: map, child: Text(map));
+                    return DropdownMenuItem(value: map, child: Text(map!));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {

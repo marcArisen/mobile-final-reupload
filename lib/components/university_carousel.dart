@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project2_mobile_app/model/university_model.dart';
+// import 'package:project2_mobile_app/model/university_model.dart';
 import 'package:project2_mobile_app/screen/university_list_page.dart';
 import 'package:project2_mobile_app/screen/university_page.dart';
 
+import '../UniversityRepo/UniversityDatabase.dart';
+import '../UniversityRepo/university.dart';
 import '../api/university_location_service.dart';
 
 /// Carousel to display recommended universities
 class UniversityCarousel extends StatefulWidget {
+
   const UniversityCarousel({Key? key}) : super(key: key);
 
   @override
@@ -18,6 +21,8 @@ class UniversityCarousel extends StatefulWidget {
 class _UniversityCarouselState extends State<UniversityCarousel> {
   @override
   Widget build(BuildContext context) {
+    var universities = UniversityDatabase.universities;
+    // UniversityDatabase.databaseManager.getAllUniversities();
     return Column(
       children: <Widget>[
         Padding(
@@ -55,7 +60,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
               return GestureDetector(
                 onTap: () async {
                   Map<String, dynamic> m =
-                      await LocationService().getPlace(university.name);
+                      await LocationService().getPlace(university.name!);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -94,31 +99,31 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                   ],
                                 ),
                                 SizedBox(height: 5),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: university.country.map((rating) {
-                                    return SizedBox(
-                                      width: 30,
-                                      child: Text(
-                                        rating,
-                                        style: GoogleFonts.lato(fontSize: 13.0),
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: university.country.map((rating) {
+                                //     return SizedBox(
+                                //       width: 30,
+                                //       child: Text(
+                                //         rating,
+                                //         style: GoogleFonts.lato(fontSize: 13.0),
+                                //       ),
+                                //     );
+                                //   }).toList(),
+                                // ),
                                 SizedBox(height: 5),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: university.flag.map((flag) {
-                                    return SizedBox(
-                                      width: 30,
-                                      child: Text(
-                                        flag,
-                                        style: GoogleFonts.lato(fontSize: 13.0),
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: university.flag.map((flag) {
+                                //     return SizedBox(
+                                //       width: 30,
+                                //       child: Text(
+                                //         flag,
+                                //         style: GoogleFonts.lato(fontSize: 13.0),
+                                //       ),
+                                //     );
+                                //   }).toList(),
+                                // ),
                               ],
                             ),
                           ],
@@ -137,7 +142,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                             child: Image(
                               height: 180.0,
                               width: 180.0,
-                              image: AssetImage(university.imageUrl),
+                              image: AssetImage(university.imageUrl!),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -148,7 +153,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  university.name,
+                                  university.name!,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12.0,

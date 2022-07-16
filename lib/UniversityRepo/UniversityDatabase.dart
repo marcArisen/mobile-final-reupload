@@ -18,15 +18,17 @@ class UniversityDatabase {
   Future<Database> get database async =>
       _database ??= await _initiateDatabase();
 
+
   static const _dbName = "universities.db";
   static const _dbVersion = 1;
   static const _tableName = "universities";
-  var test = ApiService().getStudents();
+  static List<University> universities = [];
 
   // from the convention
   _initiateDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, _dbName);
+    // getAllUniversities();
     return await openDatabase(path, version: _dbVersion, onCreate: _onCreate);
   }
 
@@ -106,4 +108,13 @@ class UniversityDatabase {
       },
     );
   }
+
+  void getAllUniversities() async {
+    universities = await UniversityDatabase.databaseManager.getUniversityList();
+  }
+
+  List<String?> getAllNameUniversities() {
+    return universities.map((e) => e.name).toList();
+  }
+
 }
