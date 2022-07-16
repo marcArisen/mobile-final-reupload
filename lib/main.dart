@@ -3,6 +3,7 @@ import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/UniversityRepo/api_puller.dart';
 import 'package:project2_mobile_app/api/api_service.dart';
 import 'package:project2_mobile_app/provider/theme_provider.dart';
+import 'package:project2_mobile_app/screen/login_page.dart';
 import 'package:project2_mobile_app/screen/main_page.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,22 @@ class MyApp extends StatelessWidget {
         themeMode: themeProvider.themeMode,
         theme: MyThemes.lightTheme,
         darkTheme: MyThemes.darkTheme,
-        home: MainPage(),
+        home: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: const Color.fromRGBO(40, 38, 56, 1),
+          body: LoginScreen(),
+          bottomNavigationBar: BottomAppBar(
+              color: Colors.transparent,
+              elevation: 0,
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: const Text(
+                  "University Recommender",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              )),
+        ),
       );
     },
   );
