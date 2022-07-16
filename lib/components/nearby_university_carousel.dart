@@ -22,17 +22,16 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
   String? longitude;
 
   void getCurrentLocation() async {
-    print("hi");
-    Position position = await
-    Geolocator.getCurrentPosition(forceAndroidLocationManager: true,
+    var position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print("hi2");
-
     var lat = position.latitude;
     var long = position.longitude;
 
+    // passing this to latitude and longitude strings
     latitude = "$lat";
     longitude = "$long";
+    print(latitude);
+    print(longitude);
   }
 
   @override
