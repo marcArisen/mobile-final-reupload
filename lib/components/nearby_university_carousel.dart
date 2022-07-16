@@ -17,7 +17,6 @@ class NearbyUniversityCarousel extends StatefulWidget {
 }
 
 class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
-  //var locationMessage = '';
   String? latitude;
   String? longitude;
 
@@ -28,7 +27,6 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
     var lat = position.latitude;
     var long = position.longitude;
 
-    // passing this to latitude and longitude strings
     latitude = "$lat";
     longitude = "$long";
     print(latitude);
@@ -37,6 +35,8 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
 
   @override
   Widget build(BuildContext context) {
+
+
     var universities = UniversityDatabase.universities;
     // getCurrentLocation();
 

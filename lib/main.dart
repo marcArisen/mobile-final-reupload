@@ -15,19 +15,9 @@ Future<void> main() async {
   // print(test?.result?.records.runtimeType);
   // print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
   // var temp = await UniversityDatabase.databaseManager.getUniversityList();
-  getCurrentLocation();
   runApp(const MyApp());
 }
-void getCurrentLocation() async {
-  Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  print(position.longitude);
-  print(position.latitude);
 
-  String long = position.longitude.toString();
-  String lat = position.latitude.toString();
-
-}
-// hello
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
