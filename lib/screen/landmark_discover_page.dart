@@ -146,9 +146,14 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    child: NearbyLocationService.instance?.getImage(
-                        values[index].photos![0].photoReference!.toString()),
+                  child: SizedBox(
+                    height: 250,
+                    width: 400,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: NearbyLocationService.instance?.getImage(
+                          values[index].photos![0].photoReference!.toString()),
+                    ),
                   ),
                 ),
                 Positioned(

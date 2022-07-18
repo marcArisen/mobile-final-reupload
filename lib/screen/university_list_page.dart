@@ -64,8 +64,13 @@ class _UniversityListPageState extends State<UniversityListPage> {
                               children: <Widget>[
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  child: Image(
-                                      image: AssetImage(university.imageUrl.toString()),
+                                  child: SizedBox(
+                                    height: 250,
+                                    width: 400,
+                                    child: Image(
+                                        fit: BoxFit.fill,
+                                        image: AssetImage(university.imageUrl.toString()),
+                                    ),
                                   ),
                                 ),
                                 Positioned(

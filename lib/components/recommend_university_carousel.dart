@@ -30,9 +30,15 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("Recommend",
-                  style: GoogleFonts.lato(
-                      fontSize: 20.0, fontWeight: FontWeight.bold)),
+              Row(
+                children: [
+                  Text("Recommend",
+                      style: GoogleFonts.lato(
+                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  SizedBox(width: 5.0),
+                  Icon(Icons.thumb_up)
+                ],
+              ),
               GestureDetector(
                 onTap: () => Navigator.push(
                     context,
