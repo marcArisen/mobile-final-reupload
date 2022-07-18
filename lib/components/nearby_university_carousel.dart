@@ -51,19 +51,7 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
               Text("Nearby",
                   style: GoogleFonts.lato(
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
-              GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UniversityListPage())),
-                child: Text(
-                  "See All",
-                  style: GoogleFonts.lato(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.blue),
-                ),
-              )
+
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
@@ -71,7 +72,9 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
           width: double.infinity,
           height: double.infinity,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              /*
               DropdownButton(
                   value: selectedUniversity,
                   items: universityList.map((map) {
@@ -82,15 +85,30 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                       selectedUniversity = value.toString();
                     });
                   }),
-              Container(
-                child: TabBar(
-                  controller: _tabController,
-                  tabs: [Tab(text: "Restaurant"), Tab(text: "Accommodation")],
+
+               */
+              DropdownSearch(
+                mode: Mode.DIALOG,
+                showSearchBox: true,
+                //showSelectedItem: true,
+                items: ["Mahidol University", "Chulalongkorn University"],
+                onChanged: (value){
+                  setState((){
+                    selectedUniversity = value.toString();
+                  });
+                },
+                selectedItem: selectedUniversity,
+                dropdownSearchDecoration: (
+                 InputDecoration(border: InputBorder.none)
                 ),
               ),
-              Container(
+              TabBar(
+                controller: _tabController,
+                tabs: [Tab(text: "Restaurant"), Tab(text: "Accommodation")],
+              ),
+              SizedBox(
                 width: double.maxFinite,
-                height: MediaQuery.of(context).size.height * 0.76,
+                height: MediaQuery.of(context).size.height * 0.735,
                 child: TabBarView(
                   controller: _tabController,
                   children: [

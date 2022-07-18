@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 // import 'package:project2_mobile_app/model/university_model.dart';
 import 'package:project2_mobile_app/screen/university_list_page.dart';
 import 'package:project2_mobile_app/screen/university_page.dart';
@@ -11,7 +12,6 @@ import '../api/university_location_service.dart';
 
 /// Carousel to display recommended universities
 class UniversityCarousel extends StatefulWidget {
-
   const UniversityCarousel({Key? key}) : super(key: key);
 
   @override
@@ -54,19 +54,24 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
           //color: Colors.blue,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: universities.length,
+            itemCount: 5,
             itemBuilder: (BuildContext context, int index) {
               University university = universities[index];
               return GestureDetector(
                 onTap: () async {
+                  String placeId =
+                      await LocationService().getPlaceId(university.thaiName!);
                   Map<String, dynamic> m =
                       await LocationService().getPlace(university.name!);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UniversityPage(
-                                location: m, university: university)));
-                  },
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UniversityPage(
+                                location: m,
+                                university: university,
+                                placeId: placeId,
+                              )));
+                },
                 child: Container(
                   margin: EdgeInsets.all(10.0),
                   width: 210.0,

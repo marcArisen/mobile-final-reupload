@@ -70,9 +70,10 @@ class NearbyLocationService {
          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key";
      print(url);
      var response = await http.get(Uri.parse(url));
+     //print(response);
      var json = convert.jsonDecode(response.body);
      var results = json['result'] as Map<String, dynamic>;
-     //print(results["formatted_phone_number"]);
+     print(results);
      return results;
    }
 
