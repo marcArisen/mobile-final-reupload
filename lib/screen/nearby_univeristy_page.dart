@@ -1,28 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project2_mobile_app/components/university_google_map.dart';
-
-import '../UniversityRepo/university.dart';
+import 'package:project2_mobile_app/components/landmark_google_map.dart';
+import 'package:project2_mobile_app/model/landmark_model.dart';
 import '../api/nearby_landmarks_service.dart';
+import '../components/university_google_map.dart';
 
-class UniversityPage extends StatefulWidget {
-  final University university;
-  final Map<String, dynamic> location;
-  final String placeId;
+class NearbyUniversityPage extends StatefulWidget {
+  final Landmark landMark;
 
-  UniversityPage({required this.university, required this.location,required this.placeId});
+  NearbyUniversityPage({required this.landMark});
 
   @override
-  State<UniversityPage> createState() => _UniversityPageState();
+  State<NearbyUniversityPage> createState() => _NearbyUniversityPageState();
 }
 
-class _UniversityPageState extends State<UniversityPage> {
-
+class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
   @override
   Widget build(BuildContext context) {
-    var futureUniversityInfoBuilder = FutureBuilder(
-      future: NearbyLocationService.instance?.getInfo(widget.placeId),
+    var futureLandMarkReviewBuilder = FutureBuilder(
+      future: NearbyLocationService.instance
+          ?.getInfo(widget.landMark.placeId.toString()),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Text('Loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createReviewListView(context, snapshot);
+            }
+        }
+      },
+    );
+    var futureLandMarkInfoBuilder = FutureBuilder(
+      future: NearbyLocationService.instance
+          ?.getInfo(widget.landMark.placeId.toString()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -42,7 +58,8 @@ class _UniversityPageState extends State<UniversityPage> {
       body: Container(
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
+            children: [
+              /// Landmark profile picture
               Stack(
                 children: <Widget>[
                   Container(
@@ -58,28 +75,20 @@ class _UniversityPageState extends State<UniversityPage> {
                         ]),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30.0),
-                      child: Image(
-                        image: AssetImage(widget.university.imageUrl!),
-                        fit: BoxFit.cover,
-                      ),
+                      child: NearbyLocationService.instance?.getImage(
+                          widget.landMark.photos![0].photoReference.toString()),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         IconButton(
                           icon: Icon(Icons.arrow_back),
                           iconSize: 30.0,
                           onPressed: () => Navigator.pop(context),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.favorite_border_outlined),
-                          iconSize: 30.0,
-                          color: Colors.white,
-                          onPressed: () => Navigator.pop(context),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -90,7 +99,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          widget.university.name!,
+                          widget.landMark.name.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 30.0,
@@ -100,16 +109,15 @@ class _UniversityPageState extends State<UniversityPage> {
                         ),
                         Row(
                           children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.locationArrow,
-                              size: 20.0,
-                              color: Colors.white,
-                            ),
                             SizedBox(width: 5.0),
-                            Text(
-                              "Salaya",
-                              style: TextStyle(color: Colors.white, fontSize: 18.0),
+                            RatingBarIndicator(
+                              rating: widget.landMark.rating!.toDouble(),
+                              itemCount: 5,
+                              itemBuilder: (context, _) =>
+                                  Icon(Icons.star, color: Colors.yellow),
                             ),
+                            Text(
+                                "(${widget.landMark.rating!.toDouble().toString()})",style: TextStyle(color: Colors.white))
                           ],
                         ),
                       ],
@@ -119,40 +127,44 @@ class _UniversityPageState extends State<UniversityPage> {
               ),
               SizedBox(height: 10.0),
 
+              /// Information Section
               Container(
                 width: 380,
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Text(" Info",
+                      child: Text("  Info",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
-                    futureUniversityInfoBuilder,
+                    futureLandMarkInfoBuilder,
                     SizedBox(height: 10.0),
+                    /// Google section
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text("  Location",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                    ),
+                    SizedBox(height: 10.0),
+                    LandmarkLocationMap(
+                        lat: widget.landMark.geometry?.location!.lat,
+                        lng: widget.landMark.geometry?.location!.lng),
+                    SizedBox(height: 10.0),
+                    /// Reviews section
                     Container(
-                        height: 60.0,
-                        width: 370.0,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Theme.of(context).canvasColor)
-                    ),
-                    SizedBox(height: 10.0),
-                    Align(
                       alignment: Alignment.topLeft,
-                      child: Text(" Location",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                      child: Text("  Reviews",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
-                    LocationMap(place: widget.location),
+                    futureLandMarkReviewBuilder
                   ],
                 ),
-              )
-
-
+              ),
             ],
           ),
         ),
@@ -184,10 +196,37 @@ class _UniversityPageState extends State<UniversityPage> {
               children: [
                 Icon(CupertinoIcons.globe),
                 SizedBox(width: 10.0),
-                Text(info["website"])
+                Container(
+                    width: 170,
+                    child: Text(info["website"]))
               ],
             ),
           ],
         ));
+  }
+
+  /// Create a review list for each landmarks
+  Widget createReviewListView(BuildContext context, AsyncSnapshot snapshot) {
+    Map<String, dynamic> info = snapshot.data;
+    List<dynamic> reviews = [];
+    if (info.containsKey("reviews")) {
+      reviews = info["reviews"];
+    } else {
+      reviews.add({"author_name": "", "text": "No Comments"});
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.only(left: 5.0, right: 5.0),
+      itemCount: reviews.length,
+      itemBuilder: (BuildContext, int index) {
+        return Card(
+            elevation: 0,
+            child: ListTile(
+              title: Text(reviews[index]["author_name"]),
+              subtitle: Text(reviews[index]["text"]),
+            ));
+      },
+    );
   }
 }

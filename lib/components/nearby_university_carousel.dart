@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
-import 'package:project2_mobile_app/screen/university_list_page.dart';
-import 'package:project2_mobile_app/screen/university_page.dart';
-import '../UniversityRepo/UniversityDatabase.dart';
-import '../UniversityRepo/university.dart';
+import 'package:project2_mobile_app/screen/nearby_univeristy_page.dart';
 import '../api/university_location_service.dart';
 import '../model/landmark_model.dart';
+import '../screen/landmark_page.dart';
 
 /// Carousel to display recommended universities
 class NearbyUniversityCarousel extends StatefulWidget {
@@ -70,12 +66,6 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
 
   Widget createNearbyCarousel(BuildContext context, AsyncSnapshot snapshot){
     List<Landmark> nearbyUni = snapshot.data;
-    /*
-    for(Landmark uni in nearbyUni){
-      print(uni.name);
-    }
-
-     */
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -83,18 +73,16 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
       itemBuilder: (BuildContext context, int index) {
         Landmark university = nearbyUni[index];
         return GestureDetector(
-          onTap: (){
-            print("hi");
-        } /*async {
+          onTap: ()
+          async {
             Map<String, dynamic> m =
             await LocationService().getPlace(university.name!);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => UniversityPage(
-                        location: m, university: university)));
-                        */
-
+                    builder: (context) => NearbyUniversityPage(
+                      landMark: university,)));
+        }
           ,
           child: Container(
             margin: EdgeInsets.all(10.0),
