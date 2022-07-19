@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
-import 'package:project2_mobile_app/screen/university_list_page.dart';
-import 'package:project2_mobile_app/screen/university_page.dart';
-import '../UniversityRepo/UniversityDatabase.dart';
-import '../UniversityRepo/university.dart';
+import 'package:project2_mobile_app/screen/nearby_univeristy_page.dart';
 import '../api/university_location_service.dart';
 import '../model/landmark_model.dart';
+import '../screen/landmark_page.dart';
 
 /// Carousel to display recommended universities
 class NearbyUniversityCarousel extends StatefulWidget {
@@ -46,29 +43,20 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text("Nearby",
                   style: GoogleFonts.lato(
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
-              GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UniversityListPage())),
-                child: Text(
-                  "See All",
-                  style: GoogleFonts.lato(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.blue),
-                ),
-              )
+              SizedBox(width: 5.0),
+              Icon(Icons.location_on)
+
             ],
           ),
         ),
         Container(
-          height: 300.0,
+          padding: const EdgeInsets.only(left: 10.0),
+          height: 220.0,
           //color: Colors.blue,
           child: futureNearbyUniBuilder
         )
@@ -78,13 +66,6 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
 
   Widget createNearbyCarousel(BuildContext context, AsyncSnapshot snapshot){
     List<Landmark> nearbyUni = snapshot.data;
-    /*
-    for(Landmark uni in nearbyUni){
-      print(uni.name);
-    }
-
-     */
-
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -92,82 +73,23 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
       itemBuilder: (BuildContext context, int index) {
         Landmark university = nearbyUni[index];
         return GestureDetector(
-          onTap: (){
-            print("hi");
-        } /*async {
+          onTap: ()
+          async {
             Map<String, dynamic> m =
             await LocationService().getPlace(university.name!);
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => UniversityPage(
-                        location: m, university: university)));
-                        */
-
+                    builder: (context) => NearbyUniversityPage(
+                      landMark: university,)));
+        }
           ,
           child: Container(
             margin: EdgeInsets.all(10.0),
-            width: 210.0,
             //color: Colors.red,
             child:
             Stack(alignment: Alignment.topCenter, children: <Widget>[
-              Positioned(
-                bottom: 15.0,
-                child: Container(
-                  height: 100.0,
-                  width: 200.0,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).canvasColor,
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Foreign students enrolled in 2021",
-                                style: GoogleFonts.lato(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: university.country.map((rating) {
-                          //     return SizedBox(
-                          //       width: 30,
-                          //       child: Text(
-                          //         rating,
-                          //         style: GoogleFonts.lato(fontSize: 13.0),
-                          //       ),
-                          //     );
-                          //   }).toList(),
-                          // ),
-                          // SizedBox(height: 5),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: university.flag.map((flag) {
-                          //     return SizedBox(
-                          //       width: 30,
-                          //       child: Text(
-                          //         flag,
-                          //         style: GoogleFonts.lato(fontSize: 13.0),
-                          //       ),
-                          //     );
-                          //   }).toList(),
-                          // ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+
               Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).canvasColor,
@@ -177,10 +99,12 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                   children: <Widget>[
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
-                      child: Container(
+                      child: SizedBox(
                         height: 180.0,
-                        width: 180.0,
-                        child: NearbyLocationService.instance?.getImage(university.photos![0].photoReference.toString()),
+                        width: 250.0,
+                        child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: NearbyLocationService.instance?.getImage(university.photos![0].photoReference.toString())),
 
                       ),
 
@@ -202,19 +126,19 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                           ),
                           SizedBox(height: 5.0),
                           Row(
-                            children: <Widget>[
-                              Icon(
-                                FontAwesomeIcons.locationArrow,
-                                size: 10.0,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5.0),
-                              Text(
-                                "Salaya",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 10),
-                              ),
-                            ],
+                              children: [
+                                RatingBarIndicator(
+                                  itemSize: 20,
+                                  rating: university.rating!.toDouble(),
+                                  itemCount: 5,
+                                  itemBuilder: (context, _) =>
+                                      Icon(Icons.star, color: Colors.yellow),
+                                ),
+                                Text(
+                                  "(${university.rating.toString()})",
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ]
                           ),
                         ],
                       ),

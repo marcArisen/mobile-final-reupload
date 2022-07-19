@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../model/university_model.dart';
+import 'package:project2_mobile_app/screen/university_page.dart';
+import '../UniversityRepo/UniversityDatabase.dart';
+import '../api/university_location_service.dart';
 
 class UniversityListPage extends StatefulWidget {
   const UniversityListPage({Key? key}) : super(key: key);
@@ -11,16 +13,17 @@ class UniversityListPage extends StatefulWidget {
 }
 
 class _UniversityListPageState extends State<UniversityListPage> {
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-                child: Row(
+    var universities = UniversityDatabase.universities;
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
@@ -31,33 +34,89 @@ class _UniversityListPageState extends State<UniversityListPage> {
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          Container(
-              height: 500,
+              ],
+            ),
+            Expanded(
               child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
                 itemCount: universities.length,
                 itemBuilder: (BuildContext context, int index) {
-                  University university = universities[index];
-                  return Card(
-                      margin: EdgeInsets.only(
-                          left: 15.0, right: 15.0, bottom: 5.0, top: 10.0),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                            backgroundImage: AssetImage(university.logo)),
-                        title: Text(
-                          university.name,
-                          style: GoogleFonts.lato(
-                            fontSize: 16.0,
+                  var university = universities[index];
+                  return GestureDetector(
+                    onTap: () async {
+                      String placeId =
+                      await LocationService().getPlaceId(university.thaiName!);
+                      Map<String, dynamic> m =
+                      await LocationService().getPlace(university.name!);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UniversityPage(
+                                location: m,
+                                university: university,
+                                placeId: placeId,
+                              )));
+                    },
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 10.0),
+                            child: Stack(
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: SizedBox(
+                                    height: 250,
+                                    width: 400,
+                                    child: Image(
+                                        fit: BoxFit.fill,
+                                        image: AssetImage(university.imageUrl.toString()),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 10.0,
+                                  bottom: 10.0,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        university.name.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          RatingBarIndicator(
+                                            rating: 5,
+                                            itemCount: 5,
+                                            itemBuilder: (context, _) =>
+                                                Icon(Icons.star, color: Colors.yellow),
+                                          ),
+                                          Text(
+                                            "5",
+                                            style: TextStyle(color: Colors.white),
+                                          )
+                                        ],
+                                      )
+
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ));
+                        );
+
                 },
-              ))
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
 }
