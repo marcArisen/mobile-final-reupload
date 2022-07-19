@@ -21,21 +21,20 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
 
   Future<List<University>> filterUniversities(String user) async {
     final list = await _firestore.collection(user).get();
-    var to_return = [];
+    var toReturn = [];
     for (var ele in list.docs) {
       int id = ele.get('id');
-      to_return.add(id);
+      toReturn.add(id);
     }
-    to_return = to_return.toSet().toList();
+    toReturn = toReturn.toSet().toList();
 
-    var fav_universities = [];
-    var uni_list = UniversityDatabase.universities;
-    for (var i = 0; i < to_return.length; i++){
-      fav_universities.add(uni_list[to_return[i] + 1 ]);
+    List<University> favUniversities = [];
+    List<University> uniList = UniversityDatabase.universities;
+    for (var i = 0; i < toReturn.length; i++){
+      favUniversities.add(uniList[toReturn[i] + 1 ]);
+      print(favUniversities[i]);
     }
-    var return_one = new List<University>.from(fav_universities);
-    print(return_one.runtimeType);
-    return return_one;
+    return favUniversities ;
   }
 
 
@@ -82,7 +81,9 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
               ),
             ],
           ),
-          futureRestaurantBuilder
+          Container(
+            height: 500.0,
+              child: futureRestaurantBuilder)
         ],
       ),
     );
@@ -95,6 +96,10 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
     return ListView.builder(
       itemCount: snapshot.data.length,
       itemBuilder: (BuildContext context, int index) {
+        return Card(
+          margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
+          child: ListTile(title: Text(favouriteUniveristy[index].name.toString(), style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
+        /*
         return GestureDetector(
             onTap: () async {
               String placeId =
@@ -141,7 +146,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      /*
+
                       Row(
                         children: [
                           RatingBarIndicator(
@@ -157,12 +162,14 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                         ],
                       )
 
-                       */
+
                     ],
                   ),
                 )
               ],
             ),
+
+         */
           ),
         );
       },
