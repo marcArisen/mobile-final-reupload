@@ -73,7 +73,12 @@ class NearbyLocationService {
      //print(response);
      var json = convert.jsonDecode(response.body);
      var results = json['result'] as Map<String, dynamic>;
-     print(results);
+     if(!results.containsKey("website")){
+       results["website"] = "N/A";
+     }if(!results.containsKey("formatted_phone_number")){
+       results["formatted_phone_number"] = "N/A";
+     }
+     print(results["website"]);
      return results;
    }
 
@@ -103,7 +108,7 @@ class NearbyLocationService {
      }
      /// Removing the landmark with null photo
      results.removeWhere((element) => toRemove.contains(element));
-     print(results);
+     //print(results);
      return results.map((e) => Landmark.fromJson(e)).toList();
 
    }

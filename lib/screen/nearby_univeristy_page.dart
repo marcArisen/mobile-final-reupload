@@ -98,13 +98,16 @@ class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          widget.landMark.name.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
+                        Container(
+                          width: 300.0,
+                          child: Text(
+                            widget.landMark.name.toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                            ),
                           ),
                         ),
                         Row(

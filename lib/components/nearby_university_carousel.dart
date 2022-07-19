@@ -115,13 +115,16 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            university.name!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 1.2,
+                          Container(
+                            width: 200.0,
+                            child: Text(
+                              university.name!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.2,
+                              ),
                             ),
                           ),
                           SizedBox(height: 5.0),
