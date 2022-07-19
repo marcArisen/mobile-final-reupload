@@ -101,14 +101,22 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                Row(
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "Foreign students enrolled in 2021",
-                                      style: GoogleFonts.lato(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w300),
+                                    Column(
+                                      children: [
+                                        Align(
+                                          child: Text(
+                                            "Foreign students enrolled in 2021",
+                                            style: GoogleFonts.lato(
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                        ),
+                                        SizedBox(height: 10.0),
+                                        Text(UniversityDatabase.databaseManager.convertToText(university.numbers.toString()))
+                                      ],
                                     ),
                                   ],
                                 ),

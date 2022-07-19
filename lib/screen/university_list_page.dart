@@ -102,7 +102,6 @@ class _UniversityListPageState extends State<UniversityListPage> {
                                           )
                                         ],
                                       )
-
                                     ],
                                   ),
                                 )
