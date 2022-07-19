@@ -36,7 +36,6 @@ class _UniversityPageState extends State<UniversityPage> {
   Future<bool> checkFav(String user, int id) async {
     var jsonString = UniversityDatabase.universities[2].numbers;
     final decodedMap = json.decode(jsonString!);
-    print(decodedMap);
     final list = await _firestore.collection(user).get();
     var to_return = [];
     for (var ele in list.docs) {
@@ -168,12 +167,6 @@ class _UniversityPageState extends State<UniversityPage> {
                             Navigator.pop(context),
                           }
                         ),
-                        // FavoriteButton(
-                        //   isFavorite: _isFavorite,
-                        //   valueChanged: (_isFavorite) {
-                        //     print('Is Favorite : $_isFavorite');
-                        //   },
-                        // ),
                         favoriteHeart,
                       ],
                     ),

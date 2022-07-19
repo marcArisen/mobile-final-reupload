@@ -33,7 +33,6 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
     List<University> uniList = UniversityDatabase.universities;
     for (var i = 0; i < toReturn.length; i++) {
       favUniversities.add(uniList[toReturn[i] - 1]);
-      print(favUniversities[i]);
     }
     return favUniversities;
   }

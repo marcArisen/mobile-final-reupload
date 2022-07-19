@@ -29,12 +29,8 @@ class NearbyLocationService {
     double lat = uniPlace['geometry']['location']['lat'];
     double lng = uniPlace['geometry']['location']['lng'];
 
-    //print(lat);
-    //print(lng);
-
     String url =
         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=$landmarkTpe&keyword=$landmarkTpe&key=$key';
-    //print(url);
     http.Response response = await http.get(Uri.parse(url));
     Map<String,dynamic> values = jsonDecode(response.body);
     List results = values['results'];
@@ -45,7 +41,6 @@ class NearbyLocationService {
       if(!result.containsKey("photos") || !(result["business_status"] == "OPERATIONAL") || !(result.containsKey("opening_hours"))){
         toRemove.add(result);
       }
-      //print(result);
     }
     /// Removing the landmark with null photo
     results.removeWhere((element) => toRemove.contains(element));
@@ -55,7 +50,6 @@ class NearbyLocationService {
 
   /// Get image for each landmarks
   Image getImage(String photoReference){
-    print(photoReference);
     String baseUrl = "https://maps.googleapis.com/maps/api/place/photo";
     String maxWidth = "400";
     String maxHeight = "200";
@@ -68,9 +62,7 @@ class NearbyLocationService {
    Future<Map<String, dynamic>> getInfo(String placeId) async {
      final String url =
          "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key";
-     print(url);
      var response = await http.get(Uri.parse(url));
-     //print(response);
      var json = convert.jsonDecode(response.body);
      var results = json['result'] as Map<String, dynamic>;
      if(!results.containsKey("website")){
@@ -78,7 +70,6 @@ class NearbyLocationService {
      }if(!results.containsKey("formatted_phone_number")){
        results["formatted_phone_number"] = "N/A";
      }
-     print(results["website"]);
      return results;
    }
 
@@ -107,11 +98,8 @@ class NearbyLocationService {
        var lat = position.latitude;
        var lng = position.longitude;
 
-       print(lat);
-       print(lng);
        String url =
            'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=university&keyword=university&key=$key';
-       //print(url);
        http.Response response = await http.get(Uri.parse(url));
        Map<String,dynamic> values = jsonDecode(response.body);
        List results = values['results'];
@@ -122,11 +110,9 @@ class NearbyLocationService {
          if(!result.containsKey("photos") || !(result["business_status"] == "OPERATIONAL") || !(result.containsKey("opening_hours"))){
            toRemove.add(result);
          }
-         //print(result);
        }
        /// Removing the landmark with null photo
        results.removeWhere((element) => toRemove.contains(element));
-       //print(results);
        return results.map((e) => Landmark.fromJson(e)).toList();
      }
 

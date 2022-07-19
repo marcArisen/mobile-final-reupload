@@ -127,8 +127,6 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            //print(values[index].rating);
-            //print(values[index].rating.runtimeType);
             Navigator.push(
                 context,
                 MaterialPageRoute(
