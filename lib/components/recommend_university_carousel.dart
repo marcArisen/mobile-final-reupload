@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project2_mobile_app/model/landmark_model.dart';
 
 // import 'package:project2_mobile_app/model/university_model.dart';
 import 'package:project2_mobile_app/screen/university_list_page.dart';
@@ -69,6 +70,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                       await LocationService().getPlaceId(university.thaiName!);
                   Map<String, dynamic> m =
                       await LocationService().getPlace(university.name!);
+                  double rating = await LocationService().getRating(university.thaiName!);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -76,6 +78,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                 location: m,
                                 university: university,
                                 placeId: placeId,
+                                rating: rating
                               )));
                 },
                 child: Container(
@@ -110,31 +113,6 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                   ],
                                 ),
                                 SizedBox(height: 5),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.center,
-                                //   children: university.country.map((rating) {
-                                //     return SizedBox(
-                                //       width: 30,
-                                //       child: Text(
-                                //         rating,
-                                //         style: GoogleFonts.lato(fontSize: 13.0),
-                                //       ),
-                                //     );
-                                //   }).toList(),
-                                // ),
-                                SizedBox(height: 5),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.center,
-                                //   children: university.flag.map((flag) {
-                                //     return SizedBox(
-                                //       width: 30,
-                                //       child: Text(
-                                //         flag,
-                                //         style: GoogleFonts.lato(fontSize: 13.0),
-                                //       ),
-                                //     );
-                                //   }).toList(),
-                                // ),
                               ],
                             ),
                           ],
@@ -169,25 +147,9 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                     color: Colors.white,
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.2,
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      FontAwesomeIcons.locationArrow,
-                                      size: 10.0,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 5.0),
-                                    Text(
-                                      "Salaya",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 10),
-                                    ),
-                                  ],
-                                ),
                               ],
                             ),
                           ),

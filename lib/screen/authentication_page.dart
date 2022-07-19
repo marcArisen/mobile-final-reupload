@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
-import 'authentication.dart';
+import '../provider/authentication.dart';
 import 'package:flutter/services.dart';
 
 import 'main_page.dart';

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/screen/university_page.dart';
@@ -74,10 +73,12 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                   .getPlaceId(favouriteUniversity[index].thaiName!);
               Map<String, dynamic> m = await LocationService()
                   .getPlace(favouriteUniversity[index].name!);
+              double rating = await LocationService().getRating(favouriteUniversity[index].thaiName!);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => UniversityPage(
+                            rating: rating,
                             location: m,
                             university: favouriteUniversity[index],
                             placeId: placeId,

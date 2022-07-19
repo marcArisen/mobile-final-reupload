@@ -18,11 +18,20 @@ class LocationService {
     final placeId = await getPlaceId(university);
     final String url =
         "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key";
-    //print(url);
+    print(url);
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
     var results = json['result'] as Map<String, dynamic>;
     //print(results);
     return results;
+  }
+
+  Future<double> getRating(String university) async{
+    final results = await getPlace(university);
+
+    if (!results.containsKey("rating")){
+      results["rating"] = 0.0;
+    }
+    return results["rating"];
   }
 }
