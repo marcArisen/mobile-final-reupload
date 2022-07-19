@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:favorite_button/favorite_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +22,32 @@ class UniversityPage extends StatefulWidget {
 }
 
 class _UniversityPageState extends State<UniversityPage> {
+  late final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late String loggedInUser = _auth.currentUser?.email ?? 'none';
+  var _isFavorite = false;
 
+  Future<List> getList(String user) async {
+    final list = await _firestore.collection(user).get();
+    var to_return = [];
+    for (var ele in list.docs) {
+      String id = ele.get('name');
+      to_return.add(id);
+    }
+    return to_return.toSet().toList();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // var x = getList(loggedInUser);
+    // super.initState();
+    //
+    // setState(() async {
+    //   print("============");
+    //   print(await x);
+    // });
+  }
   @override
   Widget build(BuildContext context) {
     var futureUniversityInfoBuilder = FutureBuilder(
@@ -75,11 +103,11 @@ class _UniversityPageState extends State<UniversityPage> {
                           iconSize: 30.0,
                           onPressed: () => Navigator.pop(context),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.favorite_border_outlined),
-                          iconSize: 30.0,
-                          color: Colors.white,
-                          onPressed: () => Navigator.pop(context),
+                        FavoriteButton(
+                          isFavorite: _isFavorite,
+                          valueChanged: (_isFavorite) {
+                            print('Is Favorite : $_isFavorite');
+                          },
                         ),
                       ],
                     ),
