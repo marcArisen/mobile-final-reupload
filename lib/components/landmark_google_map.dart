@@ -15,11 +15,18 @@ class LandmarkLocationMapState extends State<LandmarkLocationMap> {
 
   @override
   Widget build(BuildContext context) {
+    List<Marker> markers = <Marker>[];
+    markers.add(
+        Marker(
+            markerId: MarkerId("Hi"),
+            position: LatLng(widget.lat,widget.lng )
+        ));
     CameraPosition position = getCameraPosition(widget.lat,widget.lng);
     return SizedBox(
       height: 300,
       width: 300,
       child: GoogleMap(
+        markers: Set<Marker>.of(markers),
         mapType: MapType.normal,
         initialCameraPosition: position,
       )

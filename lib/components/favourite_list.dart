@@ -9,6 +9,7 @@ class FavouriteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Padding(
@@ -43,7 +44,7 @@ class FavouriteList extends StatelessWidget {
                 University university = universities[index];
                 return Card(
                   elevation: 0,
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, bottom: 5.0, top: 10.0),
                   child: ListTile(
                     leading: CircleAvatar(

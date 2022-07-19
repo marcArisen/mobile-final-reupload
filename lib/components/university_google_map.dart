@@ -14,11 +14,17 @@ class LocationMapState extends State<LocationMap> {
 
   @override
   Widget build(BuildContext context) {
+    List<Marker> markers = <Marker>[];
+    markers.add(
+        Marker(markerId: MarkerId("Hi"),
+            position: LatLng(widget.place['geometry']['location']['lat'],widget.place['geometry']['location']['lng']) ));
+
     CameraPosition position = getCameraPosition(widget.place);
     return Container(
       height: 300,
       width: 300,
       child: GoogleMap(
+        markers: Set<Marker>.of(markers),
         mapType: MapType.normal,
         initialCameraPosition: position,
       ),
