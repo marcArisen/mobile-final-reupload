@@ -72,43 +72,44 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
           width: double.infinity,
           height: double.infinity,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              /*
-              DropdownButton(
-                  value: selectedUniversity,
-                  items: universityList.map((map) {
-                    return DropdownMenuItem(value: map, child: Text(map!));
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedUniversity = value.toString();
-                    });
-                  }),
-
-               */
-              DropdownSearch(
-                mode: Mode.DIALOG,
-                showSearchBox: true,
-                //showSelectedItem: true,
-                items: universityList,
-                onChanged: (value){
-                  setState((){
-                    selectedUniversity = value.toString();
-                  });
-                },
-                selectedItem: selectedUniversity,
-                dropdownSearchDecoration: (
-                 InputDecoration(border: InputBorder.none)
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Discover", style: TextStyle(fontWeight: FontWeight.bold),),
+                  SizedBox(width: 20.0),
+                  Container(
+                    height: 50.0,
+                    width: 300.0,
+                    child: DropdownSearch(
+                      mode: Mode.DIALOG,
+                      showSearchBox: true,
+                      showSelectedItem: true,
+                      items: ["Mahidol University", "Chulalongkorn University"],
+                      onChanged: (value){
+                        setState((){
+                          selectedUniversity = value.toString();
+                        });
+                      },
+                      selectedItem: selectedUniversity,
+                      dropdownSearchDecoration: (
+                          InputDecoration(border: InputBorder.none)
+                      ),
+                    ),
+                  ),
+                ],
               ),
+
               TabBar(
                 controller: _tabController,
-                tabs: [Tab(text: "Restaurant"), Tab(text: "Accommodation")],
+                tabs: [
+                  Tab(text: "Restaurant", icon: Icon(Icons.restaurant)),
+                  Tab(text: "Accommodation", icon: Icon(Icons.home),)
+                ],
               ),
               SizedBox(
                 width: double.maxFinite,
-                height: MediaQuery.of(context).size.height * 0.735,
+                height: MediaQuery.of(context).size.height * 0.73,
                 child: TabBarView(
                   controller: _tabController,
                   children: [
@@ -132,8 +133,8 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            print(values[index].rating);
-            print(values[index].rating.runtimeType);
+            //print(values[index].rating);
+            //print(values[index].rating.runtimeType);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -162,12 +163,15 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        values[index].name.toString(),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
+                      Container(
+                        width: 300.0,
+                        child: Text(
+                          values[index].name.toString(),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
                       Row(
                         children: [

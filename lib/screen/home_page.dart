@@ -38,12 +38,21 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.only(left: 20.0, right: 10),
                     child: Image.asset('assets/icons/profile.png'),
                   ),
-                  Container(
-                    width: 200,
-                    child: Text("Welcome, ${loggedInUser} !",
-                        style: GoogleFonts.lato(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: Text("Welcome,",
+                            style: GoogleFonts.lato(
+                                fontSize: 24, fontWeight: FontWeight.bold))),
+                      SizedBox(
+                          width: 200,
+                          child: Text("${loggedInUser} !",
+                              style: GoogleFonts.lato(
+                                  fontSize: 18, fontWeight: FontWeight.w300)))
+                    ],
                   )
+
                 ],
               ),
               SizedBox(height: 14.0),
