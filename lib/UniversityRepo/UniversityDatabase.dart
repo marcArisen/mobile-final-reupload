@@ -118,8 +118,8 @@ class UniversityDatabase {
     universities = await UniversityDatabase.databaseManager.getUniversityList();
   }
 
-  List<String?> getAllNameUniversities() {
-    return universities.map((e) => e.name).toList();
+  List<String> getAllNameUniversities() {
+    return universities.map((e) => e.name!).toList();
   }
 
   /// This one is for testing purposes

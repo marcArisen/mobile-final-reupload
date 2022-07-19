@@ -91,7 +91,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                 mode: Mode.DIALOG,
                 showSearchBox: true,
                 //showSelectedItem: true,
-                items: ["Mahidol University", "Chulalongkorn University"],
+                items: universityList,
                 onChanged: (value){
                   setState((){
                     selectedUniversity = value.toString();

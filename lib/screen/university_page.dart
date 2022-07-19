@@ -45,7 +45,7 @@ class _UniversityPageState extends State<UniversityPage> {
 
   /// determine if it needs to be added to firebase
   void endFirebaseProcess(String user, University university, bool isFav) {
-    print("Status now is: " + isFav.toString());
+    // print("Status now is: " + isFav.toString());
     if (isFav == false){
       addUniversityToFirebase(user, university);
     } else{
