@@ -13,18 +13,16 @@ class NearbyUniversityCarousel extends StatefulWidget {
   const NearbyUniversityCarousel({Key? key}) : super(key: key);
 
   @override
-  State<NearbyUniversityCarousel> createState() => _NearbyUniversityCarouselState();
+  State<NearbyUniversityCarousel> createState() =>
+      _NearbyUniversityCarouselState();
 }
 
 class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
-
-
   @override
   Widget build(BuildContext context) {
     /// Building nearby university carousel
     var futureNearbyUniBuilder = FutureBuilder(
-      future: NearbyLocationService.instance
-          ?.getNearbyUni(),
+      future: NearbyLocationService.instance?.getNearbyUni(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -51,21 +49,19 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                       fontSize: 20.0, fontWeight: FontWeight.bold)),
               SizedBox(width: 5.0),
               Icon(Icons.location_on)
-
             ],
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(left: 10.0),
-          height: 220.0,
-          //color: Colors.blue,
-          child: futureNearbyUniBuilder
-        )
+            padding: const EdgeInsets.only(left: 10.0),
+            height: 220.0,
+            //color: Colors.blue,
+            child: futureNearbyUniBuilder)
       ],
     );
   }
 
-  Widget createNearbyCarousel(BuildContext context, AsyncSnapshot snapshot){
+  Widget createNearbyCarousel(BuildContext context, AsyncSnapshot snapshot) {
     List<Landmark> nearbyUni = snapshot.data;
 
     return ListView.builder(
@@ -74,23 +70,20 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
       itemBuilder: (BuildContext context, int index) {
         Landmark university = nearbyUni[index];
         return GestureDetector(
-          onTap: ()
-          async {
+          onTap: () async {
             Map<String, dynamic> m =
-            await LocationService().getPlace(university.name!);
+                await LocationService().getPlace(university.name!);
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => NearbyUniversityPage(
-                      landMark: university,)));
-        }
-          ,
+                          landMark: university,
+                        )));
+          },
           child: Container(
             margin: EdgeInsets.all(10.0),
             //color: Colors.red,
-            child:
-            Stack(alignment: Alignment.topCenter, children: <Widget>[
-
+            child: Stack(alignment: Alignment.topCenter, children: <Widget>[
               Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).canvasColor,
@@ -105,10 +98,10 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                         width: 250.0,
                         child: FittedBox(
                             fit: BoxFit.fill,
-                            child: NearbyLocationService.instance?.getImage(university.photos![0].photoReference.toString())),
-
+                            child: NearbyLocationService.instance?.getImage(
+                                university.photos![0].photoReference
+                                    .toString())),
                       ),
-
                     ),
                     Positioned(
                       left: 10.0,
@@ -128,21 +121,19 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                             ),
                           ),
                           SizedBox(height: 5.0),
-                          Row(
-                              children: [
-                                RatingBarIndicator(
-                                  itemSize: 20,
-                                  rating: university.rating!.toDouble(),
-                                  itemCount: 5,
-                                  itemBuilder: (context, _) =>
-                                      Icon(Icons.star, color: Colors.yellow),
-                                ),
-                                Text(
-                                  "(${university.rating.toString()})",
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ]
-                          ),
+                          Row(children: [
+                            RatingBarIndicator(
+                              itemSize: 20,
+                              rating: university.rating!.toDouble(),
+                              itemCount: 5,
+                              itemBuilder: (context, _) =>
+                                  Icon(Icons.star, color: Colors.yellow),
+                            ),
+                            Text(
+                              "(${university.rating.toString()})",
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ]),
                         ],
                       ),
                     ),

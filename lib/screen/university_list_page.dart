@@ -80,28 +80,22 @@ class _UniversityListPageState extends State<UniversityListPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text(
-                                        university.name.toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600),
+                                      Container(
+                                        width: 350.0,
+                                        child: Text(
+                                          university.name.toString(),
+                                          style: GoogleFonts.lato(
+                                              color: Colors.white,
+                                              fontSize: 22.0,
+                                              fontWeight: FontWeight.w600),
+                                        ),
                                       ),
-
-                                      Row(
-                                        children: [
-                                          RatingBarIndicator(
-                                            rating: 5,
-                                            itemCount: 5,
-                                            itemBuilder: (context, _) =>
-                                                Icon(Icons.star, color: Colors.yellow),
-                                          ),
-                                          Text(
-                                            "5",
-                                            style: TextStyle(color: Colors.white),
-                                          )
-                                        ],
-                                      )
+                                      SizedBox(height: 10.0),
+                                      Text(
+                                          UniversityDatabase.databaseManager.convertToText(university.numbers.toString()),
+                                          style: GoogleFonts.lato(
+                                              color: Colors.white,
+                                              fontSize: 16.0),)
                                     ],
                                   ),
                                 )

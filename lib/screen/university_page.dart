@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/api/university_location_service.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
@@ -161,7 +162,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.arrow_back, ),
+                          icon: Icon(Icons.arrow_back),
                           iconSize: 30.0,
                           onPressed: () => {
                             Navigator.pop(context),
@@ -220,9 +221,17 @@ class _UniversityPageState extends State<UniversityPage> {
                     SizedBox(height: 10.0),
                     futureUniversityInfoBuilder,
                     SizedBox(height: 10.0),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("Number of foreigners enroll in 2021",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 16.0)),
+                    ),
+                    SizedBox(height: 10.0),
                     Container(
                         height: 60.0,
                         width: 370.0,
+                        child: Align(child: Text(UniversityDatabase.databaseManager.convertToText(widget.university.numbers.toString()),style: GoogleFonts.lato(fontSize: 16.0),)),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             color: Theme.of(context).canvasColor)
