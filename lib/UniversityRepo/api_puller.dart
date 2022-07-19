@@ -14,39 +14,53 @@ class ApiPuller {
     var to_add = mockDatabase();
     var names = listAllUniversities(lst);
 
-    var map = HashMap();
+    var map = {};
     for (int a = 0; a < lst!.length; a++) {
       map[lst[a].univMasterName!] = {...nationalities};
     }
 
     /// update number of foreigners in a map
     for (int i = 0; i < lst.length; i++) {
-      map[lst[i].univMasterName!][lst[i].nationalityNameEng] += 1;
+      map[lst[i].univMasterName!][lst[i].nationalityNameEng] += lst[i].amount;
     }
 
+    var highest = 0;
+    var tempname = "";
 
-    for (int a = 0; a < map.length; a++) {
+    var new_map = {};
+    var temp_map = {};
 
-
-      print("===================");
-      print(map.length);
-      print(names.length);
-      print("===================");
+    for (int i = 0; i < map.length; i++) {
+      for (int j = 0; j < 3; j++){
+        var temp = map[names[i]]; // map for each uni
+        temp.forEach((key, value) {
+          if (value >= highest){
+            highest = value;
+            tempname = key;
+          }
+        });
+        temp_map[tempname] = highest;
+        map[names[i]][tempname] = 0;
+        highest = 0;
+        tempname = "";
+      }
+      map[names[i]] = temp_map;
+      temp_map = {};
     }
 
-    /// add to database
-    // for (int j = 0; j < to_add.length; j++) {
-    //   to_add[j].numbers = json.encode(map[names[j]]);
-    //   UniversityDatabase.databaseManager.addUniversity(to_add[j]);
-    // }
+    //add to database
+    for (int j = 0; j < to_add.length; j++) {
+      to_add[j].numbers = json.encode(map[names[j]]);
+      UniversityDatabase.databaseManager.addUniversity(to_add[j]);
+    }
 
     return null;
   }
 
 
   /// return list of nationalities
-  HashMap listAllNationalityNameEng(List<Record>? lst){
-    var map = HashMap();
+  Map listAllNationalityNameEng(List<Record>? lst){
+    var map = {};
     for (int i = 0; i < lst!.length; i++) {
       map[lst[i].nationalityNameEng] = 0;
     }
