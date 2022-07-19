@@ -23,7 +23,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
 
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 2, vsync: this);
+    TabController _tabController = TabController(length: 3, vsync: this);
 
     ///Restaurant ListView
     var futureRestaurantBuilder = FutureBuilder(
@@ -62,6 +62,26 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
         }
       },
     );
+
+    ///Activity ListView
+    var futureActivityBuilder = FutureBuilder(
+      future: NearbyLocationService.instance
+          ?.getNearby(selectedUniversity, "activity"),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Text('Loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createListView(context, snapshot);
+            }
+        }
+      },
+    );
+
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -97,11 +117,17 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
               ),
               TabBar(
                 controller: _tabController,
+                labelStyle: GoogleFonts.lato(fontSize: 12.0),
                 tabs: [
-                  Tab(text: "Restaurant", icon: Icon(Icons.restaurant)),
+                  Tab(text: "Restaurant",
+                      icon: Icon(Icons.restaurant)),
                   Tab(
                     text: "Accommodation",
                     icon: Icon(Icons.home),
+                  ),
+                  Tab(
+                    text: "Activity",
+                    icon: Icon(Icons.directions_bike),
                   )
                 ],
               ),
@@ -112,7 +138,8 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                   controller: _tabController,
                   children: [
                     futureRestaurantBuilder,
-                    futureAccommodationBuilder
+                    futureAccommodationBuilder,
+                    futureActivityBuilder
                   ],
                 ),
               )
