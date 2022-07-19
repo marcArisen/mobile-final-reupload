@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/screen/university_page.dart';
@@ -11,7 +12,8 @@ class FavouriteUniversityPage extends StatefulWidget {
   const FavouriteUniversityPage({Key? key}) : super(key: key);
 
   @override
-  State<FavouriteUniversityPage> createState() => _FavouriteUniversityPageState();
+  State<FavouriteUniversityPage> createState() =>
+      _FavouriteUniversityPageState();
 }
 
 class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
@@ -30,18 +32,15 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
 
     List<University> favUniversities = [];
     List<University> uniList = UniversityDatabase.universities;
-    for (var i = 0; i < toReturn.length; i++){
-      favUniversities.add(uniList[toReturn[i] - 1 ]);
+    for (var i = 0; i < toReturn.length; i++) {
+      favUniversities.add(uniList[toReturn[i] - 1]);
       print(favUniversities[i]);
     }
-    return favUniversities ;
+    return favUniversities;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
-
     ///Restaurant ListView
     var futureRestaurantBuilder = FutureBuilder(
       future: filterUniversities(loggedInUser),
@@ -60,35 +59,8 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
       },
     );
 
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      iconSize: 30.0,
-                      color: Theme.of(context).canvasColor,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Container(
-            height: 500.0,
-              child: futureRestaurantBuilder)
-        ],
-      ),
-    );
+    return futureRestaurantBuilder;
   }
-
 
   /// Create FavouriteListView for displaying Favourite University
   Widget createFavouriteListView(BuildContext context, AsyncSnapshot snapshot) {
@@ -96,26 +68,39 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
     return ListView.builder(
       itemCount: snapshot.data.length,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
-          child: ListTile(title: Text(favouriteUniversity[index].name.toString(), style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
-        /*
         return GestureDetector(
             onTap: () async {
-              String placeId =
-              await LocationService().getPlaceId(snapshot.data[index].thaiName!);
-              Map<String, dynamic> m =
-              await LocationService().getPlace(snapshot.data[index].name!);
+              String placeId = await LocationService()
+                  .getPlaceId(favouriteUniversity[index].thaiName!);
+              Map<String, dynamic> m = await LocationService()
+                  .getPlace(favouriteUniversity[index].name!);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => UniversityPage(
-                        location: m,
-                        university: snapshot.data[index],
-                        placeId: placeId,
-                      )));
+                            location: m,
+                            university: favouriteUniversity[index],
+                            placeId: placeId,
+                          )));
             },
-          child: Container(
+            child: Card(
+              margin: EdgeInsets.only(
+                  left: 15.0, right: 15.0, bottom: 5.0, top: 10.0),
+              child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        AssetImage(favouriteUniversity[index].logo.toString()),
+                  ),
+                  title: Text(
+                    favouriteUniversity[index].name.toString(),
+                    style: GoogleFonts.lato(
+                      fontSize: 16.0,
+                    ),
+                    textAlign: TextAlign.center,
+                  )),
+
+              /*
+          Container(
             padding: EdgeInsets.only(bottom: 10.0),
             child: Stack(
               children: <Widget>[
@@ -126,7 +111,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                     width: 400,
                     child: Image(
                       fit: BoxFit.fill,
-                      image: AssetImage(snapshot.data[index].imageUrl.toString()),
+                      image: AssetImage(favouriteUniversity[index].imageUrl.toString()),
                     ),
                   ),
                 ),
@@ -139,16 +124,17 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                       Container(
                         width: 300.0,
                         child: Text(
-                          snapshot.data[index].name.toString(),
+                          favouriteUniversity[index].name.toString(),
                           style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-
+                      /*
                       Row(
                         children: [
+
                           RatingBarIndicator(
                             rating: favouriteUniveristy[index].rating!.toDouble(),
                             itemCount: 5,
@@ -161,6 +147,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                           )
                         ],
                       )
+                       */
 
 
                     ],
@@ -169,12 +156,18 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
               ],
             ),
 
-         */
+
           ),
-        );
+          */
+            ));
       },
     );
   }
-
-
 }
+
+/*
+     return Card(
+         margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
+         child: ListTile(title: Text(favouriteUniversity[index].name.toString(), style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
+
+  */

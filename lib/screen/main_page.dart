@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project2_mobile_app/components/favourite_list.dart';
 import 'package:project2_mobile_app/components/recommend_university_carousel.dart';
-import 'package:project2_mobile_app/screen/favourite_university_page.dart';
+import 'package:project2_mobile_app/components/favourite_university_list.dart';
 import 'package:project2_mobile_app/screen/home_page.dart';
 import 'package:project2_mobile_app/screen/landmark_discover_page.dart';
 import 'package:project2_mobile_app/screen/profile_page.dart';
+
+import '../components/favourite_university_list.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
           children: const [
             HomePage(),
             LandMarkDiscoverPage(),
-            FavouriteUniversityPage()
+            ProfilePage()
           ],
         ),
         bottomNavigationBar: ClipRRect(
