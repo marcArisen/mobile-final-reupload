@@ -84,32 +84,51 @@ class NearbyLocationService {
 
    /// get nearby university from current location
    Future<List<Landmark>> getNearbyUni() async {
-     var position = await Geolocator.getCurrentPosition(
-         desiredAccuracy: LocationAccuracy.high);
-     var lat = position.latitude;
-     var lng = position.longitude;
+     bool serviceEnabled;
+     LocationPermission permission;
 
-     print(lat);
-     print(lng);
-     String url =
-         'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=university&keyword=university&key=$key';
-     //print(url);
-     http.Response response = await http.get(Uri.parse(url));
-     Map<String,dynamic> values = jsonDecode(response.body);
-     List results = values['results'];
-
-     /// A ist for marking landmark with null photo and one that permanently closed
-     var toRemove = [];
-     for (Map<String,dynamic> result in results){
-       if(!result.containsKey("photos") || !(result["business_status"] == "OPERATIONAL") || !(result.containsKey("opening_hours"))){
-         toRemove.add(result);
-       }
-       //print(result);
+     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+     if (!serviceEnabled) {
+       return Future.error('Location services are disabled.');
      }
-     /// Removing the landmark with null photo
-     results.removeWhere((element) => toRemove.contains(element));
-     //print(results);
-     return results.map((e) => Landmark.fromJson(e)).toList();
+     permission = await Geolocator.checkPermission();
+     if (permission == LocationPermission.denied) {
+       permission = await Geolocator.requestPermission();
+       if (permission == LocationPermission.denied) {
+         return Future.error('Location permissions are denied');
+       }
+     }
+     if (permission == LocationPermission.deniedForever) {
+       return Future.error(
+           'Location permissions are permanently denied, we cannot request permissions.');
+     }else{
+       var position = await Geolocator.getCurrentPosition(
+           desiredAccuracy: LocationAccuracy.high);
+       var lat = position.latitude;
+       var lng = position.longitude;
+
+       print(lat);
+       print(lng);
+       String url =
+           'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&radius=10000&type=university&keyword=university&key=$key';
+       //print(url);
+       http.Response response = await http.get(Uri.parse(url));
+       Map<String,dynamic> values = jsonDecode(response.body);
+       List results = values['results'];
+
+       /// A ist for marking landmark with null photo and one that permanently closed
+       var toRemove = [];
+       for (Map<String,dynamic> result in results){
+         if(!result.containsKey("photos") || !(result["business_status"] == "OPERATIONAL") || !(result.containsKey("opening_hours"))){
+           toRemove.add(result);
+         }
+         //print(result);
+       }
+       /// Removing the landmark with null photo
+       results.removeWhere((element) => toRemove.contains(element));
+       //print(results);
+       return results.map((e) => Landmark.fromJson(e)).toList();
+     }
 
    }
 
