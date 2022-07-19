@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/components/favourite_university_list.dart';
 
+import 'authentication_page.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -47,8 +49,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               TextButton(
-                  onPressed: () {
-                    print("hi");
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                          (Route<dynamic> route) => false,
+                    );
                   },
                   child: Text("Logout"))
             ],
