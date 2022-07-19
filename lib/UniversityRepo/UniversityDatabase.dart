@@ -31,7 +31,6 @@ class UniversityDatabase {
   _initiateDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, _dbName);
-    // getAllUniversities();
     return await openDatabase(path, version: _dbVersion, onCreate: _onCreate);
   }
 
