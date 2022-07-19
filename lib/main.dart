@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
@@ -10,11 +12,9 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var test = await ApiService().getStudents();
+  var initial = await ApiService().getStudents();
+  // await ApiPuller().updateNumberToDatabase(initial?.result?.records);
   UniversityDatabase.databaseManager.getAllUniversities();
-  // print(test?.result?.records.runtimeType);
-  // print(await ApiPuller().updateNumberToDatabase(test?.result?.records));
-  // var temp = await UniversityDatabase.databaseManager.getUniversityList();
   runApp(const MyApp());
 }
 

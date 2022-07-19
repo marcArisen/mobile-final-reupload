@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import '../model/university_model.dart';
 
 class FavouriteUniversityPage extends StatefulWidget {
@@ -10,6 +13,29 @@ class FavouriteUniversityPage extends StatefulWidget {
 }
 
 class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
+  // late final FirebaseAuth _auth = FirebaseAuth.instance;
+  // late final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  // late String loggedInUser = _auth.currentUser?.email ?? 'none';
+  //
+  // Future<List> filterUniversities(String user) async {
+  //   final list = await _firestore.collection(user).get();
+  //   var to_return = [];
+  //   for (var ele in list.docs) {
+  //     int id = ele.get('id');
+  //     to_return.add(id);
+  //   }
+  //   to_return = to_return.toSet().toList();
+  //
+  //   var fav_universities = [];
+  //   var uni_list = UniversityDatabase.universities;
+  //   for (var i = 0; i < to_return.length; i++){
+  //     fav_universities.add(uni_list[to_return[i] + 1 ]);
+  //   }
+  //   return fav_universities;
+  // }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
