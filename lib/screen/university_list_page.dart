@@ -49,6 +49,7 @@ class _UniversityListPageState extends State<UniversityListPage> {
                       await LocationService().getPlaceId(university.thaiName!);
                       Map<String, dynamic> m =
                       await LocationService().getPlace(university.name!);
+                      double rating = await LocationService().getRating(university.thaiName!);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -56,6 +57,7 @@ class _UniversityListPageState extends State<UniversityListPage> {
                                 location: m,
                                 university: university,
                                 placeId: placeId,
+                                rating: rating,
                               )));
                     },
                           child: Container(

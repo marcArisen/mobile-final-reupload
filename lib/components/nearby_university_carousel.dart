@@ -123,7 +123,6 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                                 color: Colors.white,
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600,
-                                letterSpacing: 1.2,
                               ),
                             ),
                           ),

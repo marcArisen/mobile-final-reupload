@@ -5,8 +5,10 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
+import 'package:project2_mobile_app/api/university_location_service.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
 
 import '../UniversityRepo/university.dart';
@@ -16,8 +18,9 @@ class UniversityPage extends StatefulWidget {
   final University university;
   final Map<String, dynamic> location;
   final String placeId;
+  final double rating;
 
-  UniversityPage({required this.university, required this.location,required this.placeId});
+  UniversityPage({required this.university, required this.location,required this.placeId, required this.rating});
 
   @override
   State<UniversityPage> createState() => _UniversityPageState();
@@ -76,6 +79,22 @@ class _UniversityPageState extends State<UniversityPage> {
               return Text('Error: ${snapshot.error}');
             } else {
               return createInformationWidget(context, snapshot);
+            }
+        }
+      },
+    );
+    var universityReview = FutureBuilder(
+      future: NearbyLocationService.instance?.getInfo(widget.placeId),//NearbyLocationService.instance
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Text('Loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return createReviewListView(context, snapshot);
             }
         }
       },
@@ -174,19 +193,19 @@ class _UniversityPageState extends State<UniversityPage> {
                           ),
                         ),
                         Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.locationArrow,
-                              size: 20.0,
-                              color: Colors.white,
+                          children: [
+                            RatingBarIndicator(
+                              rating: widget.rating!.toDouble(),
+                              itemCount: 5,
+                              itemBuilder: (context, _) =>
+                                  Icon(Icons.star, color: Colors.yellow),
                             ),
-                            SizedBox(width: 5.0),
                             Text(
-                              "Salaya",
-                              style: TextStyle(color: Colors.white, fontSize: 18.0),
-                            ),
+                              "(${widget.rating.toString()})",
+                              style: TextStyle(color: Colors.white),
+                            )
                           ],
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -199,8 +218,8 @@ class _UniversityPageState extends State<UniversityPage> {
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(" Info",
+                      alignment: Alignment.center,
+                      child: Text("Info",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18.0)),
                     ),
@@ -216,22 +235,53 @@ class _UniversityPageState extends State<UniversityPage> {
                     ),
                     SizedBox(height: 10.0),
                     Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(" Location",
+                      alignment: Alignment.center,
+                      child: Text("Location",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     LocationMap(place: widget.location),
+                    SizedBox(height: 10.0),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("Reviews",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                    ),
+                    SizedBox(height: 10.0),
+                    universityReview
                   ],
                 ),
               )
-
-
             ],
           ),
         ),
       ),
+    );
+  }
+  /// Create a review list for each landmarks
+  Widget createReviewListView(BuildContext context, AsyncSnapshot snapshot) {
+    Map<String, dynamic> info = snapshot.data;
+    List<dynamic> reviews = [];
+    if (info.containsKey("reviews")) {
+      reviews = info["reviews"];
+    } else {
+      reviews.add({"author_name": "", "text": "No Comments"});
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.only(left: 5.0, right: 5.0),
+      itemCount: reviews.length,
+      itemBuilder: (BuildContext, int index) {
+        return Card(
+            elevation: 0,
+            child: ListTile(
+              title: Text(reviews[index]["author_name"]),
+              subtitle: Text(reviews[index]["text"]),
+            ));
+      },
     );
   }
 
@@ -265,4 +315,5 @@ class _UniversityPageState extends State<UniversityPage> {
           ],
         ));
   }
+
 }
