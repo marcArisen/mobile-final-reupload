@@ -44,61 +44,6 @@ class _UniversityPageState extends State<UniversityPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-<<<<<<< HEAD
-              Container(
-                height: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(0.0, 2.0),
-                        blurRadius: 6.0,
-                      )
-                    ]),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Image(
-                    image: AssetImage(widget.university.imageUrl!),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      iconSize: 30.0,
-                      color: Colors.white,
-                      onPressed: () =>
-                          Navigator.pop(context),
-                    ),
-                    FavoriteButton(
-                      isFavorite: _isFavorite,
-                      valueChanged: (_isFavorite) {
-                        print('Is Favorite : $_isFavorite');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 20.0,
-                bottom: 20.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget.university.name!,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-=======
               Stack(
                 children: <Widget>[
                   Container(
@@ -117,7 +62,6 @@ class _UniversityPageState extends State<UniversityPage> {
                       child: Image(
                         image: AssetImage(widget.university.imageUrl!),
                         fit: BoxFit.cover,
->>>>>>> 6ce9a297c08101bbd96e9b49b6850fd3bad84dff
                       ),
                     ),
                   ),
