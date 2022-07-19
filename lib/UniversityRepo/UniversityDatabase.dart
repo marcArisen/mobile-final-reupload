@@ -146,9 +146,9 @@ class UniversityDatabase {
     var buffer = new StringBuffer();
     valueMap.forEach((key, value) {
       buffer.write(changeToEmoji(key));
-      buffer.write(" ");
+      buffer.write("  ");
       buffer.write(value);
-      buffer.write(" ");
+      buffer.write("  ");
     });
     return buffer.toString();
   }

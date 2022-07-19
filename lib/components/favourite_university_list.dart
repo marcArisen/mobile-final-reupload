@@ -98,76 +98,8 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                     ),
                     textAlign: TextAlign.center,
                   )),
-
-              /*
-          Container(
-            padding: EdgeInsets.only(bottom: 10.0),
-            child: Stack(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: SizedBox(
-                    height: 250,
-                    width: 400,
-                    child: Image(
-                      fit: BoxFit.fill,
-                      image: AssetImage(favouriteUniversity[index].imageUrl.toString()),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 10.0,
-                  bottom: 10.0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: 300.0,
-                        child: Text(
-                          favouriteUniversity[index].name.toString(),
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      /*
-                      Row(
-                        children: [
-
-                          RatingBarIndicator(
-                            rating: favouriteUniveristy[index].rating!.toDouble(),
-                            itemCount: 5,
-                            itemBuilder: (context, _) =>
-                                Icon(Icons.star, color: Colors.yellow),
-                          ),
-                          Text(
-                            "(${favouriteUniveristy[index].rating.toString()})",
-                            style: TextStyle(color: Colors.white),
-                          )
-                        ],
-                      )
-                       */
-
-
-                    ],
-                  ),
-                )
-              ],
-            ),
-
-
-          ),
-          */
             ));
       },
     );
   }
 }
-
-/*
-     return Card(
-         margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
-         child: ListTile(title: Text(favouriteUniversity[index].name.toString(), style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
-
-  */

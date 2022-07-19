@@ -113,7 +113,7 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                             width: 200.0,
                             child: Text(
                               university.name!,
-                              style: TextStyle(
+                              style: GoogleFonts.lato(
                                 color: Colors.white,
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w600,
@@ -131,7 +131,7 @@ class _NearbyUniversityCarouselState extends State<NearbyUniversityCarousel> {
                             ),
                             Text(
                               "(${university.rating.toString()})",
-                              style: TextStyle(color: Colors.white),
+                              style: GoogleFonts.lato(color: Colors.white),
                             )
                           ]),
                         ],

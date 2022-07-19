@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final FirebaseAuth _auth = FirebaseAuth.instance;
   late String loggedInUser = _auth.currentUser?.email ?? 'none';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +43,10 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     children: [
                       SizedBox(
-                        width: 200,
-                        child: Text("Welcome,",
-                            style: GoogleFonts.lato(
-                                fontSize: 24, fontWeight: FontWeight.bold))),
+                          width: 200,
+                          child: Text("Welcome,",
+                              style: GoogleFonts.lato(
+                                  fontSize: 24, fontWeight: FontWeight.bold))),
                       SizedBox(
                           width: 200,
                           child: Text("${loggedInUser} !",
@@ -53,7 +54,6 @@ class _HomePageState extends State<HomePage> {
                                   fontSize: 18, fontWeight: FontWeight.w300)))
                     ],
                   )
-
                 ],
               ),
               SizedBox(height: 14.0),

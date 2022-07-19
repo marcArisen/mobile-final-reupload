@@ -24,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           SizedBox(height: 20.0),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: <Widget>[
@@ -48,16 +47,29 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-              TextButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                          (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: Text("Logout"))
+              SizedBox(width: 15.0),
+              Container(
+                height: 40.0,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
+                child: TextButton(
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                      child: Text("Logout",
+                          style: GoogleFonts.lato(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+              )
             ],
           ),
           SizedBox(height: 20.0),
@@ -73,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
               )),
           SizedBox(height: 10.0),
           Container(
-            height: 500.0,
+            height: 557.0,
             child: FavouriteUniversityPage(),
           )
         ],

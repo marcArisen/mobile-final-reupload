@@ -20,9 +20,8 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   PageController pageController = PageController();
 
-
-  void onTapped(int index){
-    setState((){
+  void onTapped(int index) {
+    setState(() {
       _selectedIndex = index;
     });
     pageController.jumpToPage(index);
@@ -33,11 +32,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
         body: PageView(
           controller: pageController,
-          children: const [
-            HomePage(),
-            LandMarkDiscoverPage(),
-            ProfilePage()
-          ],
+          children: const [HomePage(), LandMarkDiscoverPage(), ProfilePage()],
         ),
         bottomNavigationBar: ClipRRect(
           borderRadius: const BorderRadius.only(
@@ -48,11 +43,10 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Theme.of(context).primaryColor,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined ), label: ""),
+                  icon: Icon(Icons.home_outlined), label: ""),
               BottomNavigationBarItem(
                   icon: Icon(Icons.apartment_outlined), label: ""),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: "")
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "")
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.yellow,

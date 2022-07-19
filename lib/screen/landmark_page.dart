@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/components/landmark_google_map.dart';
 import 'package:project2_mobile_app/model/landmark_model.dart';
 import '../api/nearby_landmarks_service.dart';
@@ -102,7 +103,7 @@ class _LandmarkPageState extends State<LandmarkPage> {
                           width: 300.0,
                           child: Text(
                             widget.landMark.name.toString(),
-                            style: TextStyle(
+                            style: GoogleFonts.lato(
                               color: Colors.white,
                               fontSize: 30.0,
                               fontWeight: FontWeight.w600,
@@ -120,7 +121,8 @@ class _LandmarkPageState extends State<LandmarkPage> {
                                   Icon(Icons.star, color: Colors.yellow),
                             ),
                             Text(
-                                "(${widget.landMark.rating!.toDouble().toString()})")
+                              "(${widget.landMark.rating!.toDouble().toString()})",
+                            )
                           ],
                         ),
                       ],
@@ -136,25 +138,27 @@ class _LandmarkPageState extends State<LandmarkPage> {
                   Align(
                     alignment: Alignment.center,
                     child: Text("Info",
-                        style: TextStyle(
+                        style: GoogleFonts.lato(
                             fontWeight: FontWeight.w500, fontSize: 18.0)),
                   ),
                   SizedBox(height: 10.0),
                   futureLandMarkInfoBuilder,
                   SizedBox(height: 10.0),
+
                   /// Google section
                   Text(" Location",
-                      style:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.w500, fontSize: 18.0)),
                   SizedBox(height: 10.0),
                   LandmarkLocationMap(
                       lat: widget.landMark.geometry?.location!.lat,
                       lng: widget.landMark.geometry?.location!.lng),
                   SizedBox(height: 10.0),
+
                   /// Reviews section
                   Text(" Reviews",
-                      style:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+                      style: GoogleFonts.lato(
+                          fontWeight: FontWeight.w500, fontSize: 18.0)),
                   futureLandMarkReviewBuilder
                 ],
               ),
@@ -164,7 +168,6 @@ class _LandmarkPageState extends State<LandmarkPage> {
         ),
       ),
     );
-
   }
 
   /// Create information widget for each landmarks

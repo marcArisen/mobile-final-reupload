@@ -22,7 +22,11 @@ class UniversityPage extends StatefulWidget {
   final String placeId;
   final double rating;
 
-  UniversityPage({required this.university, required this.location,required this.placeId, required this.rating});
+  UniversityPage(
+      {required this.university,
+      required this.location,
+      required this.placeId,
+      required this.rating});
 
   @override
   State<UniversityPage> createState() => _UniversityPageState();
@@ -44,8 +48,8 @@ class _UniversityPageState extends State<UniversityPage> {
       to_return.add(id);
     }
     to_return = to_return.toSet().toList();
-    for (var i = 0; i < to_return.length; i++){
-      if (to_return[i] == id){
+    for (var i = 0; i < to_return.length; i++) {
+      if (to_return[i] == id) {
         return true;
       }
     }
@@ -54,16 +58,21 @@ class _UniversityPageState extends State<UniversityPage> {
 
   /// determine if it needs to be added to firebase
 
-  void addUniversityToFirebase(String user, University university){
-    FirebaseFirestore.instance.collection(user).doc(university.name).set(university.toJson());
+  void addUniversityToFirebase(String user, University university) {
+    FirebaseFirestore.instance
+        .collection(user)
+        .doc(university.name)
+        .set(university.toJson());
   }
 
-  void deleteUniversityToFirebase(String user, University university){
-    FirebaseFirestore.instance.collection(user)
+  void deleteUniversityToFirebase(String user, University university) {
+    FirebaseFirestore.instance
+        .collection(user)
         .doc(university.name) // <-- Doc ID to be deleted.
         .delete() // <-- Delete
         .then((_) => print(' ${university.name} Deleted'))
-        .catchError((error) => print("this university  doesn't save to favorite"));
+        .catchError(
+            (error) => print("this university  doesn't save to favorite"));
   }
 
   @override
@@ -85,7 +94,8 @@ class _UniversityPageState extends State<UniversityPage> {
       },
     );
     var universityReview = FutureBuilder(
-      future: NearbyLocationService.instance?.getInfo(widget.placeId),//NearbyLocationService.instance
+      future: NearbyLocationService.instance?.getInfo(widget.placeId),
+      //NearbyLocationService.instance
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -118,9 +128,9 @@ class _UniversityPageState extends State<UniversityPage> {
                 isFavorite: _isFavorite,
                 valueChanged: (snapshot) {
                   print('Is Favorite : $snapshot');
-                  if (snapshot == true){
+                  if (snapshot == true) {
                     addUniversityToFirebase(loggedInUser, widget.university);
-                  } else{
+                  } else {
                     deleteUniversityToFirebase(loggedInUser, widget.university);
                   }
                 },
@@ -157,17 +167,17 @@ class _UniversityPageState extends State<UniversityPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          iconSize: 30.0,
-                          onPressed: () => {
-                            Navigator.pop(context),
-                          }
-                        ),
+                            icon: Icon(Icons.arrow_back),
+                            iconSize: 30.0,
+                            onPressed: () => {
+                                  Navigator.pop(context),
+                                }),
                         favoriteHeart,
                       ],
                     ),
@@ -180,7 +190,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       children: <Widget>[
                         Text(
                           widget.university.name!,
-                          style: TextStyle(
+                          style: GoogleFonts.lato(
                             color: Colors.white,
                             fontSize: 30.0,
                             fontWeight: FontWeight.w600,
@@ -197,7 +207,7 @@ class _UniversityPageState extends State<UniversityPage> {
                             ),
                             Text(
                               "(${widget.rating.toString()})",
-                              style: TextStyle(color: Colors.white),
+                              style: GoogleFonts.lato(color: Colors.white),
                             )
                           ],
                         )
@@ -207,7 +217,6 @@ class _UniversityPageState extends State<UniversityPage> {
                 ],
               ),
               SizedBox(height: 10.0),
-
               Container(
                 width: 380,
                 child: Column(
@@ -215,7 +224,7 @@ class _UniversityPageState extends State<UniversityPage> {
                     Align(
                       alignment: Alignment.center,
                       child: Text("Info",
-                          style: TextStyle(
+                          style: GoogleFonts.lato(
                               fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
@@ -224,23 +233,27 @@ class _UniversityPageState extends State<UniversityPage> {
                     Align(
                       alignment: Alignment.center,
                       child: Text("Number of foreigners enroll in 2021",
-                          style: TextStyle(
+                          style: GoogleFonts.lato(
                               fontWeight: FontWeight.w500, fontSize: 16.0)),
                     ),
                     SizedBox(height: 10.0),
                     Container(
                         height: 60.0,
                         width: 370.0,
-                        child: Align(child: Text(UniversityDatabase.databaseManager.convertToText(widget.university.numbers.toString()),style: GoogleFonts.lato(fontSize: 16.0),)),
+                        child: Align(
+                            child: Text(
+                          UniversityDatabase.databaseManager.convertToText(
+                              widget.university.numbers.toString()),
+                          style: GoogleFonts.lato(fontSize: 16.0),
+                        )),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Theme.of(context).canvasColor)
-                    ),
+                            color: Theme.of(context).canvasColor)),
                     SizedBox(height: 10.0),
                     Align(
                       alignment: Alignment.center,
                       child: Text("Location",
-                          style: TextStyle(
+                          style: GoogleFonts.lato(
                               fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
@@ -249,7 +262,7 @@ class _UniversityPageState extends State<UniversityPage> {
                     Align(
                       alignment: Alignment.center,
                       child: Text("Reviews",
-                          style: TextStyle(
+                          style: GoogleFonts.lato(
                               fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
@@ -263,6 +276,7 @@ class _UniversityPageState extends State<UniversityPage> {
       ),
     );
   }
+
   /// Create a review list for each landmarks
   Widget createReviewListView(BuildContext context, AsyncSnapshot snapshot) {
     Map<String, dynamic> info = snapshot.data;
@@ -318,5 +332,4 @@ class _UniversityPageState extends State<UniversityPage> {
           ],
         ));
   }
-
 }

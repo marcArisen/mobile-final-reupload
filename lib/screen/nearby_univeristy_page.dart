@@ -120,7 +120,8 @@ class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
                                   Icon(Icons.star, color: Colors.yellow),
                             ),
                             Text(
-                                "(${widget.landMark.rating!.toDouble().toString()})",style: TextStyle(color: Colors.white))
+                                "(${widget.landMark.rating!.toDouble().toString()})",
+                                style: TextStyle(color: Colors.white))
                           ],
                         ),
                       ],
@@ -144,24 +145,26 @@ class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
                     SizedBox(height: 10.0),
                     futureLandMarkInfoBuilder,
                     SizedBox(height: 10.0),
+
                     /// Google section
                     Align(
                       alignment: Alignment.center,
                       child: Text("  Location",
-                          style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     LandmarkLocationMap(
                         lat: widget.landMark.geometry?.location!.lat,
                         lng: widget.landMark.geometry?.location!.lng),
                     SizedBox(height: 10.0),
+
                     /// Reviews section
                     Container(
                       alignment: Alignment.center,
                       child: Text("  Reviews",
-                          style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     futureLandMarkReviewBuilder
@@ -199,9 +202,7 @@ class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
               children: [
                 Icon(CupertinoIcons.globe),
                 SizedBox(width: 10.0),
-                Container(
-                    width: 170,
-                    child: Text(info["website"]))
+                Container(width: 170, child: Text(info["website"]))
               ],
             ),
           ],

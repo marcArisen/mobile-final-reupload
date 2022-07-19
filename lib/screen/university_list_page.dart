@@ -13,7 +13,6 @@ class UniversityListPage extends StatefulWidget {
 }
 
 class _UniversityListPageState extends State<UniversityListPage> {
-
   @override
   Widget build(BuildContext context) {
     var universities = UniversityDatabase.universities;
@@ -44,66 +43,69 @@ class _UniversityListPageState extends State<UniversityListPage> {
                   var university = universities[index];
                   return GestureDetector(
                     onTap: () async {
-                      String placeId =
-                      await LocationService().getPlaceId(university.thaiName!);
+                      String placeId = await LocationService()
+                          .getPlaceId(university.thaiName!);
                       Map<String, dynamic> m =
-                      await LocationService().getPlace(university.name!);
-                      double rating = await LocationService().getRating(university.thaiName!);
+                          await LocationService().getPlace(university.name!);
+                      double rating = await LocationService()
+                          .getRating(university.thaiName!);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => UniversityPage(
-                                location: m,
-                                university: university,
-                                placeId: placeId,
-                                rating: rating,
-                              )));
+                                    location: m,
+                                    university: university,
+                                    placeId: placeId,
+                                    rating: rating,
+                                  )));
                     },
-                          child: Container(
-                            padding: EdgeInsets.only(bottom: 10.0),
-                            child: Stack(
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Stack(
+                        children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: SizedBox(
+                              height: 250,
+                              width: 400,
+                              child: Image(
+                                fit: BoxFit.fill,
+                                image:
+                                    AssetImage(university.imageUrl.toString()),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: 10.0,
+                            bottom: 10.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  child: SizedBox(
-                                    height: 250,
-                                    width: 400,
-                                    child: Image(
-                                        fit: BoxFit.fill,
-                                        image: AssetImage(university.imageUrl.toString()),
-                                    ),
+                                Container(
+                                  width: 350.0,
+                                  child: Text(
+                                    university.name.toString(),
+                                    style: GoogleFonts.lato(
+                                        color: Colors.white,
+                                        fontSize: 22.0,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                                Positioned(
-                                  left: 10.0,
-                                  bottom: 10.0,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width: 350.0,
-                                        child: Text(
-                                          university.name.toString(),
-                                          style: GoogleFonts.lato(
-                                              color: Colors.white,
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Text(
-                                          UniversityDatabase.databaseManager.convertToText(university.numbers.toString()),
-                                          style: GoogleFonts.lato(
-                                              color: Colors.white,
-                                              fontSize: 16.0),)
-                                    ],
-                                  ),
+                                SizedBox(height: 10.0),
+                                Text(
+                                  UniversityDatabase.databaseManager
+                                      .convertToText(
+                                          university.numbers.toString()),
+                                  style: GoogleFonts.lato(
+                                      color: Colors.white, fontSize: 16.0),
                                 )
                               ],
                             ),
-                          ),
-                        );
-
+                          )
+                        ],
+                      ),
+                    ),
+                  );
                 },
               ),
             ),
@@ -112,5 +114,4 @@ class _UniversityListPageState extends State<UniversityListPage> {
       ),
     );
   }
-
 }

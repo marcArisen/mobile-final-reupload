@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
 import 'package:project2_mobile_app/screen/landmark_page.dart';
@@ -16,7 +17,8 @@ class LandMarkDiscoverPage extends StatefulWidget {
 
 class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
     with TickerProviderStateMixin {
-  var universityList = UniversityDatabase.databaseManager.getAllNameUniversities();
+  var universityList =
+      UniversityDatabase.databaseManager.getAllNameUniversities();
   String selectedUniversity = "Mahidol University";
 
   @override
@@ -70,7 +72,8 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Discover", style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Discover",
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold)),
                   SizedBox(width: 20.0),
                   Container(
                     height: 50.0,
@@ -80,25 +83,26 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                       showSearchBox: true,
                       showSelectedItem: true,
                       items: universityList,
-                      onChanged: (value){
-                        setState((){
+                      onChanged: (value) {
+                        setState(() {
                           selectedUniversity = value.toString();
                         });
                       },
                       selectedItem: selectedUniversity,
-                      dropdownSearchDecoration: (
-                          InputDecoration(border: InputBorder.none)
-                      ),
+                      dropdownSearchDecoration:
+                          (InputDecoration(border: InputBorder.none)),
                     ),
                   ),
                 ],
               ),
-
               TabBar(
                 controller: _tabController,
                 tabs: [
                   Tab(text: "Restaurant", icon: Icon(Icons.restaurant)),
-                  Tab(text: "Accommodation", icon: Icon(Icons.home),)
+                  Tab(
+                    text: "Accommodation",
+                    icon: Icon(Icons.home),
+                  )
                 ],
               ),
               SizedBox(
@@ -159,7 +163,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                         width: 300.0,
                         child: Text(
                           values[index].name.toString(),
-                          style: const TextStyle(
+                          style: GoogleFonts.lato(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w600),
@@ -175,7 +179,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                           ),
                           Text(
                             "(${values[index].rating.toString()})",
-                            style: TextStyle(color: Colors.white),
+                            style: GoogleFonts.lato(color: Colors.white),
                           )
                         ],
                       )
