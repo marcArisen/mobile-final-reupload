@@ -25,29 +25,46 @@ class _UniversityPageState extends State<UniversityPage> {
   late final FirebaseAuth _auth = FirebaseAuth.instance;
   late final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String loggedInUser = _auth.currentUser?.email ?? 'none';
-  var _isFavorite = false;
+  var _isFavorite;
 
-  Future<List> getList(String user) async {
+  Future<bool> checkFav(String user, int id) async {
     final list = await _firestore.collection(user).get();
     var to_return = [];
     for (var ele in list.docs) {
-      String id = ele.get('name');
+      int id = ele.get('id');
       to_return.add(id);
     }
-    return to_return.toSet().toList();
+    to_return = to_return.toSet().toList();
+    for (var i = 0; i < to_return.length; i++){
+      if (to_return[i] == id){
+        return true;
+      }
+    }
+    return false;
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    // var x = getList(loggedInUser);
-    // super.initState();
-    //
-    // setState(() async {
-    //   print("============");
-    //   print(await x);
-    // });
+  /// determine if it needs to be added to firebase
+  void endFirebaseProcess(String user, University university, bool isFav) {
+    print("Status now is: " + isFav.toString());
+    if (isFav == false){
+      addUniversityToFirebase(user, university);
+    } else{
+      deleteUniversityToFirebase(user, university);
+    }
   }
+
+  void addUniversityToFirebase(String user, University university){
+    FirebaseFirestore.instance.collection(user).doc(university.name).set(university.toJson());
+  }
+
+  void deleteUniversityToFirebase(String user, University university){
+    FirebaseFirestore.instance.collection(user)
+        .doc(university.name) // <-- Doc ID to be deleted.
+        .delete() // <-- Delete
+        .then((_) => print(' ${university.name} Deleted'))
+        .catchError((error) => print("this university  doesn't save to favorite"));
+  }
+
   @override
   Widget build(BuildContext context) {
     var futureUniversityInfoBuilder = FutureBuilder(
@@ -62,6 +79,30 @@ class _UniversityPageState extends State<UniversityPage> {
               return Text('Error: ${snapshot.error}');
             } else {
               return createInformationWidget(context, snapshot);
+            }
+        }
+      },
+    );
+
+    var favoriteHeart = FutureBuilder(
+      future: checkFav(loggedInUser, widget.university.id!),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Text('Loading...');
+          default:
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              bool info = snapshot.data as bool;
+              _isFavorite = info;
+              return FavoriteButton(
+                isFavorite: _isFavorite,
+                valueChanged: (snapshot) {
+                  print('Is Favorite : $snapshot');
+                },
+              );
             }
         }
       },
@@ -101,14 +142,18 @@ class _UniversityPageState extends State<UniversityPage> {
                         IconButton(
                           icon: Icon(Icons.arrow_back),
                           iconSize: 30.0,
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () => {
+                            endFirebaseProcess(loggedInUser, widget.university, _isFavorite),
+                            Navigator.pop(context),
+                          }
                         ),
-                        FavoriteButton(
-                          isFavorite: _isFavorite,
-                          valueChanged: (_isFavorite) {
-                            print('Is Favorite : $_isFavorite');
-                          },
-                        ),
+                        // FavoriteButton(
+                        //   isFavorite: _isFavorite,
+                        //   valueChanged: (_isFavorite) {
+                        //     print('Is Favorite : $_isFavorite');
+                        //   },
+                        // ),
+                        favoriteHeart,
                       ],
                     ),
                   ),

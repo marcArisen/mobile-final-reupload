@@ -122,10 +122,23 @@ class UniversityDatabase {
     return universities.map((e) => e.name).toList();
   }
 
+  /// This one is for testing purposes
   void addAllToFirebase(String user) {
     for (int i = 0; i < universities.length; i++) {
       FirebaseFirestore.instance.collection(user).doc(universities[i].name).set(universities[i].toJson());
     }
+  }
+
+  void addUniversityToFirebase(String user, University university){
+    FirebaseFirestore.instance.collection(user).doc(university.name).set(university.toJson());
+  }
+
+  void deleteUniversityToFirebase(String user, University university){
+    FirebaseFirestore.instance.collection(user)
+        .doc(university.name) // <-- Doc ID to be deleted.
+        .delete() // <-- Delete
+        .then((_) => print(' ${university.name} Deleted'))
+        .catchError((error) => print("this university  doesn't save to favorite"));
   }
 
   // Future<void> fetchUniversitiesFromFirebase(String user) async {

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final FirebaseAuth _auth = FirebaseAuth.instance;
+  late String loggedInUser = _auth.currentUser?.email ?? 'none';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     width: 200,
-                    child: Text("Welcome, Thanawat !",
+                    child: Text("Welcome, ${loggedInUser} !",
                         style: GoogleFonts.lato(
                             fontSize: 24, fontWeight: FontWeight.bold)),
                   )
