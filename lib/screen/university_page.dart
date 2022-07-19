@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,6 +30,9 @@ class _UniversityPageState extends State<UniversityPage> {
   var _isFavorite;
 
   Future<bool> checkFav(String user, int id) async {
+    var jsonString = UniversityDatabase.universities[2].numbers;
+    final decodedMap = json.decode(jsonString!);
+    print(decodedMap);
     final list = await _firestore.collection(user).get();
     var to_return = [];
     for (var ele in list.docs) {

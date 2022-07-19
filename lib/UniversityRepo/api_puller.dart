@@ -24,11 +24,21 @@ class ApiPuller {
       map[lst[i].univMasterName!][lst[i].nationalityNameEng] += 1;
     }
 
-    /// add to database
-    for (int j = 0; j < to_add.length; j++) {
-      to_add[j].numbers = json.encode(map[names[j]]);
-      UniversityDatabase.databaseManager.addUniversity(to_add[j]);
+
+    for (int a = 0; a < map.length; a++) {
+
+
+      print("===================");
+      print(map.length);
+      print(names.length);
+      print("===================");
     }
+
+    /// add to database
+    // for (int j = 0; j < to_add.length; j++) {
+    //   to_add[j].numbers = json.encode(map[names[j]]);
+    //   UniversityDatabase.databaseManager.addUniversity(to_add[j]);
+    // }
 
     return null;
   }

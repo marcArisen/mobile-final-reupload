@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var initial = await ApiService().getStudents();
-  // await ApiPuller().updateNumberToDatabase(initial?.result?.records);
+  await ApiPuller().updateNumberToDatabase(initial?.result?.records);
   UniversityDatabase.databaseManager.getAllUniversities();
   runApp(const MyApp());
 }

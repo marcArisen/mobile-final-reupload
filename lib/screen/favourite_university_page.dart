@@ -19,7 +19,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
   late final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String loggedInUser = _auth.currentUser?.email ?? 'none';
 
-  Future<List> filterUniversities(String user) async {
+  Future<List<University>> filterUniversities(String user) async {
     final list = await _firestore.collection(user).get();
     var to_return = [];
     for (var ele in list.docs) {
@@ -33,7 +33,9 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
     for (var i = 0; i < to_return.length; i++){
       fav_universities.add(uni_list[to_return[i] + 1 ]);
     }
-    return fav_universities;
+    var return_one = new List<University>.from(fav_universities);
+    print(return_one.runtimeType);
+    return return_one;
   }
 
 
@@ -89,22 +91,22 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
 
   /// Create FavouriteListView for displaying Favourite University
   Widget createFavouriteListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<University> favouriteUniveristy = snapshot.data;
+    // List<University> favouriteUniversity = snapshot.data;
     return ListView.builder(
-      itemCount: favouriteUniveristy.length,
+      itemCount: snapshot.data.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
             onTap: () async {
               String placeId =
-              await LocationService().getPlaceId(favouriteUniveristy[index].thaiName!);
+              await LocationService().getPlaceId(snapshot.data[index].thaiName!);
               Map<String, dynamic> m =
-              await LocationService().getPlace(favouriteUniveristy[index].name!);
+              await LocationService().getPlace(snapshot.data[index].name!);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => UniversityPage(
                         location: m,
-                        university: favouriteUniveristy[index],
+                        university: snapshot.data[index],
                         placeId: placeId,
                       )));
             },
@@ -119,7 +121,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                     width: 400,
                     child: Image(
                       fit: BoxFit.fill,
-                      image: AssetImage(favouriteUniveristy[index].imageUrl.toString()),
+                      image: AssetImage(snapshot.data[index].imageUrl.toString()),
                     ),
                   ),
                 ),
@@ -132,7 +134,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
                       Container(
                         width: 300.0,
                         child: Text(
-                          favouriteUniveristy[index].name.toString(),
+                          snapshot.data[index].name.toString(),
                           style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
