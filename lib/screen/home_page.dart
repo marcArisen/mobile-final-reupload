@@ -10,6 +10,8 @@ import 'package:project2_mobile_app/components/nearby_university_carousel.dart';
 import 'package:project2_mobile_app/components/recommend_university_carousel.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
 
+import '../UniversityRepo/UniversityDatabase.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

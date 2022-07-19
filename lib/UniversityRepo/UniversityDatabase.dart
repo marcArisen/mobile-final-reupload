@@ -141,26 +141,5 @@ class UniversityDatabase {
         .catchError((error) => print("this university  doesn't save to favorite"));
   }
 
-  // Future<void> fetchUniversitiesFromFirebase(String user) async {
-  //   final list = await FirebaseFirestore.instance.collection(user).get();
-  //   var to_return = [];
-  //   for (var ele in list.docs) {
-  //     University university = University.fromJson(
-  //       {
-  //         "id": ele.id,
-  //         "name": ele.name,
-  //         "thaiName": ele.thaiName,
-  //         "imageUrl": ele.id,
-  //         "logo": ele.id,
-  //         "province": ele.id,
-  //         "description": ele.id,
-  //         "map": ele.id,
-  //         "numbers": ele.id,
-  //       }
-  //     );
-  //     fav_universities.add(university);
-  //   }
-  //   return to_return.toSet().toList();
-  // }
 
 }
