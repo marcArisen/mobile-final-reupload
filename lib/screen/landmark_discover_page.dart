@@ -17,11 +17,6 @@ class LandMarkDiscoverPage extends StatefulWidget {
 
 class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
     with TickerProviderStateMixin {
-  // var universityList = [
-  //   "Mahidol University",
-  //   "Chulalongkorn University",
-  //   "Chiangmai University"
-  // ];
   var universityList = UniversityDatabase.databaseManager.getAllNameUniversities();
   String selectedUniversity = "Mahidol University";
 
@@ -85,7 +80,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                       mode: Mode.DIALOG,
                       showSearchBox: true,
                       showSelectedItem: true,
-                      items: ["Mahidol University", "Chulalongkorn University"],
+                      items: universityList,
                       onChanged: (value){
                         setState((){
                           selectedUniversity = value.toString();
