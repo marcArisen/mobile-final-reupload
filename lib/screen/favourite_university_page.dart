@@ -31,7 +31,7 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
     List<University> favUniversities = [];
     List<University> uniList = UniversityDatabase.universities;
     for (var i = 0; i < toReturn.length; i++){
-      favUniversities.add(uniList[toReturn[i] + 1 ]);
+      favUniversities.add(uniList[toReturn[i] - 1 ]);
       print(favUniversities[i]);
     }
     return favUniversities ;
@@ -92,13 +92,13 @@ class _FavouriteUniversityPageState extends State<FavouriteUniversityPage> {
 
   /// Create FavouriteListView for displaying Favourite University
   Widget createFavouriteListView(BuildContext context, AsyncSnapshot snapshot) {
-    // List<University> favouriteUniversity = snapshot.data;
+    List<University> favouriteUniversity = snapshot.data;
     return ListView.builder(
       itemCount: snapshot.data.length,
       itemBuilder: (BuildContext context, int index) {
         return Card(
           margin: EdgeInsets.only(left:15.0, right: 15.0, bottom: 5.0,top: 10.0),
-          child: ListTile(title: Text(favouriteUniveristy[index].name.toString(), style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
+          child: ListTile(title: Text(favouriteUniversity[index].name.toString(), style: GoogleFonts.lato(fontSize: 16.0, ),textAlign: TextAlign.center,),
         /*
         return GestureDetector(
             onTap: () async {

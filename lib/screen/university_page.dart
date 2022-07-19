@@ -49,14 +49,6 @@ class _UniversityPageState extends State<UniversityPage> {
   }
 
   /// determine if it needs to be added to firebase
-  void endFirebaseProcess(String user, University university, bool isFav) {
-    // print("Status now is: " + isFav.toString());
-    if (isFav == false){
-      addUniversityToFirebase(user, university);
-    } else{
-      deleteUniversityToFirebase(user, university);
-    }
-  }
 
   void addUniversityToFirebase(String user, University university){
     FirebaseFirestore.instance.collection(user).doc(university.name).set(university.toJson());
@@ -106,6 +98,11 @@ class _UniversityPageState extends State<UniversityPage> {
                 isFavorite: _isFavorite,
                 valueChanged: (snapshot) {
                   print('Is Favorite : $snapshot');
+                  if (snapshot == true){
+                    addUniversityToFirebase(loggedInUser, widget.university);
+                  } else{
+                    deleteUniversityToFirebase(loggedInUser, widget.university);
+                  }
                 },
               );
             }
@@ -148,7 +145,6 @@ class _UniversityPageState extends State<UniversityPage> {
                           icon: Icon(Icons.arrow_back),
                           iconSize: 30.0,
                           onPressed: () => {
-                            endFirebaseProcess(loggedInUser, widget.university, _isFavorite),
                             Navigator.pop(context),
                           }
                         ),
