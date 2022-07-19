@@ -27,13 +27,16 @@ class _MainPageState extends State<MainPage> {
     pageController.jumpToPage(index);
   }
 
+  static const List<Widget> _widgetOptions = <Widget>[HomePage(), LandMarkDiscoverPage(), ProfilePage()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageView(
-          controller: pageController,
-          children: const [HomePage(), LandMarkDiscoverPage(), ProfilePage()],
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+
         ),
+
         bottomNavigationBar: ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
