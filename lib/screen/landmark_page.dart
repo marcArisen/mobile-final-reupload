@@ -131,30 +131,33 @@ class _LandmarkPageState extends State<LandmarkPage> {
 
               /// Information Section
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(" Info",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0)),
+                  SizedBox(height: 10.0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text("Info",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 18.0)),
+                  ),
                   SizedBox(height: 10.0),
                   futureLandMarkInfoBuilder,
                   SizedBox(height: 10.0),
+                  /// Google section
+                  Text(" Location",
+                      style:
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+                  SizedBox(height: 10.0),
+                  LandmarkLocationMap(
+                      lat: widget.landMark.geometry?.location!.lat,
+                      lng: widget.landMark.geometry?.location!.lng),
+                  SizedBox(height: 10.0),
+                  /// Reviews section
+                  Text(" Reviews",
+                      style:
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+                  futureLandMarkReviewBuilder
                 ],
               ),
-
-              /// Google section
-              Text(" Location",
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-              LandmarkLocationMap(
-                  lat: widget.landMark.geometry?.location!.lat,
-                  lng: widget.landMark.geometry?.location!.lng),
-
-              /// Reviews section
-              Text(" Reviews",
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-              futureLandMarkReviewBuilder
               //SizedBox(height: 20.0)//MapSample(place: widget.location)
             ],
           ),

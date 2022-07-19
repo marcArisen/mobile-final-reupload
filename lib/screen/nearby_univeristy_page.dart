@@ -136,20 +136,20 @@ class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
                 child: Column(
                   children: <Widget>[
                     Align(
-                      alignment: Alignment.topLeft,
+                      alignment: Alignment.center,
                       child: Text("  Info",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                              fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     futureLandMarkInfoBuilder,
                     SizedBox(height: 10.0),
                     /// Google section
                     Align(
-                      alignment: Alignment.topLeft,
+                      alignment: Alignment.center,
                       child: Text("  Location",
                           style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     LandmarkLocationMap(
@@ -158,10 +158,10 @@ class _NearbyUniversityPageState extends State<NearbyUniversityPage> {
                     SizedBox(height: 10.0),
                     /// Reviews section
                     Container(
-                      alignment: Alignment.topLeft,
+                      alignment: Alignment.center,
                       child: Text("  Reviews",
                           style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     futureLandMarkReviewBuilder

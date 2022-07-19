@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/api/university_location_service.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
+import 'package:project2_mobile_app/provider/theme_provider.dart';
 
 import '../UniversityRepo/university.dart';
 import '../api/nearby_landmarks_service.dart';
@@ -161,7 +162,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.arrow_back),
+                          icon: Icon(Icons.arrow_back, ),
                           iconSize: 30.0,
                           onPressed: () => {
                             Navigator.pop(context),
@@ -221,7 +222,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       alignment: Alignment.center,
                       child: Text("Info",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                              fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     futureUniversityInfoBuilder,
@@ -238,7 +239,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       alignment: Alignment.center,
                       child: Text("Location",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                              fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     LocationMap(place: widget.location),
@@ -247,7 +248,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       alignment: Alignment.center,
                       child: Text("Reviews",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.0)),
+                              fontWeight: FontWeight.w500, fontSize: 18.0)),
                     ),
                     SizedBox(height: 10.0),
                     universityReview

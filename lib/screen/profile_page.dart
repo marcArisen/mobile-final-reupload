@@ -22,25 +22,35 @@ class _ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           SizedBox(height: 20.0),
           Row(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 20.0, right: 10),
-                child: Image.asset('assets/icons/profile.png'),
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                      width: 200,
-                      child: Text("Hi,",
-                          style: GoogleFonts.lato(
-                              fontSize: 24, fontWeight: FontWeight.bold))),
-                  SizedBox(
-                      width: 200,
-                      child: Text("${loggedInUser}!",
-                          style: GoogleFonts.lato(
-                              fontSize: 18, fontWeight: FontWeight.w300)))
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 20.0, right: 10),
+                    child: Image.asset('assets/icons/profile.png'),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                          width: 200,
+                          child: Text("Hi,",
+                              style: GoogleFonts.lato(
+                                  fontSize: 24, fontWeight: FontWeight.bold))),
+                      SizedBox(
+                          width: 200,
+                          child: Text("${loggedInUser}!",
+                              style: GoogleFonts.lato(
+                                  fontSize: 18, fontWeight: FontWeight.w300)))
+                    ],
+                  ),
                 ],
               ),
+              TextButton(
+                  onPressed: () {
+                    print("hi");
+                  },
+                  child: Text("Logout"))
             ],
           ),
           SizedBox(height: 20.0),
@@ -48,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
               alignment: Alignment.topLeft,
               child: Row(
                 children: [
-                  SizedBox(width:18.0),
+                  SizedBox(width: 18.0),
                   Text("My Favourite University ",
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.bold, fontSize: 18.0)),
