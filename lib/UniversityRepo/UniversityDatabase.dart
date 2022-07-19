@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -23,6 +24,7 @@ class UniversityDatabase {
   static const _dbVersion = 1;
   static const _tableName = "universities";
   static List<University> universities = [];
+  static List<University> fav_universities = [];
 
   // from the convention
   _initiateDatabase() async {
@@ -31,6 +33,8 @@ class UniversityDatabase {
     // getAllUniversities();
     return await openDatabase(path, version: _dbVersion, onCreate: _onCreate);
   }
+
+
 
   Future<void> _onCreate(Database db, int version) {
     return db.execute('''
@@ -47,6 +51,7 @@ class UniversityDatabase {
       )
       ''');
   }
+
 
   Future<int> addUniversity(University university) async {
     Database db = await databaseManager.database;
@@ -116,5 +121,33 @@ class UniversityDatabase {
   List<String?> getAllNameUniversities() {
     return universities.map((e) => e.name).toList();
   }
+
+  void addAllToFirebase(String user) {
+    for (int i = 0; i < universities.length; i++) {
+      FirebaseFirestore.instance.collection(user).doc(universities[i].name).set(universities[i].toJson());
+    }
+  }
+
+  // Future<void> fetchUniversitiesFromFirebase(String user) async {
+  //   final list = await FirebaseFirestore.instance.collection(user).get();
+  //   var to_return = [];
+  //   for (var ele in list.docs) {
+  //     University university = University.fromJson(
+  //       {
+  //         "id": ele.id,
+  //         "name": ele.name,
+  //         "thaiName": ele.thaiName,
+  //         "imageUrl": ele.id,
+  //         "logo": ele.id,
+  //         "province": ele.id,
+  //         "description": ele.id,
+  //         "map": ele.id,
+  //         "numbers": ele.id,
+  //       }
+  //     );
+  //     fav_universities.add(university);
+  //   }
+  //   return to_return.toSet().toList();
+  // }
 
 }

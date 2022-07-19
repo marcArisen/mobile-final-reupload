@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
 import 'package:project2_mobile_app/components/university_google_map.dart';
 
 import '../UniversityRepo/university.dart';
@@ -21,16 +23,31 @@ class _UniversityPageState extends State<UniversityPage> {
   late final FirebaseAuth _auth = FirebaseAuth.instance;
   late final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String loggedInUser = _auth.currentUser?.email ?? 'none';
+  var _isFavorite = false;
 
   Future<List> getList(String user) async {
     final list = await _firestore.collection(user).get();
     var to_return = [];
     for (var ele in list.docs) {
-      int id = ele.get('id');
+      String id = ele.get('name');
       to_return.add(id);
     }
     return to_return.toSet().toList();
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // var x = getList(loggedInUser);
+    // super.initState();
+    //
+    // setState(() async {
+    //   print("============");
+    //   print(await x);
+    // });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +55,9 @@ class _UniversityPageState extends State<UniversityPage> {
     //   'id': 1,
     // };
     // _firestore.collection(loggedInUser).add(data);
+    // var check = await getList(loggedInUser);
+    // Stream documentStream = FirebaseFirestore.instance.collection('users').doc(loggedInUser).snapshots();
+    // UniversityDatabase.databaseManager.addAllToFirebase(loggedInUser);
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -71,13 +91,14 @@ class _UniversityPageState extends State<UniversityPage> {
                       icon: Icon(Icons.arrow_back),
                       iconSize: 30.0,
                       color: Colors.white,
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () =>
+                          Navigator.pop(context),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.favorite_border_outlined),
-                      iconSize: 30.0,
-                      color: Colors.white,
-                      onPressed: () => Navigator.pop(context),
+                    FavoriteButton(
+                      isFavorite: _isFavorite,
+                      valueChanged: (_isFavorite) {
+                        print('Is Favorite : $_isFavorite');
+                      },
                     ),
                   ],
                 ),
@@ -106,7 +127,7 @@ class _UniversityPageState extends State<UniversityPage> {
                         ),
                         SizedBox(width: 5.0),
                         Text(
-                          "Salaya",
+                          widget.university.province!,
                           style: TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
                       ],
