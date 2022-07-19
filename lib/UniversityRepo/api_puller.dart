@@ -27,7 +27,6 @@ class ApiPuller {
     var highest = 0;
     var tempname = "";
 
-    var new_map = {};
     var temp_map = {};
 
     for (int i = 0; i < map.length; i++) {
@@ -65,6 +64,10 @@ class ApiPuller {
       map[lst[i].nationalityNameEng] = 0;
     }
     // there are 98 Nationalities
+    map.forEach((key, value) {
+      print(key);
+    });
+
     return map;
   }
 
@@ -86,7 +89,7 @@ class ApiPuller {
       map[lst[i].univMasterName!] = 0;
     }
     // there are 97 universities
-    print(map.length);
+    // print(map.length);
     return map;
   }
 

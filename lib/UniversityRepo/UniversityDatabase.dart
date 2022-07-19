@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 
@@ -139,6 +140,122 @@ class UniversityDatabase {
         .delete() // <-- Delete
         .then((_) => print(' ${university.name} Deleted'))
         .catchError((error) => print("this university  doesn't save to favorite"));
+  }
+
+  String convertToText(String numbers) {
+    Map valueMap = jsonDecode(numbers);
+    var buffer = new StringBuffer();
+    valueMap.forEach((key, value) {
+      buffer.write(changeToEmoji(key));
+      buffer.write(": ");
+      buffer.write(value);
+      buffer.write(" ");
+    });
+    return buffer.toString();
+  }
+
+  String changeToEmoji(String country){
+    switch (country) {
+      case ("AUSTRALIAN"): { return "🇦🇺";}
+      case ("BANGLADESHI"): { return "🇧🇩";}
+      case ("BRAZILIAN"): { return "🇧🇷";}
+      case ("BHUTANESE"): { return "🇧🇹";}
+      case ("CHINESE"): { return "🇨🇳";}
+      case ("COLOMBIAN"): { return "🇨🇴";}
+      case ("GERMAN"): { return "🇩🇪";}
+      case ("FRENCH"): { return "🇵🇫";}
+      case ("BRITON,BRIYISH"): { return "🇻🇬";}
+      case ("CROATIAN,CROAT"): { return "🇭🇷";}
+      case ("INDONESIAN"): { return "🇮🇩";}
+      case ("INDIAN"): { return "🇮🇳";}
+      case ("IRANIAN"): { return "🇮🇷";}
+      case ("JORDANIAN"): { return "🇯🇴";}
+      case ("JAPANESE"): { return "🇯🇵";}
+      case ("KYRGYZSTANI"): { return "🇰🇬";}
+      case ("CAMBODIAN"): { return "🇰🇭";}
+      case ("KOREAN"): { return "🇰🇷";}
+      case ("LAO/LAOTIAN"): { return "🇱🇦";}
+      case ("MYANMAR"): { return "🇲🇲";}
+      case ("MALAYSIAN"): { return "🇲🇾";}
+      case ("NIGERIAN"): { return "🇳🇬";}
+      case ("NORWEGIAN"): { return "🇳🇴";}
+      case ("NEPALESE"): { return "🇳🇵";}
+      case ("PHILIPPINO"): { return "🇵🇭";}
+      case ("PAKISTANI"): { return "🇵🇰";}
+      case ("SINGAPOREAN"): { return "🇸🇬";}
+      case ("TAJIKISTANI"): { return "🇹🇯";}
+      case ("TURKISH"): { return "🇹🇷";}
+      case ("TAIWAN"): { return "🇹🇼";}
+      case ("AMERICAN"): { return "🇺🇸";}
+      case ("VIET NAMESE"): { return "🇻🇳";}
+      case ("ZIMBABWEAN"): { return "🇿🇼";}
+      case ("SRI LANKAN"): { return "🇱🇰";}
+      case ("SWISS"): { return "🇨🇭";}
+      case ("stateless person"): { return "ℹ️";}
+      case ("ARGENTINE"): { return "🇦🇷";}
+      case ("BRUNEIAN"): { return "🇧🇳";}
+      case ("GHANAIAN"): { return "🇬🇭";}
+      case ("KENYAN"): { return "🇰🇪";}
+      case ("DUTCH"): { return "🇸🇽";}
+      case ("RUSSIAN FEDERATION"): { return "🇷🇺";}
+      case ("TURKMEN"): { return "🇹🇲";}
+      case ("AFGHAN"): { return "🇦🇫";}
+      case ("CHAINESE/HONG KONGER"): { return "🇨🇳";}
+      case ("BRITISH INDIAN OCEAN TERRITORY"): { return "🇻🇬";}
+      case ("ITALIAN"): { return "🇮🇹";}
+      case ("SWEDISH"): { return "🇸🇪";}
+      case ("SOMALI"): { return "🇸🇴";}
+      case ("UZBEKISTANI"): { return "🇺🇿";}
+      case ("FRENCH GUIANA"): { return "🇬🇫";}
+      case ("GUINEAN"): { return "🇬🇳";}
+      case ("MOROCCAN"): { return "🇲🇦";}
+      case ("SOUTH AFRICAN"): { return "🇿🇦";}
+      case ("CANADIAN"): { return "🇨🇦";}
+      case ("MEXICAN"): { return "🇲🇽";}
+      case ("YEMENI"): { return "🇾🇪";}
+      case ("AMERICAN SAMOAN"): { return "🇦🇸";}
+      case ("PERUVIAN"): { return "🇵🇪";}
+      case ("ANDORRAN"): { return "🇦🇩";}
+      case ("MAURITIAN"): { return "🇲🇺";}
+      case ("VIRGIN ISLANDS, BRITISH"): { return "🇻🇬";}
+      case ("TRINIDADIAN"): { return "🇹🇹";}
+      case ("ECUADORIAN"): { return "🇪🇨";}
+      case ("TANZANIAN"): { return "🇹🇿";}
+      case ("BOSNIAN , HERZEGOVINIAN"): { return "🇧🇦";}
+      case ("FINNISH"): { return "🇫🇮";}
+      case ("BAHAMIAN"): { return "🇧🇸";}
+      case ("CONGO"): { return "🇨🇩";}
+      case ("MALAWIAN"): { return "🇲🇼";}
+      case ("NEW CALEDONIAN"): { return "🇳🇨";}
+      case ("CAMEROONIAN"): { return "🇨🇲";}
+      case ("DANISH"): { return "🇩🇰";}
+      case ("ISRAELI"): { return "🇮🇱";}
+      case ("UGANDAN"): { return "🇺🇬";}
+      case ("LUXEMBOURGER"): { return "🇱🇺";}
+      case ("PORTUGUESE"): { return "🇵🇹";}
+      case ("HUNGARIAN"): { return "🇭🇺";}
+      case ("KAZAKHSTANI"): { return "🇰🇿";}
+      case ("HAITIAN"): { return "🇭🇹";}
+      case ("MOZAMBICAN"): { return "🇲🇿";}
+      case ("NAMIBIAN"): { return "🇳🇦";}
+      case ("PANAMANIAN"): { return "🇵🇦";}
+      case ("TUNISIAN"): { return "🇹🇳";}
+      case ("SPANISH"): { return "🇪🇸";}
+      case ("POLISH"): { return "🇵🇱";}
+      case ("SIERRA LEONEAN"): { return "🇸🇱";}
+      case ("UKRAINIAN"): { return "🇺🇦";}
+      case ("ARUBAN"): { return "🇦🇼";}
+      case ("TOKELAUAN"): { return "🇹🇰";}
+      case ("TIMORESE"): { return "🇹🇱";}
+      case ("TUVALUAN"): { return "🇹🇻";}
+      case (""): { return "🇵🇦";}
+      case ("BELGIAN"): { return "🇧🇪";}
+      case ("C?TE D'IVOIRE"): { return "🇨🇮";}
+      case ("SYRIAN"): { return "🇸🇾";}
+      case ("BULGARIAN"): { return "🇧🇬";}
+      case ("SERB"): { return "🇷🇸";}
+      default: { return "NO INFO";}
+    }
   }
 
 

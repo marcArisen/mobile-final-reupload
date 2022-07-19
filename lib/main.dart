@@ -15,6 +15,7 @@ Future<void> main() async {
   var initial = await ApiService().getStudents();
   await ApiPuller().updateNumberToDatabase(initial?.result?.records);
   UniversityDatabase.databaseManager.getAllUniversities();
+  var lst = ApiPuller().listAllNationalityNameEng(initial?.result?.records);
   runApp(const MyApp());
 }
 
@@ -41,19 +42,5 @@ class MyApp extends StatelessWidget {
     },
   );
 
-  // @override
-  // Widget build(BuildContext context) => ChangeNotifierProvider(
-  //   create: (context) => ThemeProvider(),
-  //   builder: (context, _) {
-  //     final themeProvider = Provider.of<ThemeProvider>(context);
-  //
-  //     return MaterialApp(
-  //       themeMode: themeProvider.themeMode,
-  //       theme: MyThemes.lightTheme,
-  //       darkTheme: MyThemes.darkTheme,
-  //       home: MainPage(),
-  //     );
-  //   },
-  // );
 
 }

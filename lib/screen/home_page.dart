@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   late String loggedInUser = _auth.currentUser?.email ?? 'none';
   @override
   Widget build(BuildContext context) {
+    // print(UniversityDatabase.databaseManager.convertToText(UniversityDatabase.universities[5].numbers!));
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
