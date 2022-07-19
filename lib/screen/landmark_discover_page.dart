@@ -2,7 +2,6 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:project2_mobile_app/UniversityRepo/UniversityDatabase.dart';
-import 'package:project2_mobile_app/UniversityRepo/university.dart';
 import 'package:project2_mobile_app/api/nearby_landmarks_service.dart';
 import 'package:project2_mobile_app/screen/landmark_page.dart';
 import '../model/landmark_model.dart';
@@ -71,7 +70,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Discover", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("Discover", style: TextStyle(fontWeight: FontWeight.bold)),
                   SizedBox(width: 20.0),
                   Container(
                     height: 50.0,

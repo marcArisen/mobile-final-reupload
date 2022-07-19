@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2_mobile_app/screen/favourite_university_page.dart';
 import '../components/favourite_list.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -7,7 +8,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FavouriteList(),
+      child: FavouriteUniversityPage(),
     );
   }
 }
