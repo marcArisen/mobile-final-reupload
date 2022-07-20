@@ -669,7 +669,7 @@ class ApiPuller {
     );
     var temp53 = University(
       id: 53,
-      name: 'Chulalongkorn University',
+      name: 'Sangtam University',
       thaiName: 'วิทยาลัยแสงธรรม',
       imageUrl: 'assets/universities/images/47.jpg',
       logo:'assets/universities/logo/53.png',
@@ -900,7 +900,7 @@ class ApiPuller {
     );
     var temp74 = University(
       id: 74,
-      name: 'Chulalongkorn University',
+      name: 'National Buddism University',
       thaiName: 'วิทยาลัยพุทธศาสนานานาชาติ',
       imageUrl: 'assets/universities/images/74.jpg',
       logo:'assets/universities/logo/74.png',
