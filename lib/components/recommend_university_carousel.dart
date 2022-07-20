@@ -108,7 +108,7 @@ class _UniversityCarouselState extends State<UniversityCarousel> {
                                       children: [
                                         Align(
                                           child: Text(
-                                            "Foreign students enrolled in 2021",
+                                            "Foreign students enrolled in 2020",
                                             style: GoogleFonts.lato(
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.w300),

@@ -206,7 +206,7 @@ class _LandMarkDiscoverPageState extends State<LandMarkDiscoverPage>
                           ),
                           Text(
                             "(${values[index].rating.toString()})",
-                            style: GoogleFonts.lato(color: Colors.white),
+                            style: GoogleFonts.lato(color: Colors.white, fontWeight: FontWeight.bold),
                           )
                         ],
                       )

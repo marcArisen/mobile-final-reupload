@@ -13,7 +13,7 @@ class LocationService {
     var placeId = json['candidates'][0]['place_id'] as String;
     return placeId;
   }
-  /// get the place based on id
+  /// get the place based on university name
   Future<Map<String, dynamic>> getPlace(String university) async {
     final placeId = await getPlaceId(university);
     final String url =

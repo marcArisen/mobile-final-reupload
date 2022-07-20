@@ -232,7 +232,7 @@ class _UniversityPageState extends State<UniversityPage> {
                     SizedBox(height: 10.0),
                     Align(
                       alignment: Alignment.center,
-                      child: Text("Number of foreigners enrolled in 2021",
+                      child: Text("Number of foreigners enrolled in 2020",
                           style: GoogleFonts.lato(
                               fontWeight: FontWeight.w500, fontSize: 16.0)),
                     ),

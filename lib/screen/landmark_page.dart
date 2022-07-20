@@ -122,6 +122,7 @@ class _LandmarkPageState extends State<LandmarkPage> {
                             ),
                             Text(
                               "(${widget.landMark.rating!.toDouble().toString()})",
+                              style: GoogleFonts.lato(color: Colors.white, fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
